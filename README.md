@@ -7,6 +7,6 @@
 * Fernando
 * Joziel
 * Marcos
-* Otavio
+* Otávio
 * Tiago
 
