@@ -1,8 +1,12 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,10 +15,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 @Entity
 @Table(name = "tab-disponibilidade-professor")
@@ -25,10 +31,12 @@ public class DisponibilidadeProfessor implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
+	
 	@Version
 	@Column(name = "version")
 	private int version;
@@ -40,9 +48,21 @@ public class DisponibilidadeProfessor implements Serializable {
 	@Column(length = 4, name = "ano", nullable = false, updatable = false)
 	private String ano;
 
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private SemestreEnum semestre;
 
+	@ElementCollection(targetClass = DiasEnum.class)
+	@CollectionTable(
+	        name = "tab_disponibilidade_diasenum", 
+	        joinColumns = @JoinColumn(name = "id_disponibilidade")
+	)
+	@Column(name = "id_dia_enum")
+	private Set<DiasEnum> diasDisponiveis = new HashSet<>();
+	
+	@OneToMany(mappedBy = "id_disponibilidade")
+	private Set<DiaNaoDisponivel> diasNaoDisponiveis = new HashSet<>();
+	
 	public Long getId() {
 		return this.id;
 	}

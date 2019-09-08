@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 @Entity
-@Table(name = "tab-disciplina")
+@Table(name = "tab_disciplina")
 @XmlRootElement
 public class Disciplina implements Serializable {
 
@@ -22,10 +22,12 @@ public class Disciplina implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
+	
 	@Version
 	@Column(name = "version")
 	private int version;
@@ -42,6 +44,25 @@ public class Disciplina implements Serializable {
 	@ManyToMany(mappedBy = "disciplinas")
 	private Set<Curso> cursos = new HashSet<>();
 	
+	@ManyToMany(mappedBy = "disciplinas")
+	private Set<Professor> professores = new HashSet<>();
+	
+	public Set<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(Set<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+	public Set<Professor> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(Set<Professor> professores) {
+		this.professores = professores;
+	}
+
 	public Long getId() {
 		return this.id;
 	}

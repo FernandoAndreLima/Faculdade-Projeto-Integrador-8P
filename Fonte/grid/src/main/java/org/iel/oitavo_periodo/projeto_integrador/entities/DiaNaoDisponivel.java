@@ -9,33 +9,56 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.GrauMotivoEnum;
+
 @Entity
-@Table(name = "tab-dia-nao-disponivel")
+@Table(name = "tab_dia_nao_disponivel")
 @XmlRootElement
 public class DiaNaoDisponivel implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
+
 	@Version
 	@Column(name = "version")
 	private int version;
 
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private DiasEnum dia;
 
 	@Column(length = 150, name = "motivo", nullable = false)
 	private String motivo;
 
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private GrauMotivoEnum grauMotivo;
+
+	@ManyToOne
+	@JoinColumn(name = "id_disponibilidade")
+	private DisponibilidadeProfessor disponibilidade;
+
+	public DisponibilidadeProfessor getDisponibilidade() {
+		return disponibilidade;
+	}
+
+	public void setDisponibilidade(DisponibilidadeProfessor disponibilidade) {
+		this.disponibilidade = disponibilidade;
+	}
 
 	public Long getId() {
 		return this.id;

@@ -15,8 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
+
 @Entity
-@Table(name = "tab-curso")
+@Table(name = "tab_curso")
 @XmlRootElement
 public class Curso implements Serializable {
 
@@ -28,10 +29,18 @@ public class Curso implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
-	
+
 	@Version
 	@Column(name = "version")
 	private int version;
+
+	public Set<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(Set<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
 
 	@Column(length = 200, name = "nome", nullable = false)
 	private String nome;
@@ -43,13 +52,9 @@ public class Curso implements Serializable {
 	private String tempoDuracao;
 
 	@ManyToMany
-	@JoinTable(
-			name = "curso_diciplina",
-			joinColumns = @JoinColumn(name = "id_curso"),
-			inverseJoinColumns = @JoinColumn(name = "id_disciplina")
-	)
+	@JoinTable(name = "curso_diciplina", joinColumns = @JoinColumn(name = "id_curso"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
 	private Set<Disciplina> disciplinas = new HashSet<>();
-	
+
 	public Long getId() {
 		return this.id;
 	}
