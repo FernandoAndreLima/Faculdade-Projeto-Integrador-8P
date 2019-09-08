@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -60,7 +62,7 @@ public class DisponibilidadeProfessor implements Serializable {
 	@Column(name = "id_dia_enum")
 	private Set<DiasEnum> diasDisponiveis = new HashSet<>();
 	
-	@OneToMany(mappedBy = "id_disponibilidade")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = DiaNaoDisponivel.class)
 	private Set<DiaNaoDisponivel> diasNaoDisponiveis = new HashSet<>();
 	
 	public Long getId() {

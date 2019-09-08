@@ -65,7 +65,7 @@ public class Professor implements Serializable {
 	private TitulacaoEnum titulacao;
 
 	@ManyToMany
-	@JoinTable(name = "professor_disciplina", joinColumns = @JoinColumn(name = "id_professor"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
+	@JoinTable(name = "tab_professor_disciplina", joinColumns = @JoinColumn(name = "id_professor"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
 	private Set<Disciplina> disciplinas = new HashSet<>();
 
 	public Long getId() {

@@ -10,8 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
+
 @Entity
-@Table(name = "tab-usuario")
+@Table(name = "tab_usuario")
 @XmlRootElement
 public class Usuario implements Serializable {
 

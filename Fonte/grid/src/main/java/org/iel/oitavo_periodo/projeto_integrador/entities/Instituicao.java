@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,9 +33,11 @@ public class Instituicao implements Serializable {
 	@Column(length = 15, name = "cnpj", nullable = false)
 	private String cnpj;
 
-	@OneToMany
-	@JoinColumn(name = "id_endereco")
-	private Endereco endereco;;
+//	@OneToMany(        
+//			cascade = CascadeType.ALL,
+//	        orphanRemoval = true)
+//	@JoinColumn(name = "id_endereco")
+//	private Endereco endereco;
 
 	@Column(length = 200, name = "razao_social", nullable = false)
 	private String razaoSocial;
@@ -94,14 +94,6 @@ public class Instituicao implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
 	public String getRazaoSocial() {
 		return razaoSocial;
 	}
@@ -126,8 +118,6 @@ public class Instituicao implements Serializable {
 		result += ", version: " + version;
 		if (cnpj != null && !cnpj.trim().isEmpty())
 			result += ", cnpj: " + cnpj;
-		if (endereco != null)
-			result += ", endereco: " + endereco;
 		if (razaoSocial != null && !razaoSocial.trim().isEmpty())
 			result += ", razaoSocial: " + razaoSocial;
 		if (nomeFantasia != null && !nomeFantasia.trim().isEmpty())

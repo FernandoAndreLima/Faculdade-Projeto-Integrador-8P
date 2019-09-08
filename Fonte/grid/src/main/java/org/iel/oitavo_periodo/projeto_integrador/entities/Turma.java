@@ -47,7 +47,7 @@ public class Turma implements Serializable {
 	private SemestreEnum semestre;
 
 	@ManyToMany
-	@JoinTable(name = "turma_diciplinas", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
+	@JoinTable(name = "tab_turma_diciplinas", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
 	private Set<Disciplina> disciplinas = new HashSet<>();
 
 	@ManyToOne
@@ -55,7 +55,7 @@ public class Turma implements Serializable {
 	private Curso curso;
 
 	@ManyToMany
-	@JoinTable(name = "turma_professores", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_professor"))
+	@JoinTable(name = "tab_turma_professores", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_professor"))
 	private Set<Professor> professores = new HashSet<>();
 
 	public Set<Disciplina> getDisciplinas() {

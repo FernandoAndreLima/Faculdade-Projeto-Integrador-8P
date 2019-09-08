@@ -52,7 +52,7 @@ public class Curso implements Serializable {
 	private String tempoDuracao;
 
 	@ManyToMany
-	@JoinTable(name = "curso_diciplina", joinColumns = @JoinColumn(name = "id_curso"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
+	@JoinTable(name = "tab_curso_diciplina", joinColumns = @JoinColumn(name = "id_curso"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
 	private Set<Disciplina> disciplinas = new HashSet<>();
 
 	public Long getId() {
