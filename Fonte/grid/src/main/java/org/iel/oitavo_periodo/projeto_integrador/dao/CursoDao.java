@@ -6,33 +6,30 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import org.iel.oitavo_periodo.projeto_integrador.entities.Curso;
 
 /**
  * DAO for Curso
  */
 @Stateless
-public class CursoDao {
+public class CursoDao extends BaseDao<Curso>{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@PersistenceContext(unitName = "grid-persistence-unit")
 	private EntityManager em;
 
-	public void create(Curso entity) {
-		em.persist(entity);
+	@Override
+	protected EntityManager getEntityManager() {
+		return em;
 	}
-
-	public void deleteById(Long id) {
-		Curso entity = em.find(Curso.class, id);
-		if (entity != null) {
-			em.remove(entity);
-		}
-	}
-
+	
 	public Curso findById(Long id) {
 		return em.find(Curso.class, id);
-	}
-
-	public Curso update(Curso entity) {
-		return em.merge(entity);
 	}
 
 	public List<Curso> listAll(Integer startPosition, Integer maxResult) {
@@ -46,4 +43,6 @@ public class CursoDao {
 		}
 		return findAllQuery.getResultList();
 	}
+
+
 }

@@ -6,33 +6,30 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import org.iel.oitavo_periodo.projeto_integrador.entities.Instituicao;
 
 /**
  * DAO for Instituicao
  */
 @Stateless
-public class InstituicaoDao {
+public class InstituicaoDao extends BaseDao<Instituicao>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@PersistenceContext(unitName = "grid-persistence-unit")
 	private EntityManager em;
 
-	public void create(Instituicao entity) {
-		em.persist(entity);
+	@Override
+	protected EntityManager getEntityManager() {
+		// TODO Auto-generated method stub
+		return em;
 	}
-
-	public void deleteById(Long id) {
-		Instituicao entity = em.find(Instituicao.class, id);
-		if (entity != null) {
-			em.remove(entity);
-		}
-	}
-
+	
 	public Instituicao findById(Long id) {
 		return em.find(Instituicao.class, id);
-	}
-
-	public Instituicao update(Instituicao entity) {
-		return em.merge(entity);
 	}
 
 	public List<Instituicao> listAll(Integer startPosition, Integer maxResult) {
@@ -48,4 +45,6 @@ public class InstituicaoDao {
 		}
 		return findAllQuery.getResultList();
 	}
+
+
 }

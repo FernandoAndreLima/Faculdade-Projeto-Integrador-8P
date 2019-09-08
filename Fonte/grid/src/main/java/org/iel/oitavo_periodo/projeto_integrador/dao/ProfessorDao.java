@@ -6,33 +6,30 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
 
 /**
  * DAO for Professor
  */
 @Stateless
-public class ProfessorDao {
+public class ProfessorDao extends BaseDao<Professor>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@PersistenceContext(unitName = "grid-persistence-unit")
 	private EntityManager em;
 
-	public void create(Professor entity) {
-		em.persist(entity);
-	}
-
-	public void deleteById(Long id) {
-		Professor entity = em.find(Professor.class, id);
-		if (entity != null) {
-			em.remove(entity);
-		}
+	@Override
+	protected EntityManager getEntityManager() {
+		// TODO Auto-generated method stub
+		return em;
 	}
 
 	public Professor findById(Long id) {
 		return em.find(Professor.class, id);
-	}
-
-	public Professor update(Professor entity) {
-		return em.merge(entity);
 	}
 
 	public List<Professor> listAll(Integer startPosition, Integer maxResult) {

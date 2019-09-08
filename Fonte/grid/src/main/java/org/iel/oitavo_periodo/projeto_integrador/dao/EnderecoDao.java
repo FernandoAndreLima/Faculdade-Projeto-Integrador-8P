@@ -6,38 +6,33 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import org.iel.oitavo_periodo.projeto_integrador.entities.Endereco;
 
 /**
  * DAO for Endereco
  */
 @Stateless
-public class EnderecoDao {
+public class EnderecoDao extends BaseDao<Endereco> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@PersistenceContext(unitName = "grid-persistence-unit")
 	private EntityManager em;
 
-	public void create(Endereco entity) {
-		em.persist(entity);
-	}
-
-	public void deleteById(Long id) {
-		Endereco entity = em.find(Endereco.class, id);
-		if (entity != null) {
-			em.remove(entity);
-		}
+	@Override
+	protected EntityManager getEntityManager() {
+		return em;
 	}
 
 	public Endereco findById(Long id) {
 		return em.find(Endereco.class, id);
 	}
 
-	public Endereco update(Endereco entity) {
-		return em.merge(entity);
-	}
-
 	public List<Endereco> listAll(Integer startPosition, Integer maxResult) {
-		TypedQuery<Endereco> findAllQuery = em.createQuery(
-				"SELECT DISTINCT e FROM Endereco e ORDER BY e.id",
+		TypedQuery<Endereco> findAllQuery = em.createQuery("SELECT DISTINCT e FROM Endereco e ORDER BY e.id",
 				Endereco.class);
 		if (startPosition != null) {
 			findAllQuery.setFirstResult(startPosition);
@@ -47,4 +42,5 @@ public class EnderecoDao {
 		}
 		return findAllQuery.getResultList();
 	}
+
 }

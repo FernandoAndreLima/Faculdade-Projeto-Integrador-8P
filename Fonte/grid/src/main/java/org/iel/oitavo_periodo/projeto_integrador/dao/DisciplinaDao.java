@@ -6,38 +6,33 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina;
 
 /**
  * DAO for Disciplina
  */
 @Stateless
-public class DisciplinaDao {
+public class DisciplinaDao extends BaseDao<Disciplina> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@PersistenceContext(unitName = "grid-persistence-unit")
 	private EntityManager em;
 
-	public void create(Disciplina entity) {
-		em.persist(entity);
-	}
-
-	public void deleteById(Long id) {
-		Disciplina entity = em.find(Disciplina.class, id);
-		if (entity != null) {
-			em.remove(entity);
-		}
+	@Override
+	protected EntityManager getEntityManager() {
+		return em;
 	}
 
 	public Disciplina findById(Long id) {
 		return em.find(Disciplina.class, id);
 	}
 
-	public Disciplina update(Disciplina entity) {
-		return em.merge(entity);
-	}
-
 	public List<Disciplina> listAll(Integer startPosition, Integer maxResult) {
-		TypedQuery<Disciplina> findAllQuery = em.createQuery(
-				"SELECT DISTINCT d FROM Disciplina d ORDER BY d.id",
+		TypedQuery<Disciplina> findAllQuery = em.createQuery("SELECT DISTINCT d FROM Disciplina d ORDER BY d.id",
 				Disciplina.class);
 		if (startPosition != null) {
 			findAllQuery.setFirstResult(startPosition);
@@ -47,4 +42,5 @@ public class DisciplinaDao {
 		}
 		return findAllQuery.getResultList();
 	}
+
 }

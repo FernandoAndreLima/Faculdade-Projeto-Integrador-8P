@@ -6,33 +6,29 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import org.iel.oitavo_periodo.projeto_integrador.entities.DiaNaoDisponivel;
 
 /**
  * DAO for DiaNaoDisponivel
  */
 @Stateless
-public class DiaNaoDisponivelDao {
+public class DiaNaoDisponivelDao extends BaseDao<DiaNaoDisponivel>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@PersistenceContext(unitName = "grid-persistence-unit")
 	private EntityManager em;
 
-	public void create(DiaNaoDisponivel entity) {
-		em.persist(entity);
+	@Override
+	protected EntityManager getEntityManager() {
+		return em;
 	}
-
-	public void deleteById(Long id) {
-		DiaNaoDisponivel entity = em.find(DiaNaoDisponivel.class, id);
-		if (entity != null) {
-			em.remove(entity);
-		}
-	}
-
+	
 	public DiaNaoDisponivel findById(Long id) {
 		return em.find(DiaNaoDisponivel.class, id);
-	}
-
-	public DiaNaoDisponivel update(DiaNaoDisponivel entity) {
-		return em.merge(entity);
 	}
 
 	public List<DiaNaoDisponivel> listAll(Integer startPosition,

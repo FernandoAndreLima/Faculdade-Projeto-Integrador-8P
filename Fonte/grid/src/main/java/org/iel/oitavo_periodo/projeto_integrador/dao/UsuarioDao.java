@@ -6,33 +6,28 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import org.iel.oitavo_periodo.projeto_integrador.entities.Usuario;
 
 /**
  * DAO for Usuario
  */
 @Stateless
-public class UsuarioDao {
+public class UsuarioDao extends BaseDao<Usuario>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5991851604685124455L;
 	@PersistenceContext(unitName = "grid-persistence-unit")
 	private EntityManager em;
 
-	public void create(Usuario entity) {
-		em.persist(entity);
-	}
-
-	public void deleteById(Long id) {
-		Usuario entity = em.find(Usuario.class, id);
-		if (entity != null) {
-			em.remove(entity);
-		}
+	@Override
+	protected EntityManager getEntityManager() {
+		return em;
 	}
 
 	public Usuario findById(Long id) {
 		return em.find(Usuario.class, id);
-	}
-
-	public Usuario update(Usuario entity) {
-		return em.merge(entity);
 	}
 
 	public List<Usuario> listAll(Integer startPosition, Integer maxResult) {
