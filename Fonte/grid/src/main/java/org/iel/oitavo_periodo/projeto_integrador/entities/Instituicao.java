@@ -2,11 +2,14 @@ package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,11 +36,17 @@ public class Instituicao implements Serializable {
 	@Column(length = 15, name = "cnpj", nullable = false)
 	private String cnpj;
 
-//	@OneToMany(        
-//			cascade = CascadeType.ALL,
-//	        orphanRemoval = true)
-//	@JoinColumn(name = "id_endereco")
-//	private Endereco endereco;
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "id_endereco")
+	private Endereco endereco;
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 	@Column(length = 200, name = "razao_social", nullable = false)
 	private String razaoSocial;
