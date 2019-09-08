@@ -25,15 +25,22 @@ import org.iel.oitavo_periodo.projeto_integrador.enums.CargoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.FormacaoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.RegimeEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.TitulacaoEnum;
+
 @Entity
-@Table(name = "tab-professor")
+@Table(name = "tab_professor")
 @XmlRootElement
 public class Professor implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
+
 	@Version
 	@Column(name = "version")
 	private int version;
@@ -60,7 +67,7 @@ public class Professor implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "professor_disciplina", joinColumns = @JoinColumn(name = "id_professor"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
 	private Set<Disciplina> disciplinas = new HashSet<>();
-	
+
 	public Long getId() {
 		return this.id;
 	}

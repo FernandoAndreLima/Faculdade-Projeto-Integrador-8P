@@ -1,30 +1,41 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Table;
-import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Version;
-import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
-import org.iel.oitavo_periodo.projeto_integrador.entities.Curso;
-import java.util.Set;
-import java.util.HashSet;
-import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
+
 @Entity
-@Table(name = "tab-turma")
+@Table(name = "tab_turma")
 @XmlRootElement
 public class Turma implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
+
 	@Version
 	@Column(name = "version")
 	private int version;
@@ -35,8 +46,41 @@ public class Turma implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private SemestreEnum semestre;
 
-	@OneToMany
-	private Set<Curso> curso = new HashSet<Curso>();
+	@ManyToMany
+	@JoinTable(name = "turma_diciplinas", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
+	private Set<Disciplina> disciplinas = new HashSet<>();
+
+	@ManyToOne
+	@JoinColumn(name = "id_curso")
+	private Curso curso;
+
+	@ManyToMany
+	@JoinTable(name = "turma_professores", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_professor"))
+	private Set<Professor> professores = new HashSet<>();
+
+	public Set<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(Set<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
+	public Set<Professor> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(Set<Professor> professores) {
+		this.professores = professores;
+	}
 
 	public Long getId() {
 		return this.id;
@@ -106,13 +150,5 @@ public class Turma implements Serializable {
 		if (semestre != null)
 			result += ", semestre: " + semestre;
 		return result;
-	}
-
-	public Set<Curso> getCurso() {
-		return this.curso;
-	}
-
-	public void setCurso(final Set<Curso> curso) {
-		this.curso = curso;
 	}
 }

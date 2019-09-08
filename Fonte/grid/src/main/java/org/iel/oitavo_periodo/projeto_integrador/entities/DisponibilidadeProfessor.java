@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 @Entity
-@Table(name = "tab-disponibilidade-professor")
+@Table(name = "tab_disponibilidade_professor")
 @XmlRootElement
 public class DisponibilidadeProfessor implements Serializable {
 

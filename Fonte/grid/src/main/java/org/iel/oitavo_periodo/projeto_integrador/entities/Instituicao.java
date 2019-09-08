@@ -1,27 +1,33 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Table;
-import javax.persistence.Id;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import org.iel.oitavo_periodo.projeto_integrador.entities.Endereco;
-import java.util.Set;
-import java.util.HashSet;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
+
 @Entity
-@Table(name = "tab-instituicao")
+@Table(name = "tab_instituicao")
 @XmlRootElement
 public class Instituicao implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
+
 	@Version
 	@Column(name = "version")
 	private int version;
@@ -30,7 +36,8 @@ public class Instituicao implements Serializable {
 	private String cnpj;
 
 	@OneToMany
-	private Set<Endereco> endereco = new HashSet<Endereco>();
+	@JoinColumn(name = "id_endereco")
+	private Endereco endereco;;
 
 	@Column(length = 200, name = "razao_social", nullable = false)
 	private String razaoSocial;
@@ -87,11 +94,11 @@ public class Instituicao implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public Set<Endereco> getEndereco() {
-		return this.endereco;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public void setEndereco(final Set<Endereco> endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 

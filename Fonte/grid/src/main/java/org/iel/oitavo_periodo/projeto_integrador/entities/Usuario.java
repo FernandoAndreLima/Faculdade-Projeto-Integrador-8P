@@ -1,12 +1,13 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Table;
-import javax.persistence.Id;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 @Entity
@@ -14,10 +15,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Usuario implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
+	
 	@Version
 	@Column(name = "version")
 	private int version;
@@ -25,7 +32,7 @@ public class Usuario implements Serializable {
 	@Column(length = 200, name = "nome_completo", nullable = false)
 	private String nomeCompleto;
 
-	@Column(length = 120, name = "login", nullable = false)
+	@Column(length = 120, name = "login", nullable = false, unique = true)
 	private String login;
 
 	@Column(length = 120, name = "senha", nullable = false)
