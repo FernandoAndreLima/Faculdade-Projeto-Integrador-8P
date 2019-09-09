@@ -3,10 +3,8 @@ package org.iel.oitavo_periodo.projeto_integrador.rest;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.OptimisticLockException;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -20,6 +18,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
+
+import org.iel.oitavo_periodo.projeto_integrador.dao.CursoDao;
 import org.iel.oitavo_periodo.projeto_integrador.entities.Curso;
 
 /**
@@ -27,12 +27,13 @@ import org.iel.oitavo_periodo.projeto_integrador.entities.Curso;
  */
 @Stateless
 @Path("/cursos")
+@Consumes("application/json")
+@Produces("application/json")
 public class CursoEndpoint {
-	@PersistenceContext(unitName = "grid-persistence-unit")
-	private EntityManager em;
-
+	
+	@Inject
+	private CursoDao cursoDao;
 	@POST
-	@Consumes("application/xml")
 	public Response create(Curso entity) {
 		em.persist(entity);
 		return Response.created(
