@@ -49,6 +49,15 @@
       <artifactId>jboss-ejb-api_3.1_spec</artifactId>
       <scope>provided</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.wildfly/wildfly-feature-pack -->
+	<dependency>
+	    <groupId>org.wildfly</groupId>
+	    <artifactId>wildfly-feature-pack</artifactId>
+	    <version>17.0.0.Final</version>
+	    <type>pom</type>
+	    <scope>provided</scope>
+	</dependency>
+    
 	<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
 	<dependency>
 	    <groupId>javax.enterprise</groupId>
