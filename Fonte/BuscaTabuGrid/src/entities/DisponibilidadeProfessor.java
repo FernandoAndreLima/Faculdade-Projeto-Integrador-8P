@@ -28,6 +28,14 @@ public class DisponibilidadeProfessor implements Serializable {
 
 	private Set<DiaNaoDisponivel> diasNaoDisponiveis = new HashSet<>();
 
+	public void addDiasDisponiveis(DiasEnum dia) {
+		this.diasDisponiveis.add(dia);
+	}
+	
+	public void addDiasNaoDisponiveis(DiaNaoDisponivel dia) {
+		this.diasNaoDisponiveis.add(dia);
+	}
+	
 	public Long getId() {
 		return this.id;
 	}
@@ -98,5 +106,21 @@ public class DisponibilidadeProfessor implements Serializable {
 		if (semestre != null)
 			result += ", semestre: " + semestre;
 		return result;
+	}
+
+	public Set<DiasEnum> getDiasDisponiveis() {
+		return diasDisponiveis;
+	}
+
+	public void setDiasDisponiveis(Set<DiasEnum> diasDisponiveis) {
+		this.diasDisponiveis = diasDisponiveis;
+	}
+
+	public Set<DiaNaoDisponivel> getDiasNaoDisponiveis() {
+		return diasNaoDisponiveis;
+	}
+
+	public void setDiasNaoDisponiveis(Set<DiaNaoDisponivel> diasNaoDisponiveis) {
+		this.diasNaoDisponiveis = diasNaoDisponiveis;
 	}
 }

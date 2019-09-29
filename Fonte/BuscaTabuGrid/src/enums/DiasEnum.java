@@ -1,4 +1,4 @@
 package enums;
 public enum DiasEnum {
-	segundaFeira, tercaFeira, quartaFeira, quintaFeira, sextaFeira, sabado, domingo
+	SEGUNDA_FEIRA, TERCA_FEIRA, QUARTA_FEIRA, QUINTA_FEIRA, SEXTA_FEIRA;
 }

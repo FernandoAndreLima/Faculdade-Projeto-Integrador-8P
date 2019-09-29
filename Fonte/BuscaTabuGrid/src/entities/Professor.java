@@ -36,6 +36,22 @@ public class Professor implements Serializable {
 		this.disciplinas.add(disciplina);
 	}
 	
+	public Professor() {
+		
+	}
+	
+	public Professor(Long id, int version, String nomeCompleto, RegimeEnum regime, Date dataAdmissao, CargoEnum cargo,
+			FormacaoEnum formacao) {
+		super();
+		this.id = id;
+		this.version = version;
+		this.nomeCompleto = nomeCompleto;
+		this.regime = regime;
+		this.dataAdmissao = dataAdmissao;
+		this.cargo = cargo;
+		this.formacao = formacao;
+	}
+
 	public Long getId() {
 		return this.id;
 	}

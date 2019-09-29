@@ -92,7 +92,7 @@ public class CursoEndpoint {
 			return Response.status(Status.NOT_FOUND).build();
 		}
 		try {
-			entity = cursoDao.update(entity);
+			cursoDao.update(entity);
 		} catch (OptimisticLockException e) {
 			return Response.status(Response.Status.CONFLICT).entity(e.getEntity()).build();
 		}
