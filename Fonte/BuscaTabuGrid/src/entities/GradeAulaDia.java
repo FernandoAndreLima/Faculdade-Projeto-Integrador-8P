@@ -2,6 +2,11 @@ package entities;
 
 import enums.DiasEnum;
 
+/**
+ * Classe responsável por guardar as variáveis de uma disciplina do dia
+ * @author anderson
+ *
+ */
 public class GradeAulaDia {
 
 	private long id;
