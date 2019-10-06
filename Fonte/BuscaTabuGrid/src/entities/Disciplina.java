@@ -25,6 +25,14 @@ public class Disciplina implements Serializable {
 
 	private Set<Professor> professores = new HashSet<>();
 
+	public boolean contemDisciplina() {
+		return (id != null)
+				&& (nome != null && !nome.trim().isEmpty())
+				&& (descricao != null && !descricao.trim().isEmpty())
+				&& (cargaHoraria != null && !cargaHoraria.trim().isEmpty())
+				? true : false;
+	}
+	
 	public void addProfessor(Professor professor) {
 		professores.add(professor);
 	}

@@ -32,14 +32,25 @@ public class Professor implements Serializable {
 
 	private Set<Disciplina> disciplinas = new HashSet<>();
 
+	public boolean contemProfessor() {
+		return (id != null) 
+				&& (nomeCompleto != null 
+				&& !nomeCompleto.trim().isEmpty()) 
+				&& (regime != null)
+				&& (cargo != null)
+				&& (dataAdmissao != null)
+				&& (formacao != null)
+				? true : false;
+	}
+
 	public void addDisciplina(Disciplina disciplina) {
 		this.disciplinas.add(disciplina);
 	}
-	
+
 	public Professor() {
-		
+
 	}
-	
+
 	public Professor(Long id, int version, String nomeCompleto, RegimeEnum regime, Date dataAdmissao, CargoEnum cargo,
 			FormacaoEnum formacao) {
 		super();
