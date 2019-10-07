@@ -19,6 +19,8 @@ public class Main {
 		disciplinas.addAll(disciplinas);
 		cursos.addAll(dao.getCursos());
 		
+		System.out.println(professores);
+		
 		 
 	}
 }
