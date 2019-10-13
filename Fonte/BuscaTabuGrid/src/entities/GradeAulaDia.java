@@ -13,6 +13,7 @@ public class GradeAulaDia {
 	private DiasEnum dia;
 	private Professor professor;
 	private Disciplina disciplina;
+	private Curso curso;
 
 	public boolean isPreenchido() {
 		return (dia.ordinal() > 0) 
@@ -51,6 +52,14 @@ public class GradeAulaDia {
 
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
 	}
 
 }
