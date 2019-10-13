@@ -1,10 +1,12 @@
-package algoritmo.busca_tabu;
+package algoritmo.busca_tabu.old;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class BuscaTabu {
 
+	public ListaTabu lista = new ListaTabu();
+	
 }
 
 class ListaTabu {
@@ -65,24 +67,10 @@ class ObjetoTabu {
 		super();
 		this.idadeObjetoBT = idadeObjetoBT;
 		this.objeto = objeto;
-		this.gradeCurricularBinaria = converteObjetoGradeEmObjetoBinario(objeto);
+		
 	}
 
-	/*
-	 * estou pensando em utilizar objetos mesmo
-	 */
-	private int[] converteObjetoGradeEmObjetoBinario(ObjetoGradeCurricular objeto) {
-		
-		int[] array = {
-				objeto.getId(),
-				objeto.getDia(),
-				objeto.getDisciplina(),
-				objeto.getProfessor(),
-				objeto.getCurso()
-		};
-		
-		return array;
-	}
+
 
 	public int getIdadeObjetoBT() {
 		return idadeObjetoBT;
@@ -99,6 +87,9 @@ class ObjetoTabu {
 }
 
 class ObjetoGradeCurricular {
+	
+	private int[] 
+	
 	private int id;
 	private int dia;
 	private int professor;
@@ -112,6 +103,23 @@ class ObjetoGradeCurricular {
 		this.professor = professor;
 		this.disciplina = disciplina;
 		this.curso = curso;
+		this.gradeCurricularBinaria = converteObjetoGradeEmObjetoBinario(objeto);
+	}
+	
+	/*
+	 * estou pensando em utilizar objetos mesmo
+	 */
+	private int[] converteObjetoGradeEmObjetoBinario(ObjetoGradeCurricular objeto) {
+		
+		int[] array = {
+				objeto.getId(),
+				objeto.getDia(),
+				objeto.getDisciplina(),
+				objeto.getProfessor(),
+				objeto.getCurso()
+		};
+		
+		return array;
 	}
 	
 	public int getId() {

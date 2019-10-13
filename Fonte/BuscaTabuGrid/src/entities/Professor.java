@@ -31,7 +31,7 @@ public class Professor implements Serializable {
 	private FormacaoEnum formacao;
 
 	private Set<Disciplina> disciplinas = new HashSet<>();
-
+	
 	public boolean contemProfessor() {
 		return (id != null) 
 				&& (nomeCompleto != null 

@@ -1,6 +1,7 @@
 package entities;
 
 import enums.DiasEnum;
+import enums.SemestreEnum;
 
 /**
  * Classe responsável por guardar as variáveis de uma disciplina do dia
@@ -14,7 +15,8 @@ public class GradeAulaDia {
 	private Professor professor;
 	private Disciplina disciplina;
 	private Curso curso;
-
+	private SemestreEnum semestre;
+	
 	public boolean isPreenchido() {
 		return (dia.ordinal() > 0) 
 				&& professor.contemProfessor() 
@@ -60,6 +62,14 @@ public class GradeAulaDia {
 
 	public void setCurso(Curso curso) {
 		this.curso = curso;
+	}
+
+	public SemestreEnum getSemestre() {
+		return semestre;
+	}
+
+	public void setSemestre(SemestreEnum semestre) {
+		this.semestre = semestre;
 	}
 
 }

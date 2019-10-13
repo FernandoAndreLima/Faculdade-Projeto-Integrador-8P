@@ -1,4 +1,4 @@
-package algoritmo.busca_tabu;
+package algoritmo.busca_tabu.old;
 
 import java.util.HashSet;
 import java.util.Set;
