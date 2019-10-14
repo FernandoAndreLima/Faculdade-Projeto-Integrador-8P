@@ -13,6 +13,9 @@ public class BuscaTabu {
 	private Set<GradeBT> disciplinas = new HashSet<GradeBT>();
 
 	public GradeAulaDia buscarGrade() {
+		
+		
+		
 		return null;
 	}
 

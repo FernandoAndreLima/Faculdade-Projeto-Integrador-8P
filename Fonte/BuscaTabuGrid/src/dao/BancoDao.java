@@ -26,10 +26,8 @@ public class BancoDao {
 	 */
 	public boolean generateData() {
 
-		if (professores.isEmpty() && disciplinas.isEmpty() && cursos.isEmpty()) {
-
 			populaBanco();
-		}
+		
 
 		System.out.println(professores.isEmpty());
 
