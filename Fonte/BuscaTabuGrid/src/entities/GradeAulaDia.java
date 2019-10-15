@@ -1,6 +1,7 @@
 package entities;
 
 import enums.DiasEnum;
+import enums.Periodo;
 import enums.SemestreEnum;
 
 /**
@@ -16,6 +17,7 @@ public class GradeAulaDia {
 	private Disciplina disciplina;
 	private Curso curso;
 	private SemestreEnum semestre;
+	private Periodo periodo; 
 	
 	public boolean isPreenchido() {
 		return (dia.ordinal() > 0) 

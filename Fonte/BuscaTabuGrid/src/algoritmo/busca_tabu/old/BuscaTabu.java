@@ -88,7 +88,7 @@ class ObjetoTabu {
 
 class ObjetoGradeCurricular {
 	
-	private int[] 
+//	private int[] 
 	
 	private int id;
 	private int dia;
@@ -103,7 +103,7 @@ class ObjetoGradeCurricular {
 		this.professor = professor;
 		this.disciplina = disciplina;
 		this.curso = curso;
-		this.gradeCurricularBinaria = converteObjetoGradeEmObjetoBinario(objeto);
+//		this.gradeCurricularBinaria = converteObjetoGradeEmObjetoBinario(objeto);
 	}
 	
 	/*

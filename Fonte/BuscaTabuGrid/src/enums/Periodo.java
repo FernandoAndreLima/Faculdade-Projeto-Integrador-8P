@@ -1,0 +1,5 @@
+package enums;
+
+public enum Periodo {
+	PRIMEIRO,SEGUNDO,TERCEIRO,QUARTO,QUINTO,SEXTO,SETIMO,OITAVO;
+}

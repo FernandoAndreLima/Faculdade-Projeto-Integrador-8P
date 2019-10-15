@@ -7,7 +7,7 @@ import entities.Disciplina;
 import entities.GradeAulaDia;
 import entities.Professor;
 
-public class BuscaTabu {
+public class BuscaTabuOldier {
 
 	private Set<ProfessorBT> professores = new HashSet<ProfessorBT>();
 	private Set<GradeBT> disciplinas = new HashSet<GradeBT>();
