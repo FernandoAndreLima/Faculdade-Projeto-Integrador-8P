@@ -3,23 +3,48 @@ package entities;
 import java.util.HashSet;
 import java.util.Set;
 
-import enums.SemestreEnum;
+import enums.DiasEnum;
+import enums.Periodo;
 
 public class GradeHoraria {
-
-	private SemestreEnum semestre;
-
-	private Set<GradeAulaDia> turmaA = new HashSet<GradeAulaDia>();
-//	private Set<GradeAulaDia> turmaB = new HashSet<GradeAulaDia>();
-//	private Set<GradeAulaDia> turmaC = new HashSet<GradeAulaDia>();
-//	private Set<GradeAulaDia> turmaD = new HashSet<GradeAulaDia>();
+	PeriodoAno periodoAno;
+		
+	Set<ProfessorDiciplinaDia> professorDiciplinaDia = new HashSet<ProfessorDiciplinaDia>();	
 	
-	public GradeHoraria(SemestreEnum semestre,Set<Professor> professores, Set<Disciplina> disciplinas) {
-		
-		this.semestre = semestre;
+	public PeriodoAno getPeriodoAno() {
+		return periodoAno;
+	}
+	public void setPeriodoAno(PeriodoAno periodoAno) {
+		this.periodoAno = periodoAno;
+	}
+}
 
-		
+class ProfessorDiciplinaDia{
+	Professor professor;
+	Disciplina disciplina;
+	DiasEnum diasSemana;
+}
+
+class PeriodoAno{
+	Periodo periodo;
+	String ano;
+	
+	@Override
+	public String toString() {
+		return "PeriodoAno [periodo=" + periodo + ", ano=" + ano + "]";
 	}
 	
+	public Periodo getPeriodo() {
+		return periodo;
+	}
+	public void setPeriodo(Periodo periodo) {
+		this.periodo = periodo;
+	}
+	public String getAno() {
+		return ano;
+	}
+	public void setAno(String ano) {
+		this.ano = ano;
+	}
 	
 }
