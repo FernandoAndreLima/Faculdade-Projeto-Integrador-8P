@@ -15,13 +15,26 @@ public class GradeHoraria {
 	Set<ProfessorDiciplinaDia> professorDiciplinaDia = new HashSet<ProfessorDiciplinaDia>();
 
 	public GradeHoraria(PeriodoAno periodoAno, Set<Professor> professores, Set<Disciplina> disciplinas) {
-		super();
 		this.periodoAno = periodoAno;
-		this.professores = professores;
-		this.disciplinas = disciplinas;
+		addAllProfessores(professores);
+		addAllDisciplina(disciplinas);
 	}
 
+	public void addProfessore(Professor professor) {
+		professores.add(professor);
+	}
+
+	public void addDisciplina(Disciplina disciplina) {
+		disciplinas.add(disciplina);
+	}
 	
+	public void addAllProfessores(Set<Professor> professoresEntrada) {
+		professores.addAll(professoresEntrada);
+	}
+	
+	public void addAllDisciplina(Set<Disciplina> disciplinas) {
+		disciplinas.addAll(disciplinas);
+	}
 	
 	public Set<Professor> getProfessores() {
 		return professores;
