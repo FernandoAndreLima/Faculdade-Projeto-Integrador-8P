@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import enums.CargoEnum;
+import enums.DiasEnum;
 import enums.FormacaoEnum;
 import enums.RegimeEnum;
 
@@ -31,6 +32,10 @@ public class Professor implements Serializable {
 	private FormacaoEnum formacao;
 
 	private Set<Disciplina> disciplinas = new HashSet<>();
+	
+	public boolean conheceDisciplina(Disciplina disciplina) {
+		return disciplinas.contains(disciplina);
+	}
 	
 	public boolean contemProfessor() {
 		return (id != null) 
@@ -157,5 +162,10 @@ public class Professor implements Serializable {
 
 	public void setDisciplinas(Set<Disciplina> disciplinas) {
 		this.disciplinas.addAll(disciplinas);
+	}
+	//liberando geral
+	public boolean possuiDisponibilidadeNoDia(DiasEnum dia) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

@@ -11,13 +11,63 @@ public class GradeHoraria {
 
 	private Set<Professor> professores = new HashSet<Professor>();
 	private Set<Disciplina> disciplinas = new HashSet<Disciplina>();
+	private Set<DiasEnum> dias = new HashSet<DiasEnum>();
 
-	Set<ProfessorDiciplinaDia> professorDiciplinaDia = new HashSet<ProfessorDiciplinaDia>();
+	private Set<ProfessorDiciplinaDia> professorDisciplinaDia = new HashSet<ProfessorDiciplinaDia>();
 
-	public GradeHoraria(PeriodoAno periodoAno, Set<Professor> professores, Set<Disciplina> disciplinas) {
-		this.periodoAno = periodoAno;
+	private boolean todosAulasPreenchidas = false;
+
+	public void addProfessorDisciplinaDia(Professor professor, Disciplina disciplina, DiasEnum diasSemana) {
+		professorDisciplinaDia.add(new ProfessorDiciplinaDia(professor, disciplina, diasSemana));
+	}
+
+	public Set<ProfessorDiciplinaDia> getProfessorDisciplinaDia() {
+		return professorDisciplinaDia;
+	}
+
+	public void setProfessorDisciplinaDia(Set<ProfessorDiciplinaDia> professorDisciplinaDia) {
+		this.professorDisciplinaDia = professorDisciplinaDia;
+	}
+
+	public boolean isTodosAulasPreenchidas() {
+		return todosAulasPreenchidas;
+	}
+
+	public void setTodosAulasPreenchidas(boolean todosAulasPreenchidas) {
+		this.todosAulasPreenchidas = todosAulasPreenchidas;
+	}
+
+	public void setProfessores(Set<Professor> professores) {
+		this.professores = professores;
+	}
+
+	public void setDisciplinas(Set<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
+	public boolean isTodasAulasPreenchidas() {
+		return todosAulasPreenchidas;
+	}
+
+	public void verificaTodasEstaoAulasPreenchidas() {
+		int cont = 0;
+		for (ProfessorDiciplinaDia profDiscDia : professorDisciplinaDia) {
+			if (profDiscDia.isDiasSemana() && profDiscDia.isDiciplina() && profDiscDia.isProfessor()) {
+				cont++;
+			}
+		}
+		this.todosAulasPreenchidas = (cont == professorDisciplinaDia.size() + 1);
+	}
+
+	public GradeHoraria(Periodo periodo, String ano, Set<Professor> professores, Set<Disciplina> disciplinas) {
+		this.periodoAno = new PeriodoAno(periodo, ano);
 		addAllProfessores(professores);
 		addAllDisciplina(disciplinas);
+		dias.add(DiasEnum.SEGUNDA_FEIRA);
+		dias.add(DiasEnum.TERCA_FEIRA);
+		dias.add(DiasEnum.QUARTA_FEIRA);
+		dias.add(DiasEnum.QUINTA_FEIRA);
+		dias.add(DiasEnum.SEXTA_FEIRA);
 	}
 
 	public void addProfessore(Professor professor) {
@@ -27,15 +77,15 @@ public class GradeHoraria {
 	public void addDisciplina(Disciplina disciplina) {
 		disciplinas.add(disciplina);
 	}
-	
+
 	public void addAllProfessores(Set<Professor> professoresEntrada) {
 		professores.addAll(professoresEntrada);
 	}
-	
+
 	public void addAllDisciplina(Set<Disciplina> disciplinas) {
 		disciplinas.addAll(disciplinas);
 	}
-	
+
 	public Set<Professor> getProfessores() {
 		return professores;
 	}
@@ -45,7 +95,7 @@ public class GradeHoraria {
 	}
 
 	public void addProfessorDiciplinaDiaParaColecao(ProfessorDiciplinaDia objeto) {
-		professorDiciplinaDia.add(objeto);
+		professorDisciplinaDia.add(objeto);
 	}
 
 	public PeriodoAno getPeriodoAno() {
@@ -55,12 +105,34 @@ public class GradeHoraria {
 	public void setPeriodoAno(PeriodoAno periodoAno) {
 		this.periodoAno = periodoAno;
 	}
+	
+	public Set<DiasEnum> getDias(){
+		return this.dias;
+	}
 }
 
 class ProfessorDiciplinaDia {
 	private Professor professor;
 	private Disciplina disciplina;
 	private DiasEnum diasSemana;
+
+	public ProfessorDiciplinaDia(Professor professor, Disciplina disciplina, DiasEnum diasSemana) {
+		this.professor = professor;
+		this.disciplina = disciplina;
+		this.diasSemana = diasSemana;
+	}
+
+	public boolean isProfessor() {
+		return this.professor.contemProfessor();
+	}
+
+	public boolean isDiciplina() {
+		return this.disciplina.contemDisciplina();
+	}
+
+	public boolean isDiasSemana() {
+		return this.diasSemana.ordinal() > 0 ? true : false;
+	}
 
 	public Professor getProfessor() {
 		return professor;
@@ -91,6 +163,12 @@ class ProfessorDiciplinaDia {
 class PeriodoAno {
 	private Periodo periodo;
 	private String ano;
+
+	public PeriodoAno(Periodo periodo, String ano) {
+		super();
+		this.periodo = periodo;
+		this.ano = ano;
+	}
 
 	@Override
 	public String toString() {
