@@ -82,8 +82,8 @@ public class GradeHoraria {
 		professores.addAll(professoresEntrada);
 	}
 
-	public void addAllDisciplina(Set<Disciplina> disciplinas) {
-		disciplinas.addAll(disciplinas);
+	public void addAllDisciplina(Set<Disciplina> disciplinasEntrada) {
+		disciplinas.addAll(disciplinasEntrada);
 	}
 
 	public Set<Professor> getProfessores() {

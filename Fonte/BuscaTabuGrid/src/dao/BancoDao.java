@@ -21,15 +21,23 @@ public class BancoDao {
 	public Set<Disciplina> disciplinas = new HashSet<>();
 	public Set<Curso> cursos = new HashSet<>();
 
+	public BancoDao() {
+		super();
+		this.professores = new HashSet<>();
+		this.disciplinas = new HashSet<>();
+		this.cursos = new HashSet<>();
+	}
+
 	/*
 	 * Pensar no que fazer com isso
 	 */
 	public boolean generateData() {
 
-			populaBanco();
-		
+		populaBanco();
 
-		System.out.println(professores.isEmpty());
+		System.out.println("A variável professores está vazia ? " + professores.isEmpty());
+		System.out.println("A variável disciplinas está vazia ? " + disciplinas.isEmpty());
+		System.out.println("A variável cursos está vazia ? " + cursos.isEmpty());
 
 		return (professores.size() > 0 && disciplinas.size() > 0 && cursos.size() > 0) ? true : false;
 	}
@@ -232,15 +240,15 @@ public class BancoDao {
 		disciplina4.addCurso(curso1);
 		disciplina5.addCurso(curso1);
 
-		this.professores.add(professor1);
-		this.professores.add(professor2);
-		this.professores.add(professor3);
+		professores.add(professor1);
+		professores.add(professor2);
+		professores.add(professor3);
 
-		this.disciplinas.add(disciplina1);
-		this.disciplinas.add(disciplina2);
-		this.disciplinas.add(disciplina4);
-		this.disciplinas.add(disciplina3);
-		this.disciplinas.add(disciplina5);
+		disciplinas.add(disciplina1);
+		disciplinas.add(disciplina2);
+		disciplinas.add(disciplina4);
+		disciplinas.add(disciplina3);
+		disciplinas.add(disciplina5);
 	}
 
 	public Set<Disciplina> getDisciplinas() {

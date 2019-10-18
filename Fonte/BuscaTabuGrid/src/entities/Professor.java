@@ -139,21 +139,9 @@ public class Professor implements Serializable {
 
 	@Override
 	public String toString() {
-		String result = getClass().getSimpleName() + " ";
-		if (id != null)
-			result += "id: " + id;
-		result += ", version: " + version;
-		if (nomeCompleto != null && !nomeCompleto.trim().isEmpty())
-			result += ", nomeCompleto: " + nomeCompleto;
-		if (regime != null)
-			result += ", regime: " + regime;
-		if (dataAdmissao != null)
-			result += ", dataAdmissao: " + dataAdmissao;
-		if (cargo != null)
-			result += ", cargo: " + cargo;
-		if (formacao != null)
-			result += ", formacao: " + formacao;
-		return result;
+		return "Professor [id=" + id + ", version=" + version + ", nomeCompleto=" + nomeCompleto + ", regime=" + regime
+				+ ", dataAdmissao=" + dataAdmissao + ", cargo=" + cargo + ", formacao=" + formacao + ", disciplinas="
+				+ disciplinas + "]";
 	}
 
 	public Set<Disciplina> getDisciplinas() {
