@@ -48,9 +48,9 @@ public class Resolvedor {
 				 */
 				for (DiasEnum dia : grade.getDias()) {
 					
-					if (professor.possuiDisponibilidadeNoDia(dia)) {
+					if (validaDiaProfessor(dia, professor)) {
 
-						if (professor.conheceDisciplina(disciplina)) {
+						if (professorConheceDisciplina(professor, disciplina)) {
 							System.out.println(professor.toString());
 							grade.addProfessorDisciplinaDia(professor, disciplina, dia);
 						}
@@ -58,5 +58,15 @@ public class Resolvedor {
 				}
 			}
 		}
+	}
+	
+	public static boolean validaDiaProfessor(DiasEnum dia, Professor professor) {
+			
+		return professor.getDisponibilidade().getDiasDisponiveis().contains(dia);
+	}
+	
+	public static boolean professorConheceDisciplina(Professor professor, Disciplina disciplina){
+		
+		return professor.getDisciplinas().contains(disciplina);
 	}
 }

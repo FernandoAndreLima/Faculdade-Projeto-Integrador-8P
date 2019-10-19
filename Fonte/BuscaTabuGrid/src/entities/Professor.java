@@ -32,20 +32,28 @@ public class Professor implements Serializable {
 	private FormacaoEnum formacao;
 
 	private Set<Disciplina> disciplinas = new HashSet<>();
-	
+
+	private DisponibilidadeProfessor disponibilidade;
+
+	public DisponibilidadeProfessor getDisponibilidade() {
+		return disponibilidade;
+	}
+
+	public void setDisponibilidade(DisponibilidadeProfessor disponibilidade) {
+		this.disponibilidade = disponibilidade;
+	}
+
+	public void setDataAdmissao(Date dataAdmissao) {
+		this.dataAdmissao = dataAdmissao;
+	}
+
 	public boolean conheceDisciplina(Disciplina disciplina) {
 		return disciplinas.contains(disciplina);
 	}
-	
+
 	public boolean contemProfessor() {
-		return (id != null) 
-				&& (nomeCompleto != null 
-				&& !nomeCompleto.trim().isEmpty()) 
-				&& (regime != null)
-				&& (cargo != null)
-				&& (dataAdmissao != null)
-				&& (formacao != null)
-				? true : false;
+		return (id != null) && (nomeCompleto != null && !nomeCompleto.trim().isEmpty()) && (regime != null)
+				&& (cargo != null) && (dataAdmissao != null) && (formacao != null) ? true : false;
 	}
 
 	public void addDisciplina(Disciplina disciplina) {
@@ -151,7 +159,8 @@ public class Professor implements Serializable {
 	public void setDisciplinas(Set<Disciplina> disciplinas) {
 		this.disciplinas.addAll(disciplinas);
 	}
-	//liberando geral
+
+	// liberando geral
 	public boolean possuiDisponibilidadeNoDia(DiasEnum dia) {
 		// TODO Auto-generated method stub
 		return true;

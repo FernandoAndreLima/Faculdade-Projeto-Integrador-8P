@@ -240,6 +240,10 @@ public class BancoDao {
 		disciplina4.addCurso(curso1);
 		disciplina5.addCurso(curso1);
 
+		professor1.setDisponibilidade(dispoUmProfe01);
+		professor2.setDisponibilidade(dispoUmProfe02);
+		professor3.setDisponibilidade(dispoUmProfe03);
+		
 		professores.add(professor1);
 		professores.add(professor2);
 		professores.add(professor3);
@@ -249,6 +253,9 @@ public class BancoDao {
 		disciplinas.add(disciplina4);
 		disciplinas.add(disciplina3);
 		disciplinas.add(disciplina5);
+		
+		//adiciona disponibilidade em cada professor
+		
 	}
 
 	public Set<Disciplina> getDisciplinas() {
