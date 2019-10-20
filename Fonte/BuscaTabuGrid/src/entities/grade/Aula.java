@@ -27,8 +27,14 @@ public class Aula implements Comparable<Aula> {
 		setDiaPreenchido(validaDiaPreenchido());
 	}
 
+	public Aula(Disciplina disciplina, DiasEnum diasSemana) {
+		this.disciplina = disciplina;
+		this.diasSemana = diasSemana;
+		setDiaPreenchido(validaDiaPreenchido());
+	}
+	
 	public boolean validaDiaPreenchido() {
-		return (this.professor.contemProfessor() && this.disciplina.contemDisciplina()
+		return (this.disciplina.contemDisciplina()
 				&& this.diasSemana.ordinal() > 0);
 	}
 

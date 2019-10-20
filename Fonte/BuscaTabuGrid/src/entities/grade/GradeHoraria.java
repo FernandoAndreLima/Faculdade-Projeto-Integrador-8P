@@ -25,7 +25,7 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 
 	private Set<DiasEnum> dias = new HashSet<DiasEnum>();
 
-	private Set<Aula> professorDisciplinaDia = new HashSet<Aula>();
+	private Set<Aula> aulas = new HashSet<Aula>();
 
 	private List<String> disciplinasNomes = new ArrayList<String>();
 
@@ -73,23 +73,21 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 
 	public void addProfessorDisciplinaDia(Professor professor, Disciplina disciplina, DiasEnum diasSemana) {
 		if (!contemAulaFechada(professor, disciplina, diasSemana)) {
-			professorDisciplinaDia.add(new Aula(professor, disciplina, diasSemana));
+			aulas.add(new Aula(professor, disciplina, diasSemana));
 		}
 	}
 
 	private boolean contemAulaFechada(Professor professor, Disciplina disciplina, DiasEnum diasSemana) {
-		
-		return (professorDisciplinaDia.contains(new Aula(professor, disciplina, diasSemana))) 
-				?true
-				:false;
+
+		return (aulas.contains(new Aula(professor, disciplina, diasSemana))) ? true : false;
 	}
 
 	public Set<Aula> getProfessorDisciplinaDia() {
-		return professorDisciplinaDia;
+		return aulas;
 	}
 
 	public void setProfessorDisciplinaDia(Set<Aula> professorDisciplinaDia) {
-		this.professorDisciplinaDia = professorDisciplinaDia;
+		this.aulas = professorDisciplinaDia;
 	}
 
 	public boolean isTodosAulasPreenchidas() {
@@ -118,12 +116,12 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 
 	public void verificaTodasEstaoAulasPreenchidas() {
 		int cont = 0;
-		for (Aula profDiscDia : professorDisciplinaDia) {
+		for (Aula profDiscDia : aulas) {
 			if (profDiscDia.isDiasSemana() && profDiscDia.isDiciplina() && profDiscDia.isProfessor()) {
 				cont++;
 			}
 		}
-		this.todosAulasPreenchidas = (cont == professorDisciplinaDia.size() + 1);
+		this.todosAulasPreenchidas = (cont == aulas.size() + 1);
 	}
 
 	public GradeHoraria(Periodo periodo, String ano, Set<Professor> professores, Set<Disciplina> disciplinas) {
@@ -167,7 +165,7 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 	}
 
 	public void addProfessorDiciplinaDiaParaColecao(Aula objeto) {
-		professorDisciplinaDia.add(objeto);
+		aulas.add(objeto);
 	}
 
 	public PeriodoAno getPeriodoAno() {
@@ -184,7 +182,7 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 
 	public void professorDisciplinaDiaToString() {
 		int cont = 1;
-		for (Aula elemento : professorDisciplinaDia) {
+		for (Aula elemento : aulas) {
 			System.out.println(cont + " " + elemento.toString());
 			cont++;
 		}
@@ -195,13 +193,18 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 			this.professores.remove(professor);
 	}
 
-	public void removeDisciplinaListaDisponivel(String string) {
-		if (this.disciplinas.contains(string))
-			this.disciplinas.remove(string);
-	}
-
 	public void removeDiaDisponivel(DiasEnum dia) {
 		if (this.dias.contains(dia))
 			this.dias.remove(dia);
+	}
+	
+	public void addDisciplinaAula(Disciplina disciplina, DiasEnum dia) {
+		if(this.dias.contains(dia)) {
+			if(this.disciplinas.contains(disciplina)) {
+				this.aulas.add(new Aula(disciplina, dia));
+				removeDiaDisponivel(dia);
+				removeDisciplinasDisponiveis(disciplina.getNome());
+			}
+		}
 	}
 }

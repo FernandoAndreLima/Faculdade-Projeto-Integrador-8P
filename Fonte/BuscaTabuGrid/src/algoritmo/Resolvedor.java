@@ -1,12 +1,12 @@
 package algoritmo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import entities.Disciplina;
 import entities.Professor;
 import entities.grade.GradeHoraria;
-import entities.grade.Aula;
 import enums.DiasEnum;
 
 /**
@@ -23,9 +23,7 @@ public class Resolvedor {
 	 * @param grade
 	 */
 	public static GradeHoraria constroiGrade(GradeHoraria grade) {
-		/*
-		 * foi criado essas variaveis do tipo list, pois o hashset não permite ordenacao
-		 */
+
 		List<Professor> professores = new ArrayList<Professor>();
 		professores.addAll(grade.getProfessores());
 
@@ -35,62 +33,21 @@ public class Resolvedor {
 		List<DiasEnum> dias = new ArrayList<DiasEnum>();
 		dias.addAll(grade.getDias());
 
-		while (true) {
-
-			/*
-			 * Primeiro loop o de disciplinas
-			 */
-			DisciplinaLoop: for (Disciplina disciplina : disciplinas) {
-
-				if (grade.getDisciplinasNomes().contains(disciplina.getNome())) {
-
-					/*
-					 * Segundo loop o de professores
-					 */
-					ProfessorLoop: for (Professor professor : professores) {
-						/*
-						 * Terceiro loop o de dias
-						 */
-						DiasLoop: for (DiasEnum dia : dias) {
-
-							if (validaDiaProfessor(dia, professor)) {
-
-								if (professorConheceDisciplina(professor, disciplina)) {
-									grade.addProfessorDisciplinaDia(professor, disciplina, dia);
-									grade.atualizaDisponibilidadeProfessor(dia, professor);
-									grade.removeDisciplinasDisponiveis(disciplina.getNome());
-
-								}
-							}
-						}
-					}
+		// populo
+		for (Iterator<DiasEnum> rator = dias.iterator(); rator.hasNext();) {
+			DiasEnum diaAtual = rator.next();
+			
+			for (Iterator<Disciplina> iter = disciplinas.iterator(); iter.hasNext();) {
+				Disciplina disciplinaAtual = iter.next();
+				
+				if (grade.getDisciplinasNomes().contains(disciplinaAtual.getNome()) && grade.getDias().contains(diaAtual)) {
+					grade.addDisciplinaAula(disciplinaAtual, diaAtual);
+					System.out.println(disciplinaAtual.toString());
+					break;
 				}
 			}
-			grade.professorDisciplinaDiaToString();
 			
-			break;
 		}
-		return grade;
-	}
-
-	private static GradeHoraria removeExcessos(GradeHoraria grade) {
-
-		return grade;
-	}
-
-	public static GradeHoraria finalizaGrade(GradeHoraria grade, int qtdaAulas) {
-
-		ProfessorDiciplinaDiaLoop:
-
-		for (Aula gradeDia : grade.getProfessorDisciplinaDia()) {
-
-			if (qtdaAulas == grade.getProfessorDisciplinaDia().size() + 1) {
-				break ProfessorDiciplinaDiaLoop;
-			}
-		}
-
-		grade.professorDisciplinaDiaToString();
-
 		return grade;
 	}
 
@@ -104,3 +61,54 @@ public class Resolvedor {
 		return professor.getDisciplinas().contains(disciplina);
 	}
 }
+
+//
+///*
+// * foi criado essas variaveis do tipo list, pois o hashset não permite ordenacao
+// */
+//List<Professor> professores = new ArrayList<Professor>();
+//professores.addAll(grade.getProfessores());
+//
+//List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+//disciplinas.addAll(grade.getDisciplinas());
+//
+//List<DiasEnum> dias = new ArrayList<DiasEnum>();
+//dias.addAll(grade.getDias());
+//
+//for (Iterator<Disciplina> iter = disciplinas.iterator(); iter.hasNext();) {
+//	Disciplina disciplinaAtual = iter.next();
+//	System.out.println(disciplinaAtual.toString());
+//}
+//
+///*
+// * Primeiro loop o de disciplinas
+// */
+//DisciplinaLoop: for (Disciplina disciplina : disciplinas) {
+//
+//	if (grade.getDisciplinasNomes().contains(disciplina.getNome())) {
+//
+//		/*
+//		 * Segundo loop o de professores
+//		 */
+//		ProfessorLoop: for (Professor professor : professores) {
+//			/*
+//			 * Terceiro loop o de dias
+//			 */
+//			DiasLoop: for (DiasEnum dia : dias) {
+//
+//				if (validaDiaProfessor(dia, professor)) {
+//
+//					if (professorConheceDisciplina(professor, disciplina)) {
+//						grade.addProfessorDisciplinaDia(professor, disciplina, dia);
+//						grade.atualizaDisponibilidadeProfessor(dia, professor);
+//						grade.removeDisciplinasDisponiveis(disciplina.getNome());
+//
+//					}
+//				}
+//			}
+//		}
+//	}
+//}
+//grade.professorDisciplinaDiaToString();
+//
+//return grade;

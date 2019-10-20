@@ -20,12 +20,12 @@ public class Main {
 		
 		Set<Disciplina> disciplinasPrimeiro = new HashSet<>();
 		Set<Disciplina> disciplinasSegundo = new HashSet<>();
-		Set<Disciplina> disciplinasTerceiro = new HashSet<>();
-		Set<Disciplina> disciplinasQuarto = new HashSet<>();
-		Set<Disciplina> disciplinasQuinto = new HashSet<>();
-		Set<Disciplina> disciplinasSexto = new HashSet<>();
-		Set<Disciplina> disciplinasSetimo = new HashSet<>();
-		Set<Disciplina> disciplinasOitavo = new HashSet<>();
+//		Set<Disciplina> disciplinasTerceiro = new HashSet<>();
+//		Set<Disciplina> disciplinasQuarto = new HashSet<>();
+//		Set<Disciplina> disciplinasQuinto = new HashSet<>();
+//		Set<Disciplina> disciplinasSexto = new HashSet<>();
+//		Set<Disciplina> disciplinasSetimo = new HashSet<>();
+//		Set<Disciplina> disciplinasOitavo = new HashSet<>();
 		
 		Set<Curso> cursos = new HashSet<>();
 
