@@ -6,13 +6,20 @@ import java.util.Set;
 import enums.DiasEnum;
 import enums.Periodo;
 
+/**
+ * Objeto Grade Horária por periodo/turma
+ * @author anderson
+ *
+ */
 public class GradeHoraria {
-	PeriodoAno periodoAno;
-
+	private PeriodoAno periodoAno;
+	
 	private Set<Professor> professores = new HashSet<Professor>();
+	
 	private Set<Disciplina> disciplinas = new HashSet<Disciplina>();
+	
 	private Set<DiasEnum> dias = new HashSet<DiasEnum>();
-
+	
 	private Set<ProfessorDiciplinaDia> professorDisciplinaDia = new HashSet<ProfessorDiciplinaDia>();
 
 	private boolean todosAulasPreenchidas = false;
@@ -49,6 +56,10 @@ public class GradeHoraria {
 		return todosAulasPreenchidas;
 	}
 
+	public void setDias(Set<DiasEnum> dias) {
+		this.dias = dias;
+	}
+
 	public void verificaTodasEstaoAulasPreenchidas() {
 		int cont = 0;
 		for (ProfessorDiciplinaDia profDiscDia : professorDisciplinaDia) {
@@ -60,6 +71,7 @@ public class GradeHoraria {
 	}
 
 	public GradeHoraria(Periodo periodo, String ano, Set<Professor> professores, Set<Disciplina> disciplinas) {
+		
 		this.periodoAno = new PeriodoAno(periodo, ano);
 		addAllProfessores(professores);
 		addAllDisciplina(disciplinas);
@@ -105,10 +117,19 @@ public class GradeHoraria {
 	public void setPeriodoAno(PeriodoAno periodoAno) {
 		this.periodoAno = periodoAno;
 	}
-	
-	public Set<DiasEnum> getDias(){
+
+	public Set<DiasEnum> getDias() {
 		return this.dias;
 	}
+
+	public void professorDisciplinaDiaToString() {
+		int cont = 1;
+		for (ProfessorDiciplinaDia elemento : professorDisciplinaDia) {
+			System.out.println(cont + " " + elemento.toString());
+			cont++;
+		}
+	}
+
 }
 
 class ProfessorDiciplinaDia {
@@ -116,12 +137,25 @@ class ProfessorDiciplinaDia {
 	private Disciplina disciplina;
 	private DiasEnum diasSemana;
 
+	private boolean diaPreenchido = false;
+
+	@Override
+	public String toString() {
+		return "Aula do dia [professor=" + professor.getNomeCompleto() + ",\t\t disciplina=" + disciplina.getNome()
+				+ ",\t\t diasSemana=" + diasSemana.toString() + "]";
+	}
+
 	public ProfessorDiciplinaDia(Professor professor, Disciplina disciplina, DiasEnum diasSemana) {
 		this.professor = professor;
 		this.disciplina = disciplina;
 		this.diasSemana = diasSemana;
+		setDiaPreenchido(validaDiaPreenchido());
 	}
 
+	public boolean validaDiaPreenchido() {
+		return (this.professor.contemProfessor() && this.disciplina.contemDisciplina() && this.diasSemana.ordinal() > 0);
+	}
+	
 	public boolean isProfessor() {
 		return this.professor.contemProfessor();
 	}
@@ -158,6 +192,13 @@ class ProfessorDiciplinaDia {
 		this.diasSemana = diasSemana;
 	}
 
+	public boolean isDiaPreenchido() {
+		return diaPreenchido;
+	}
+
+	public void setDiaPreenchido(boolean diaPreenchido) {
+		this.diaPreenchido = diaPreenchido;
+	}
 }
 
 class PeriodoAno {

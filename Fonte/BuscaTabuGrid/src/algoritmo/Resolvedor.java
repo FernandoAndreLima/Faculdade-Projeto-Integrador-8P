@@ -20,7 +20,7 @@ public class Resolvedor {
 	 */
 	public Set<Professor> professoresDisponiveis = new HashSet<Professor>();
 	public Set<Disciplina> disciplinasDisponiveis = new HashSet<Disciplina>();
-	public Set<GradeHoraria> grade = new HashSet<GradeHoraria>();
+	public Set<GradeHoraria> grades = new HashSet<GradeHoraria>();
 
 	/*
 	 * Construtor
@@ -47,17 +47,26 @@ public class Resolvedor {
 				 * Terceiro loop o de dias
 				 */
 				for (DiasEnum dia : grade.getDias()) {
-					
 					if (validaDiaProfessor(dia, professor)) {
 
 						if (professorConheceDisciplina(professor, disciplina)) {
-							System.out.println(professor.toString());
 							grade.addProfessorDisciplinaDia(professor, disciplina, dia);
 						}
 					}
 				}
 			}
 		}
+		grade.professorDisciplinaDiaToString();
+	}
+	
+	public boolean finalizaGrade(GradeHoraria grade){
+		
+		if(!grade.isEmpty()) {
+			for (GradeHoraria g : grade) {
+				if(g.)
+			}
+		}		
+		return false;
 	}
 	
 	public static boolean validaDiaProfessor(DiasEnum dia, Professor professor) {
@@ -70,3 +79,4 @@ public class Resolvedor {
 		return professor.getDisciplinas().contains(disciplina);
 	}
 }
+

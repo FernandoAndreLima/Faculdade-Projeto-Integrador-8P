@@ -22,7 +22,7 @@ public class Main {
 
 		professores.addAll(dao.getProfessores());
 		disciplinas.addAll(dao.getDisciplinas());
-		cursos.addAll(dao.getCursos());
+		cursos.addAll(dao.getCursos());	
 
 		System.out.println(professores.isEmpty());
 
