@@ -15,59 +15,53 @@ import enums.DiasEnum;
  */
 public class Resolvedor {
 
-	/*
-	 * Variáveis públicas da classe
-	 */
-	public Set<Professor> professoresDisponiveis = new HashSet<Professor>();
-	public Set<Disciplina> disciplinasDisponiveis = new HashSet<Disciplina>();
-	public Set<GradeHoraria> grades = new HashSet<GradeHoraria>();
-
-	/*
-	 * Construtor
-	 */
-	public Resolvedor(Set<Professor> professoresDisponiveis, Set<Disciplina> disciplinasDisponiveis) {
-		this.professoresDisponiveis.addAll(professoresDisponiveis);
-		this.disciplinasDisponiveis.addAll(disciplinasDisponiveis);
-	}
-
 	/**
 	 * Método que gera a grade
 	 * @param grade
 	 */
-	public void constroiGrade(GradeHoraria grade) {
+	public static GradeHoraria constroiGrade(GradeHoraria grade) {
 		/*
 		 * Primeiro loop o de disciplinas
 		 */
+		DisciplinaLoop:
 		for (Disciplina disciplina : grade.getDisciplinas()) {
 			/*
 			 * Segundo loop o de professores
 			 */
+			ProfessorLoop:
 			for (Professor professor : grade.getProfessores()) {
 				/*
 				 * Terceiro loop o de dias
 				 */
+				DiasLoop:
 				for (DiasEnum dia : grade.getDias()) {
+					
 					if (validaDiaProfessor(dia, professor)) {
 
 						if (professorConheceDisciplina(professor, disciplina)) {
 							grade.addProfessorDisciplinaDia(professor, disciplina, dia);
+							grade.removeProfessor(professor);
+							grade.removeDisciplinaListaDisponivel(disciplina);
+							grade.removeDiaDisponivel(dia);
+							break DisciplinaLoop;
 						}
 					}
 				}
 			}
 		}
 		grade.professorDisciplinaDiaToString();
+		return grade;
 	}
 	
-	public boolean finalizaGrade(GradeHoraria grade){
-		
-		if(!grade.isEmpty()) {
-			for (GradeHoraria g : grade) {
-				if(g.)
-			}
-		}		
-		return false;
-	}
+//	public boolean finalizaGrade(GradeHoraria grade){
+//		
+////		if() {
+////			for (GradeHoraria g : grade) {
+////				if(g.)
+////			}
+////		}		
+////		return false;
+//	}
 	
 	public static boolean validaDiaProfessor(DiasEnum dia, Professor professor) {
 			

@@ -13,15 +13,7 @@ public class Curso implements Serializable {
 	private Long id;
 
 	private int version;
-
-	public Set<Disciplina> getDisciplinas() {
-		return disciplinas;
-	}
-
-	public void setDisciplinas(Set<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
-	}
-
+	
 	private String nome;
 
 	private String descricao;
@@ -30,6 +22,14 @@ public class Curso implements Serializable {
 
 	private Set<Disciplina> disciplinas = new HashSet<>();
 	
+	public Set<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(Set<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
 	public void addDisciplina(Disciplina disciplina) {
 		this.disciplinas.add(disciplina);
 	}

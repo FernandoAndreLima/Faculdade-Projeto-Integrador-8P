@@ -17,18 +17,25 @@ public class Main {
 		dao.generateData();
 
 		Set<Professor> professores = new HashSet<>();
-		Set<Disciplina> disciplinas = new HashSet<>();
+		Set<Disciplina> disciplinasPrimeiro = new HashSet<>();
+		Set<Disciplina> disciplinasSegundo = new HashSet<>();
+		Set<Disciplina> disciplinasTerceiro = new HashSet<>();
+		Set<Disciplina> disciplinasQuarto = new HashSet<>();
+		Set<Disciplina> disciplinasQuinto = new HashSet<>();
+		Set<Disciplina> disciplinasSexto = new HashSet<>();
+		Set<Disciplina> disciplinasSetimo = new HashSet<>();
+		Set<Disciplina> disciplinasOitavo = new HashSet<>();
 		Set<Curso> cursos = new HashSet<>();
 
 		professores.addAll(dao.getProfessores());
-		disciplinas.addAll(dao.getDisciplinas());
+		disciplinasPrimeiro.addAll(dao.getDisciplinas());
 		cursos.addAll(dao.getCursos());	
 
 		System.out.println(professores.isEmpty());
 
-		GradeHoraria grade = new GradeHoraria(Periodo.PRIMEIRO, "2019", professores, disciplinas);
-		Resolvedor resolve = new Resolvedor(professores, disciplinas);
-		resolve.constroiGrade(grade);
-		System.out.println(resolve.grade);
+		GradeHoraria gradePrimeiro = Resolvedor.constroiGrade(new GradeHoraria(Periodo.PRIMEIRO, "2019", professores, disciplinasPrimeiro));
+		GradeHoraria gradeSegundo = Resolvedor.constroiGrade(new GradeHoraria(Periodo.TERCEIRO, "2019", professores, disciplinasSegundo));
+		
+
 	}
 }

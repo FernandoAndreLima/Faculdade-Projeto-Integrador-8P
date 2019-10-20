@@ -8,18 +8,19 @@ import enums.Periodo;
 
 /**
  * Objeto Grade Horária por periodo/turma
+ * 
  * @author anderson
  *
  */
 public class GradeHoraria {
 	private PeriodoAno periodoAno;
-	
+
 	private Set<Professor> professores = new HashSet<Professor>();
-	
+
 	private Set<Disciplina> disciplinas = new HashSet<Disciplina>();
-	
+
 	private Set<DiasEnum> dias = new HashSet<DiasEnum>();
-	
+
 	private Set<ProfessorDiciplinaDia> professorDisciplinaDia = new HashSet<ProfessorDiciplinaDia>();
 
 	private boolean todosAulasPreenchidas = false;
@@ -71,7 +72,7 @@ public class GradeHoraria {
 	}
 
 	public GradeHoraria(Periodo periodo, String ano, Set<Professor> professores, Set<Disciplina> disciplinas) {
-		
+
 		this.periodoAno = new PeriodoAno(periodo, ano);
 		addAllProfessores(professores);
 		addAllDisciplina(disciplinas);
@@ -129,7 +130,21 @@ public class GradeHoraria {
 			cont++;
 		}
 	}
+	
+	public void removeProfessor(Professor professor) {
+		if (this.professores.contains(professor))
+			this.professores.remove(professor);
+	}
+	
+	public void removeDisciplinaListaDisponivel(Disciplina disciplina) {
+		if (this.disciplinas.contains(disciplina))
+			this.disciplinas.remove(disciplina);
+	}
 
+	public void removeDiaDisponivel(DiasEnum dia) {
+		if (this.dias.contains(dia))
+			this.dias.remove(dia);
+	}
 }
 
 class ProfessorDiciplinaDia {
@@ -139,6 +154,9 @@ class ProfessorDiciplinaDia {
 
 	private boolean diaPreenchido = false;
 
+	public boolean contemDisciplina(Disciplina dis) {
+		return this.disciplina.equals(dis);
+	}
 	@Override
 	public String toString() {
 		return "Aula do dia [professor=" + professor.getNomeCompleto() + ",\t\t disciplina=" + disciplina.getNome()
@@ -153,9 +171,10 @@ class ProfessorDiciplinaDia {
 	}
 
 	public boolean validaDiaPreenchido() {
-		return (this.professor.contemProfessor() && this.disciplina.contemDisciplina() && this.diasSemana.ordinal() > 0);
+		return (this.professor.contemProfessor() && this.disciplina.contemDisciplina()
+				&& this.diasSemana.ordinal() > 0);
 	}
-	
+
 	public boolean isProfessor() {
 		return this.professor.contemProfessor();
 	}
