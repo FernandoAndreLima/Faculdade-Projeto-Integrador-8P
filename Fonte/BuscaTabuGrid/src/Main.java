@@ -6,6 +6,7 @@ import dao.BancoDao;
 import entities.Curso;
 import entities.Disciplina;
 import entities.Professor;
+import entities.grade.Aula;
 import entities.grade.GradeHoraria;
 import enums.Periodo;
 
@@ -38,6 +39,9 @@ public class Main {
 		GradeHoraria gradePrimeiro = Resolvedor.constroiGrade(new GradeHoraria(Periodo.PRIMEIRO, "2019", professores, disciplinasPrimeiro));
 		GradeHoraria gradeSegundo = Resolvedor.constroiGrade(new GradeHoraria(Periodo.TERCEIRO, "2019", professores, disciplinasSegundo));
 		
+		for (Aula aulaAtual : gradePrimeiro.getProfessorDisciplinaDia()) {
+			System.out.println(aulaAtual);
+		}
 
 	}
 }
