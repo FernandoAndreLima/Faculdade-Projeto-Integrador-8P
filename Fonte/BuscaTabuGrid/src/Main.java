@@ -5,8 +5,8 @@ import algoritmo.Resolvedor;
 import dao.BancoDao;
 import entities.Curso;
 import entities.Disciplina;
-import entities.GradeHoraria;
 import entities.Professor;
+import entities.grade.GradeHoraria;
 import enums.Periodo;
 
 public class Main {
@@ -17,6 +17,7 @@ public class Main {
 		dao.generateData();
 
 		Set<Professor> professores = new HashSet<>();
+		
 		Set<Disciplina> disciplinasPrimeiro = new HashSet<>();
 		Set<Disciplina> disciplinasSegundo = new HashSet<>();
 		Set<Disciplina> disciplinasTerceiro = new HashSet<>();
@@ -25,6 +26,7 @@ public class Main {
 		Set<Disciplina> disciplinasSexto = new HashSet<>();
 		Set<Disciplina> disciplinasSetimo = new HashSet<>();
 		Set<Disciplina> disciplinasOitavo = new HashSet<>();
+		
 		Set<Curso> cursos = new HashSet<>();
 
 		professores.addAll(dao.getProfessores());

@@ -25,7 +25,9 @@ public class DisponibilidadeProfessor implements Serializable {
 	private SemestreEnum semestre;
 
 	private Set<DiasEnum> diasDisponiveis = new HashSet<>();
-
+	
+	private Set<DiasEnum> diasComAUla = new HashSet<>();
+	
 	private Set<DiaNaoDisponivel> diasNaoDisponiveis = new HashSet<>();
 
 	public void addDiasDisponiveis(DiasEnum dia) {
@@ -122,5 +124,21 @@ public class DisponibilidadeProfessor implements Serializable {
 
 	public void setDiasNaoDisponiveis(Set<DiaNaoDisponivel> diasNaoDisponiveis) {
 		this.diasNaoDisponiveis = diasNaoDisponiveis;
+	}
+	
+	/**
+	 * Verifica se o dia está disponível
+	 * @param dia
+	 * @return
+	 */
+	public boolean verificaDiaEstaDisponivel(DiasEnum dia) {
+		return !diasDisponiveis.contains(dia);
+	}
+	
+	public void alteraDiaDisponivelEmDiaAula(DiasEnum dia) {
+		if(verificaDiaEstaDisponivel(dia)) {
+			diasDisponiveis.remove(dia);
+			diasComAUla.add(dia);
+		}
 	}
 }

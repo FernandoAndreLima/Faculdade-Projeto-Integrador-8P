@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import entities.Disciplina;
-import entities.GradeHoraria;
 import entities.Professor;
+import entities.grade.GradeHoraria;
 
 public class Resolvedor {
 

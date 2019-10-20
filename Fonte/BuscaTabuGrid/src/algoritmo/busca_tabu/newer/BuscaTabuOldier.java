@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import entities.Disciplina;
-import entities.GradeAulaDia;
 import entities.Professor;
+import entities.grade.GradeAulaDia;
 
 public class BuscaTabuOldier {
 

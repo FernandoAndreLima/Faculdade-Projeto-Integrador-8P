@@ -1,5 +1,8 @@
-package entities;
+package entities.grade;
 
+import entities.Curso;
+import entities.Disciplina;
+import entities.Professor;
 import enums.DiasEnum;
 import enums.Periodo;
 import enums.SemestreEnum;
