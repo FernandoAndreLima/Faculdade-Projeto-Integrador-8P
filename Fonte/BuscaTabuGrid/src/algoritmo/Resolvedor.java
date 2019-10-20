@@ -1,14 +1,12 @@
 package algoritmo;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import entities.Disciplina;
 import entities.Professor;
 import entities.grade.GradeHoraria;
-import entities.grade.ProfessorDiciplinaDia;
+import entities.grade.Aula;
 import enums.DiasEnum;
 
 /**
@@ -37,36 +35,41 @@ public class Resolvedor {
 		List<DiasEnum> dias = new ArrayList<DiasEnum>();
 		dias.addAll(grade.getDias());
 
-		/*
-		 * Primeiro loop o de disciplinas
-		 */
-		DisciplinaLoop: for (Disciplina disciplina : disciplinas) {
+		while (true) {
 
-			if (grade.getDisciplinasNomes().contains(disciplina.getNome())) {
+			/*
+			 * Primeiro loop o de disciplinas
+			 */
+			DisciplinaLoop: for (Disciplina disciplina : disciplinas) {
 
-				/*
-				 * Segundo loop o de professores
-				 */
-				ProfessorLoop: for (Professor professor : professores) {
+				if (grade.getDisciplinasNomes().contains(disciplina.getNome())) {
+
 					/*
-					 * Terceiro loop o de dias
+					 * Segundo loop o de professores
 					 */
-					DiasLoop: for (DiasEnum dia : dias) {
+					ProfessorLoop: for (Professor professor : professores) {
+						/*
+						 * Terceiro loop o de dias
+						 */
+						DiasLoop: for (DiasEnum dia : dias) {
 
-						if (validaDiaProfessor(dia, professor)) {
+							if (validaDiaProfessor(dia, professor)) {
 
-							if (professorConheceDisciplina(professor, disciplina)) {
-								grade.addProfessorDisciplinaDia(professor, disciplina, dia);
-								grade.atualizaDisponibilidadeProfessor(dia, professor);
-								grade.removeDisciplinasDisponiveis(disciplina.getNome());
+								if (professorConheceDisciplina(professor, disciplina)) {
+									grade.addProfessorDisciplinaDia(professor, disciplina, dia);
+									grade.atualizaDisponibilidadeProfessor(dia, professor);
+									grade.removeDisciplinasDisponiveis(disciplina.getNome());
 
+								}
 							}
 						}
 					}
 				}
 			}
+			grade.professorDisciplinaDiaToString();
+			
+			break;
 		}
-		grade.professorDisciplinaDiaToString();
 		return grade;
 	}
 
@@ -79,7 +82,7 @@ public class Resolvedor {
 
 		ProfessorDiciplinaDiaLoop:
 
-		for (ProfessorDiciplinaDia gradeDia : grade.getProfessorDisciplinaDia()) {
+		for (Aula gradeDia : grade.getProfessorDisciplinaDia()) {
 
 			if (qtdaAulas == grade.getProfessorDisciplinaDia().size() + 1) {
 				break ProfessorDiciplinaDiaLoop;

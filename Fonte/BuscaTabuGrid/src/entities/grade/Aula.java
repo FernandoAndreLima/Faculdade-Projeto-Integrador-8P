@@ -4,7 +4,7 @@ import entities.Disciplina;
 import entities.Professor;
 import enums.DiasEnum;
 
-public class ProfessorDiciplinaDia implements Comparable<ProfessorDiciplinaDia> {
+public class Aula implements Comparable<Aula> {
 	private Professor professor;
 	private Disciplina disciplina;
 	private DiasEnum diasSemana;
@@ -20,7 +20,7 @@ public class ProfessorDiciplinaDia implements Comparable<ProfessorDiciplinaDia> 
 				+ ",\t\t diasSemana=" + diasSemana.toString() + "]";
 	}
 
-	public ProfessorDiciplinaDia(Professor professor, Disciplina disciplina, DiasEnum diasSemana) {
+	public Aula(Professor professor, Disciplina disciplina, DiasEnum diasSemana) {
 		this.professor = professor;
 		this.disciplina = disciplina;
 		this.diasSemana = diasSemana;
@@ -77,7 +77,7 @@ public class ProfessorDiciplinaDia implements Comparable<ProfessorDiciplinaDia> 
 	}
 
 	@Override
-	public int compareTo(ProfessorDiciplinaDia o) {
+	public int compareTo(Aula o) {
 		return 0;
 	}
 }
