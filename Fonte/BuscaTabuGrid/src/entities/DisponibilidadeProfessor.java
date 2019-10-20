@@ -132,7 +132,7 @@ public class DisponibilidadeProfessor implements Serializable {
 	 * @return
 	 */
 	public boolean verificaDiaEstaDisponivel(DiasEnum dia) {
-		return !diasDisponiveis.contains(dia);
+		return diasDisponiveis.contains(dia);
 	}
 	
 	public void alteraDiaDisponivelEmDiaAula(DiasEnum dia) {

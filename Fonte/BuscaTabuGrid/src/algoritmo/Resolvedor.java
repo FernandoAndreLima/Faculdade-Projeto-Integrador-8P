@@ -1,6 +1,8 @@
 package algoritmo;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import entities.Disciplina;
@@ -24,24 +26,41 @@ public class Resolvedor {
 	 */
 	public static GradeHoraria constroiGrade(GradeHoraria grade) {
 		/*
+		 * foi criado essas variaveis do tipo list, pois o hashset não permite ordenacao
+		 */
+		List<Professor> professores = new ArrayList<Professor>();
+		professores.addAll(grade.getProfessores());
+
+		List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+		disciplinas.addAll(grade.getDisciplinas());
+
+		List<DiasEnum> dias = new ArrayList<DiasEnum>();
+		dias.addAll(grade.getDias());
+
+		/*
 		 * Primeiro loop o de disciplinas
 		 */
-		DisciplinaLoop: for (Disciplina disciplina : grade.getDisciplinas()) {
-			/*
-			 * Segundo loop o de professores
-			 */
-			ProfessorLoop: for (Professor professor : grade.getProfessores()) {
+		DisciplinaLoop: for (Disciplina disciplina : disciplinas) {
+
+			if (grade.getDisciplinasNomes().contains(disciplina.getNome())) {
+
 				/*
-				 * Terceiro loop o de dias
+				 * Segundo loop o de professores
 				 */
-				DiasLoop: for (DiasEnum dia : grade.getDias()) {
+				ProfessorLoop: for (Professor professor : professores) {
+					/*
+					 * Terceiro loop o de dias
+					 */
+					DiasLoop: for (DiasEnum dia : dias) {
 
-					if (validaDiaProfessor(dia, professor)) {
+						if (validaDiaProfessor(dia, professor)) {
 
-						if (professorConheceDisciplina(professor, disciplina)) {
-							grade.addProfessorDisciplinaDia(professor, disciplina, dia);
-							grade.atualizaDisponibilidadeProfessor(dia, professor);
-							
+							if (professorConheceDisciplina(professor, disciplina)) {
+								grade.addProfessorDisciplinaDia(professor, disciplina, dia);
+								grade.atualizaDisponibilidadeProfessor(dia, professor);
+								grade.removeDisciplinasDisponiveis(disciplina.getNome());
+
+							}
 						}
 					}
 				}
@@ -52,11 +71,10 @@ public class Resolvedor {
 	}
 
 	private static GradeHoraria removeExcessos(GradeHoraria grade) {
-		
-		
+
 		return grade;
 	}
-	
+
 	public static GradeHoraria finalizaGrade(GradeHoraria grade, int qtdaAulas) {
 
 		ProfessorDiciplinaDiaLoop:

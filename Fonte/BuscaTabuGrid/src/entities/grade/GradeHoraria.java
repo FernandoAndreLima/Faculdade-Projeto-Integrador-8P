@@ -1,6 +1,8 @@
 package entities.grade;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import entities.Disciplina;
@@ -24,6 +26,16 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 	private Set<DiasEnum> dias = new HashSet<DiasEnum>();
 
 	private Set<ProfessorDiciplinaDia> professorDisciplinaDia = new HashSet<ProfessorDiciplinaDia>();
+	
+	private List<String> disciplinasNomes = new ArrayList<String>();
+
+	public List<String> getDisciplinasNomes() {
+		return disciplinasNomes;
+	}
+
+	public void setDisciplinasNomes(List<String> disciplinasNomes) {
+		this.disciplinasNomes = disciplinasNomes;
+	}
 
 	private boolean todosAulasPreenchidas = false;
 
@@ -35,19 +47,26 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 
 	/**
 	 * atualiza disponibilidade do professor
+	 * 
 	 * @param dia
 	 * @param professor
 	 * @return
 	 */
-	public boolean atualizaDisponibilidadeProfessor(DiasEnum dia, Professor professor) {
-		if (verificaProfessorNaListagem(professor) && (professor.getDisponibilidade().verificaDiaEstaDisponivel(dia))) {
-			professor.getDisponibilidade().alteraDiaDisponivelEmDiaAula(dia);
-			return true;
-		} else {
-			return false;
+	public void atualizaDisponibilidadeProfessor(DiasEnum dia, Professor professor) {
+		if (verificaProfessorNaListagem(professor)) {
+			if (professor.getDisponibilidade().verificaDiaEstaDisponivel(dia)) {
+				this.professores.remove(professor);
+				professor.getDisponibilidade().alteraDiaDisponivelEmDiaAula(dia);
+				this.professores.add(professor);
+			}
 		}
 	}
 
+	public void removeDisciplinasDisponiveis(String disc) {
+		if(disciplinasNomes.contains(disc))
+			disciplinasNomes.remove(disc);
+	}
+	
 	public boolean verificaProfessorNaListagem(Professor professor) {
 		return this.professores.contains(professor);
 	}
@@ -108,6 +127,10 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 		dias.add(DiasEnum.QUARTA_FEIRA);
 		dias.add(DiasEnum.QUINTA_FEIRA);
 		dias.add(DiasEnum.SEXTA_FEIRA);
+		
+		for (Disciplina disciplina : disciplinas) {
+			this.disciplinasNomes.add(disciplina.getNome());
+		}
 	}
 
 	public void addProfessore(Professor professor) {
@@ -163,9 +186,9 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 			this.professores.remove(professor);
 	}
 
-	public void removeDisciplinaListaDisponivel(Disciplina disciplina) {
-		if (this.disciplinas.contains(disciplina))
-			this.disciplinas.remove(disciplina);
+	public void removeDisciplinaListaDisponivel(String string) {
+		if (this.disciplinas.contains(string))
+			this.disciplinas.remove(string);
 	}
 
 	public void removeDiaDisponivel(DiasEnum dia) {
