@@ -130,4 +130,11 @@ public class GradeHoraria {
 	public void setAulaSexta(Aula aulaSexta) {
 		this.aulaSexta = aulaSexta;
 	}
+
+	@Override
+	public String toString() {
+		return "GradeHoraria [periodoAno=" + periodoAno + ", \naulaSegunda=" + aulaSegunda + ", \naulaTerca=" + aulaTerca
+				+ ", \naulaQuarta=" + aulaQuarta + ", \naulaQuinta=" + aulaQuinta + ", \naulaSexta=" + aulaSexta + "]";
+	}
+	
 }

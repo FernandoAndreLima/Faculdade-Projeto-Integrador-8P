@@ -42,6 +42,7 @@ public class Main {
 
 		GradeHoraria gradePrimeiro = Resolvedor.constroiGrade(
 				new GradeHoraria(new PeriodoAno(Periodo.PRIMEIRO, "2019"), professores, disciplinasPrimeiro));
+		System.out.println("Primeira Grade "+gradePrimeiro.toString());
 //		GradeHoraria gradeSegundo = Resolvedor.constroiGrade(
 //				new GradeHoraria(new PeriodoAno(Periodo.SEGUNDO, "2019"), professores, disciplinasSegundo));
 

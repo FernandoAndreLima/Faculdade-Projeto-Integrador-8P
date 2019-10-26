@@ -40,13 +40,19 @@ public class Resolvedor {
 	}
 
 	private static Aula resolveAula(Aula aula) {
-		for (Professor professor : professores) {
-			if (professor.conheceDisciplina(aula.getDisciplina())
-					&& professor.possuiDisponibilidadeNoDia(aula.getDiasSemana()) && !estaNaListaTabu(professor)) {
-				aula.setProfessor(professor);
-				listaTabu.add(professor);
-				System.out.println(aula.toString());
-				break;
+		boolean sair = false;
+		while (!sair) {
+			loopProfessor: for (Professor professor : professores) {
+				if (professor.conheceDisciplina(aula.getDisciplina())
+						&& professor.possuiDisponibilidadeNoDia(aula.getDiasSemana()) 
+						&& !estaNaListaTabu(professor)) {
+					aula.setProfessor(professor);
+//					listaTabu.add(professor);
+					sair = true;
+					break loopProfessor;
+				}else {
+//					System.out.println(professor.toString());
+				}
 			}
 		}
 //		if(!aula.contemProfessor()) {
