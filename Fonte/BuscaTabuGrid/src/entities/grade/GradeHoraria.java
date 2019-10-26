@@ -25,8 +25,8 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 
 	private Set<DiasEnum> dias = new HashSet<DiasEnum>();
 
-	private Set<ProfessorDiciplinaDia> professorDisciplinaDia = new HashSet<ProfessorDiciplinaDia>();
-	
+	private Set<Aula> aulas = new HashSet<Aula>();
+
 	private List<String> disciplinasNomes = new ArrayList<String>();
 
 	public List<String> getDisciplinasNomes() {
@@ -63,24 +63,31 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 	}
 
 	public void removeDisciplinasDisponiveis(String disc) {
-		if(disciplinasNomes.contains(disc))
+		if (disciplinasNomes.contains(disc))
 			disciplinasNomes.remove(disc);
 	}
-	
+
 	public boolean verificaProfessorNaListagem(Professor professor) {
 		return this.professores.contains(professor);
 	}
 
 	public void addProfessorDisciplinaDia(Professor professor, Disciplina disciplina, DiasEnum diasSemana) {
-		professorDisciplinaDia.add(new ProfessorDiciplinaDia(professor, disciplina, diasSemana));
+		if (!contemAulaFechada(professor, disciplina, diasSemana)) {
+			aulas.add(new Aula(professor, disciplina, diasSemana));
+		}
 	}
 
-	public Set<ProfessorDiciplinaDia> getProfessorDisciplinaDia() {
-		return professorDisciplinaDia;
+	private boolean contemAulaFechada(Professor professor, Disciplina disciplina, DiasEnum diasSemana) {
+
+		return (aulas.contains(new Aula(professor, disciplina, diasSemana))) ? true : false;
 	}
 
-	public void setProfessorDisciplinaDia(Set<ProfessorDiciplinaDia> professorDisciplinaDia) {
-		this.professorDisciplinaDia = professorDisciplinaDia;
+	public Set<Aula> getProfessorDisciplinaDia() {
+		return aulas;
+	}
+
+	public void setProfessorDisciplinaDia(Set<Aula> professorDisciplinaDia) {
+		this.aulas = professorDisciplinaDia;
 	}
 
 	public boolean isTodosAulasPreenchidas() {
@@ -109,12 +116,12 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 
 	public void verificaTodasEstaoAulasPreenchidas() {
 		int cont = 0;
-		for (ProfessorDiciplinaDia profDiscDia : professorDisciplinaDia) {
+		for (Aula profDiscDia : aulas) {
 			if (profDiscDia.isDiasSemana() && profDiscDia.isDiciplina() && profDiscDia.isProfessor()) {
 				cont++;
 			}
 		}
-		this.todosAulasPreenchidas = (cont == professorDisciplinaDia.size() + 1);
+		this.todosAulasPreenchidas = (cont == aulas.size() + 1);
 	}
 
 	public GradeHoraria(Periodo periodo, String ano, Set<Professor> professores, Set<Disciplina> disciplinas) {
@@ -127,7 +134,7 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 		dias.add(DiasEnum.QUARTA_FEIRA);
 		dias.add(DiasEnum.QUINTA_FEIRA);
 		dias.add(DiasEnum.SEXTA_FEIRA);
-		
+
 		for (Disciplina disciplina : disciplinas) {
 			this.disciplinasNomes.add(disciplina.getNome());
 		}
@@ -157,8 +164,8 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 		return disciplinas;
 	}
 
-	public void addProfessorDiciplinaDiaParaColecao(ProfessorDiciplinaDia objeto) {
-		professorDisciplinaDia.add(objeto);
+	public void addProfessorDiciplinaDiaParaColecao(Aula objeto) {
+		aulas.add(objeto);
 	}
 
 	public PeriodoAno getPeriodoAno() {
@@ -175,7 +182,7 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 
 	public void professorDisciplinaDiaToString() {
 		int cont = 1;
-		for (ProfessorDiciplinaDia elemento : professorDisciplinaDia) {
+		for (Aula elemento : aulas) {
 			System.out.println(cont + " " + elemento.toString());
 			cont++;
 		}
@@ -186,13 +193,18 @@ public class GradeHoraria implements Comparable<GradeHoraria> {
 			this.professores.remove(professor);
 	}
 
-	public void removeDisciplinaListaDisponivel(String string) {
-		if (this.disciplinas.contains(string))
-			this.disciplinas.remove(string);
-	}
-
 	public void removeDiaDisponivel(DiasEnum dia) {
 		if (this.dias.contains(dia))
 			this.dias.remove(dia);
+	}
+	
+	public void addDisciplinaAula(Disciplina disciplina, DiasEnum dia) {
+		if(this.dias.contains(dia)) {
+			if(this.disciplinas.contains(disciplina)) {
+				this.aulas.add(new Aula(disciplina, dia));
+				removeDiaDisponivel(dia);
+				removeDisciplinasDisponiveis(disciplina.getNome());
+			}
+		}
 	}
 }
