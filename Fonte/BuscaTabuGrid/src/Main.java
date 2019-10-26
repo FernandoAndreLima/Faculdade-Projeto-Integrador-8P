@@ -1,35 +1,36 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import algoritmo.Resolvedor;
 import dao.BancoDao;
 import entities.Curso;
 import entities.Disciplina;
 import entities.Professor;
-import entities.grade.Aula;
 import entities.grade.GradeHoraria;
+import entities.grade.PeriodoAno;
 import enums.Periodo;
 
 public class Main {
 
 	public static void main(String[] args) {
+		long start = System.currentTimeMillis();
 		BancoDao dao = new BancoDao();
 
 		dao.generateData();
 
-		Set<Professor> professores = new HashSet<>();
+		List<Professor> professores = new ArrayList<>();
 
-		Set<Disciplina> disciplinasPrimeiro = new HashSet<>();
-		Set<Disciplina> disciplinasSegundo = new HashSet<>();
+		List<Disciplina> disciplinasPrimeiro = new ArrayList<>();
+		List<Disciplina> disciplinasSegundo = new ArrayList<>();
 
-		Set<Disciplina> disciplinasTerceiro = new HashSet<>();
-		Set<Disciplina> disciplinasQuarto = new HashSet<>();
-		Set<Disciplina> disciplinasQuinto = new HashSet<>();
-		Set<Disciplina> disciplinasSexto = new HashSet<>();
-		Set<Disciplina> disciplinasSetimo = new HashSet<>();
-		Set<Disciplina> disciplinasOitavo = new HashSet<>();
+		List<Disciplina> disciplinasTerceiro = new ArrayList<>();
+		List<Disciplina> disciplinasQuarto = new ArrayList<>();
+		List<Disciplina> disciplinasQuinto = new ArrayList<>();
+		List<Disciplina> disciplinasSexto = new ArrayList<>();
+		List<Disciplina> disciplinasListimo = new ArrayList<>();
+		List<Disciplina> disciplinasOitavo = new ArrayList<>();
 
-		Set<Curso> cursos = new HashSet<>();
+		List<Curso> cursos = new ArrayList<>();
 
 		professores.addAll(dao.getProfessores());
 		disciplinasPrimeiro.addAll(dao.getDisciplinas());
@@ -38,14 +39,13 @@ public class Main {
 		System.out.println(professores.isEmpty());
 
 //		GradeHoraria gradePrimeiro = new GradeHoraria(Periodo.PRIMEIRO, "2019", professores, disciplinasPrimeiro);
-		
-		GradeHoraria gradePrimeiro = Resolvedor.constroiGrade(new GradeHoraria(Periodo.PRIMEIRO, "2019", professores, disciplinasPrimeiro));
-		GradeHoraria gradeSegundo = Resolvedor
-				.constroiGrade(new GradeHoraria(Periodo.TERCEIRO, "2019", professores, disciplinasSegundo));
 
-		for (Aula aulaAtual : gradePrimeiro.getProfessorDisciplinaDia()) {
-			System.out.println(aulaAtual);
-		}
+		GradeHoraria gradePrimeiro = Resolvedor.constroiGrade(
+				new GradeHoraria(new PeriodoAno(Periodo.PRIMEIRO, "2019"), professores, disciplinasPrimeiro));
+//		GradeHoraria gradeSegundo = Resolvedor.constroiGrade(
+//				new GradeHoraria(new PeriodoAno(Periodo.SEGUNDO, "2019"), professores, disciplinasSegundo));
 
+		long elapsed = System.currentTimeMillis() - start;
+		System.out.println("o metodo executou em " + elapsed +" milesegundos");
 	}
 }

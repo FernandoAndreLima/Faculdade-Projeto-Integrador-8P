@@ -45,6 +45,7 @@ public class Resolvedor {
 					&& professor.possuiDisponibilidadeNoDia(aula.getDiasSemana()) && !estaNaListaTabu(professor)) {
 				aula.setProfessor(professor);
 				listaTabu.add(professor);
+				System.out.println(aula.toString());
 				break;
 			}
 		}
