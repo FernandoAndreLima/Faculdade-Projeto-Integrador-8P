@@ -10,6 +10,7 @@ import { ProfessoresComponent } from './professores/professores.component';
 import { DisciplinasComponent } from './disciplinas/disciplinas.component';
 import { CursosComponent } from './cursos/cursos.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao
     ProfessoresComponent,
     DisciplinasComponent,
     CursosComponent,
-    PaginaNaoEncontradaComponent
+    PaginaNaoEncontradaComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
