@@ -19,6 +19,62 @@ import enums.Periodo;
 public class GradeHoraria implements Comparable<GradeHoraria> {
 	private PeriodoAno periodoAno;
 
+	private Aula aulaSegunda;
+	private Aula aulaTerca;
+	private Aula aulaQuarta;
+	private Aula aulaQuinta;
+	private Aula aulaSexta;
+	
+	
+	
+	public Aula getAulaSegunda() {
+		return aulaSegunda;
+	}
+
+	public void setAulaSegunda(Aula aulaSegunda) {
+		this.aulaSegunda = aulaSegunda;
+	}
+
+	public Aula getAulaTerca() {
+		return aulaTerca;
+	}
+
+	public void setAulaTerca(Aula aulaTerca) {
+		this.aulaTerca = aulaTerca;
+	}
+
+	public Aula getAulaQuarta() {
+		return aulaQuarta;
+	}
+
+	public void setAulaQuarta(Aula aulaQuarta) {
+		this.aulaQuarta = aulaQuarta;
+	}
+
+	public Aula getAulaQuinta() {
+		return aulaQuinta;
+	}
+
+	public void setAulaQuinta(Aula aulaQuinta) {
+		this.aulaQuinta = aulaQuinta;
+	}
+
+	public Aula getAulaSexta() {
+		return aulaSexta;
+	}
+
+	public void setAulaSexta(Aula aulaSexta) {
+		this.aulaSexta = aulaSexta;
+	}
+
+	public Set<Aula> getAulas() {
+		return aulas;
+	}
+
+	public void setAulas(Set<Aula> aulas) {
+		this.aulas = aulas;
+	}
+
 	private Set<Professor> professores = new HashSet<Professor>();
 
 	private Set<Disciplina> disciplinas = new HashSet<Disciplina>();

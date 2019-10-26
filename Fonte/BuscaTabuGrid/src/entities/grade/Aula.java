@@ -86,4 +86,7 @@ public class Aula implements Comparable<Aula> {
 	public int compareTo(Aula o) {
 		return 0;
 	}
+	public boolean contemProfessor() {
+		return professor.contemProfessor();
+	}
 }
