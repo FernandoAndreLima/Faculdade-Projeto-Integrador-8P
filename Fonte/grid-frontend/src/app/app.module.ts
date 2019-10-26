@@ -6,12 +6,18 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { LoginComponent } from './login/login.component';
+import { ProfessoresComponent } from './professores/professores.component';
+import { DisciplinasComponent } from './disciplinas/disciplinas.component';
+import { CursosComponent } from './cursos/cursos.component';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    ProfessoresComponent,
+    DisciplinasComponent,
+    CursosComponent,
+    PaginaNaoEncontradaComponent
   ],
   imports: [
     BrowserModule,
