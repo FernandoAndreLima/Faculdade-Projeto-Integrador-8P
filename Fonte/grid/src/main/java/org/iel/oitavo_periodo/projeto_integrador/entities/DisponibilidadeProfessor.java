@@ -145,4 +145,7 @@ public class DisponibilidadeProfessor implements Serializable {
 			result += ", semestre: " + semestre;
 		return result;
 	}
+	public List<DiasEnum> getDiasDisponiveis() {
+		return diasDisponiveis;
+	}
 }
