@@ -15,11 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.iel.oitavo_periodo.projeto_integrador.entities.grade.Aula;
+import org.iel.oitavo_periodo.projeto_integrador.entities.grade.GradeHoraria;
 import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 
 @Entity
@@ -59,7 +60,8 @@ public class Turma implements Serializable {
 	@JoinTable(name = "tab_turma_professores", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_professor"))
 	private Set<Professor> professores = new HashSet<>();
 
-	
+	@OneToOne
+	private GradeHoraria grade;
 	
 	public Set<Disciplina> getDisciplinas() {
 		return disciplinas;
@@ -154,13 +156,4 @@ public class Turma implements Serializable {
 			result += ", semestre: " + semestre;
 		return result;
 	}
-}
-
-class GradeHorariaTurma{
-	
-	private Aula aulaSegunda;
-	private Aula aulaTerca;
-	private Aula aulaQuarta;
-	private Aula aulaQuinta;
-	private Aula aulaSexta;
 }

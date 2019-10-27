@@ -1,6 +1,6 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities.grade;
 
-import enums.Periodo;
+import org.iel.oitavo_periodo.projeto_integrador.enums.Periodo;
 
 public class PeriodoAno {
 	private Periodo periodo;

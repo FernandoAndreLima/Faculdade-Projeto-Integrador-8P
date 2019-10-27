@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,14 +44,22 @@ public class Disciplina implements Serializable {
 	@Column(length = 6, name = "cargaHoraria", nullable = false)
 	private String cargaHoraria;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "disciplina", fetch = FetchType.EAGER)
 	private List<Curso> cursos = new ArrayList<Curso>();
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "disciplina", fetch = FetchType.EAGER)
 	private List<Professor> professores = new ArrayList<Professor>();
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "turma", fetch = FetchType.EAGER)
 	private List<Turma> turmas = new ArrayList<Turma>();
+	
+	public boolean contemDisciplina() {
+		return (id != null)
+				&& (nome != null && !nome.trim().isEmpty())
+				&& (descricao != null && !descricao.trim().isEmpty())
+				&& (cargaHoraria != null && !cargaHoraria.trim().isEmpty())
+				? true : false;
+	}
 	
 	public Long getId() {
 		return id;

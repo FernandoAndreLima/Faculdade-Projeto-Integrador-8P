@@ -1,4 +1,4 @@
 package org.iel.oitavo_periodo.projeto_integrador.enums;
 public enum DiasEnum {
-	segundaFeira, tercaFeira, quartaFeira, quintaFeira, sextaFeira, sabado, domingo
+	SEGUNDA_FEIRA, TERCA_FEIRA, QUARTA_FEIRA, QUINTA_FEIRA, SEXTA_FEIRA;
 }

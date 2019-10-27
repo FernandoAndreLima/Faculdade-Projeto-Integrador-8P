@@ -1,10 +1,24 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities.grade;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina;
 import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
 import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
 
-public class Aula implements Comparable<Aula> {
+@Entity
+@Table(name = "tab_aula")
+@XmlRootElement
+public class Aula implements Comparable<Aula>, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Professor professor;
 	private Disciplina disciplina;
 	private DiasEnum diasSemana;
