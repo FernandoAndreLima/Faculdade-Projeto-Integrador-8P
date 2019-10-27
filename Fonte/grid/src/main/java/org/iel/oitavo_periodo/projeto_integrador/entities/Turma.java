@@ -1,8 +1,8 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,7 +50,7 @@ public class Turma implements Serializable {
 
 	@ManyToMany
 	@JoinTable(name = "tab_turma_diciplinas", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
-	private Set<Disciplina> disciplinas = new HashSet<>();
+	private List<Disciplina> disciplinas = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "id_curso")
@@ -58,16 +58,16 @@ public class Turma implements Serializable {
 
 	@ManyToMany
 	@JoinTable(name = "tab_turma_professores", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_professor"))
-	private Set<Professor> professores = new HashSet<>();
+	private List<Professor> professores = new ArrayList<>();
 
 	@OneToOne
 	private GradeHoraria grade;
 	
-	public Set<Disciplina> getDisciplinas() {
+	public List<Disciplina> getDisciplinas() {
 		return disciplinas;
 	}
 
-	public void setDisciplinas(Set<Disciplina> disciplinas) {
+	public void setDisciplinas(List<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
 	}
 
@@ -79,11 +79,11 @@ public class Turma implements Serializable {
 		this.curso = curso;
 	}
 
-	public Set<Professor> getProfessores() {
+	public List<Professor> getProfessores() {
 		return professores;
 	}
 
-	public void setProfessores(Set<Professor> professores) {
+	public void setProfessores(List<Professor> professores) {
 		this.professores = professores;
 	}
 

@@ -40,6 +40,13 @@ public class Instituicao implements Serializable {
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 
+	@Column(length = 200, name = "razao_social", nullable = false)
+	private String razaoSocial;
+
+	@Column(length = 200, name = "nome_fantasia", nullable = false)
+	private String nomeFantasia;
+
+	
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -47,13 +54,7 @@ public class Instituicao implements Serializable {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-
-	@Column(length = 200, name = "razao_social", nullable = false)
-	private String razaoSocial;
-
-	@Column(length = 200, name = "nome_fantasia", nullable = false)
-	private String nomeFantasia;
-
+	
 	public Long getId() {
 		return this.id;
 	}

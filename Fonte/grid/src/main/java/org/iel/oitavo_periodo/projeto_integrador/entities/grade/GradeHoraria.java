@@ -3,6 +3,12 @@ package org.iel.oitavo_periodo.projeto_integrador.entities.grade;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina;
 import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
 import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
@@ -13,14 +19,27 @@ import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
  * @author anderson
  *
  */
+@Entity
+@Table(name = "tab_grade_horaria")
+@XmlRootElement
 public class GradeHoraria {
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "gradeHoraria")
 	private PeriodoAno periodoAno;
-
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "gradeHoraria")
 	private Aula aulaSegunda;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "gradeHoraria")
 	private Aula aulaTerca;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "gradeHoraria")
 	private Aula aulaQuarta;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "gradeHoraria")
 	private Aula aulaQuinta;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "gradeHoraria")
 	private Aula aulaSexta;
 
 	private List<Professor> professores = new ArrayList<Professor>();
@@ -43,6 +62,8 @@ public class GradeHoraria {
 		this.aulaSexta = new Aula(buscaDisciplina(), DiasEnum.SEXTA_FEIRA);
 
 	}
+	
+	public GradeHoraria() {}
 
 	private Disciplina buscaDisciplina() {
 		Disciplina retorno = new Disciplina();

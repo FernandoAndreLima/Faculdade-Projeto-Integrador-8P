@@ -1,8 +1,8 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
+
 @Entity
 @Table(name = "tab_disponibilidade_professor")
 @XmlRootElement
@@ -60,10 +61,10 @@ public class DisponibilidadeProfessor implements Serializable {
 	        joinColumns = @JoinColumn(name = "id_disponibilidade")
 	)
 	@Column(name = "id_dia_enum")
-	private Set<DiasEnum> diasDisponiveis = new HashSet<>();
+	private List<DiasEnum> diasDisponiveis = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = DiaNaoDisponivel.class)
-	private Set<DiaNaoDisponivel> diasNaoDisponiveis = new HashSet<>();
+	private List<DiaNaoDisponivel> diasNaoDisponiveis = new ArrayList<>();
 	
 	public Long getId() {
 		return this.id;
