@@ -1,9 +1,10 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,14 +35,6 @@ public class Curso implements Serializable {
 	@Column(name = "version")
 	private int version;
 
-	public Set<Disciplina> getDisciplinas() {
-		return disciplinas;
-	}
-
-	public void setDisciplinas(Set<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
-	}
-
 	@Column(length = 200, name = "nome", nullable = false)
 	private String nome;
 
@@ -51,9 +44,11 @@ public class Curso implements Serializable {
 	@Column(length = 6, name = "tempo_duracao", nullable = false)
 	private String tempoDuracao;
 
-	@ManyToMany
-	@JoinTable(name = "tab_curso_diciplina", joinColumns = @JoinColumn(name = "id_curso"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
-	private Set<Disciplina> disciplinas = new HashSet<>();
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "tab_curso_diciplina", 
+		joinColumns = {@JoinColumn(name = "id_curso", referencedColumnName = "id")}, 	
+		inverseJoinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id")})
+	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
 	public Long getId() {
 		return this.id;

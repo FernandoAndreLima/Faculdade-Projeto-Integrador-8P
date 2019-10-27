@@ -13,7 +13,8 @@
  	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Professor</class>
  	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Turma</class>
  	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Usuario</class>
-
+ 	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina</class>
+	
  	
     <properties>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
