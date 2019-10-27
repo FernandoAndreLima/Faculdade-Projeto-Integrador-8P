@@ -66,6 +66,8 @@ public class DisponibilidadeProfessor implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = DiaNaoDisponivel.class)
 	private List<DiaNaoDisponivel> diasNaoDisponiveis = new ArrayList<>();
 	
+	public DisponibilidadeProfessor() {}
+	
 	public Long getId() {
 		return this.id;
 	}

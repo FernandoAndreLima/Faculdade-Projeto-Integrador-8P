@@ -11,10 +11,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "tab_disciplina")
@@ -44,13 +49,17 @@ public class Disciplina implements Serializable {
 	@Column(length = 6, name = "cargaHoraria", nullable = false)
 	private String cargaHoraria;
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "disciplina", fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "disciplinas", fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Curso> cursos = new ArrayList<Curso>();
 	
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "disciplina", fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "disciplinas", fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Professor> professores = new ArrayList<Professor>();
 	
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "turma", fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
+	@JoinTable(name = "tab_turma_diciplinas", joinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id")} , inverseJoinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id")})
 	private List<Turma> turmas = new ArrayList<Turma>();
 	
 	public boolean contemDisciplina() {
@@ -60,6 +69,8 @@ public class Disciplina implements Serializable {
 				&& (cargaHoraria != null && !cargaHoraria.trim().isEmpty())
 				? true : false;
 	}
+	
+	public Disciplina() {}
 	
 	public Long getId() {
 		return id;

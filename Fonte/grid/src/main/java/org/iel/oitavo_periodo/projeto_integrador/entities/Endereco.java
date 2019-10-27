@@ -44,6 +44,8 @@ public class Endereco implements Serializable {
 	@Column(length = 50, name = "cep", nullable = false)
 	private String cep;
 
+	public Endereco() {}
+	
 	public Long getId() {
 		return this.id;
 	}

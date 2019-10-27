@@ -52,6 +52,8 @@ public class DiaNaoDisponivel implements Serializable {
 	@JoinColumn(name = "id_disponibilidade")
 	private DisponibilidadeProfessor disponibilidade;
 
+	public DiaNaoDisponivel() {}
+	
 	public DisponibilidadeProfessor getDisponibilidade() {
 		return disponibilidade;
 	}

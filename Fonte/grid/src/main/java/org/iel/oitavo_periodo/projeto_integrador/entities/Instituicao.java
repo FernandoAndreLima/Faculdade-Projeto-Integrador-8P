@@ -47,6 +47,8 @@ public class Instituicao implements Serializable {
 	private String nomeFantasia;
 
 	
+	public Instituicao() {}
+	
 	public Endereco getEndereco() {
 		return endereco;
 	}

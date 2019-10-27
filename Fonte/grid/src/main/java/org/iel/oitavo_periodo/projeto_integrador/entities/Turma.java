@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,8 +50,7 @@ public class Turma implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private SemestreEnum semestre;
 
-	@ManyToMany
-	@JoinTable(name = "tab_turma_diciplinas", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "turmas")
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
 	@ManyToOne
@@ -62,6 +63,8 @@ public class Turma implements Serializable {
 
 	@OneToOne
 	private GradeHoraria grade;
+	
+	public Turma() {}
 	
 	public List<Disciplina> getDisciplinas() {
 		return disciplinas;

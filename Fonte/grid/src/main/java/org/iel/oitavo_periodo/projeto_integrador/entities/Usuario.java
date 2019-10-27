@@ -39,6 +39,8 @@ public class Usuario implements Serializable {
 	@Column(length = 120, name = "senha", nullable = false)
 	private String senha;
 
+	public Usuario() {}
+	
 	public Long getId() {
 		return this.id;
 	}

@@ -1,5 +1,7 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities.grade;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,8 +17,13 @@ import org.iel.oitavo_periodo.projeto_integrador.enums.Periodo;
 @Entity
 @Table(name = "tab_grade_horaria")
 @XmlRootElement
-public class PeriodoAno {
+public class PeriodoAno implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
@@ -34,6 +41,10 @@ public class PeriodoAno {
 		this.ano = ano;
 	}
 
+	
+	public PeriodoAno() {
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public String toString() {
 		return "PeriodoAno [periodo=" + periodo + ", ano=" + ano + "]";
