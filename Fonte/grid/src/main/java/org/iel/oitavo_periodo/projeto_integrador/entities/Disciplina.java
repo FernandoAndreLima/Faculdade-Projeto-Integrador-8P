@@ -1,8 +1,8 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
+
 @Entity
 @Table(name = "tab_disciplina")
 @XmlRootElement
@@ -41,42 +42,81 @@ public class Disciplina implements Serializable {
 	@Column(length = 6, name = "cargaHoraria", nullable = false)
 	private String cargaHoraria;
 
-	@ManyToMany(mappedBy = "disciplinas")
-	private Set<Curso> cursos = new HashSet<>();
+	@ManyToMany
+	private List<Curso> cursos = new ArrayList<Curso>();
 	
-	@ManyToMany(mappedBy = "disciplinas")
-	private Set<Professor> professores = new HashSet<>();
+	@ManyToMany
+	private List<Professor> professores = new ArrayList<Professor>();
 	
-	public Set<Curso> getCursos() {
-		return cursos;
-	}
-
-	public void setCursos(Set<Curso> cursos) {
-		this.cursos = cursos;
-	}
-
-	public Set<Professor> getProfessores() {
-		return professores;
-	}
-
-	public void setProfessores(Set<Professor> professores) {
-		this.professores = professores;
-	}
-
+	@ManyToMany
+	private List<Turma> turmas = new ArrayList<Turma>();
+	
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
-	public void setId(final Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public int getVersion() {
-		return this.version;
+		return version;
 	}
 
-	public void setVersion(final int version) {
+	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getCargaHoraria() {
+		return cargaHoraria;
+	}
+
+	public void setCargaHoraria(String cargaHoraria) {
+		this.cargaHoraria = cargaHoraria;
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+	public List<Professor> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
+	}
+
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
@@ -104,29 +144,6 @@ public class Disciplina implements Serializable {
 		return result;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getCargaHoraria() {
-		return cargaHoraria;
-	}
-
-	public void setCargaHoraria(String cargaHoraria) {
-		this.cargaHoraria = cargaHoraria;
-	}
 
 	@Override
 	public String toString() {
