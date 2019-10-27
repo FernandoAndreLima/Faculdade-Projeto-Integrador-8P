@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,11 +16,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina;
 import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
 import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
+import org.iel.oitavo_periodo.projeto_integrador.enums.Periodo;
+
+import com.sun.istack.NotNull;
 
 /**
  * Objeto Grade Horária por periodo/turma
@@ -42,9 +48,13 @@ public class GradeHoraria implements Serializable{
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 	
+	@Enumerated(EnumType.STRING)
+	private Periodo periodo;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private PeriodoAno periodoAno;
+	@NotNull
+	@NotBlank
+	@Column(length = 4)
+	private String ano;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Aula aulaSegunda;
@@ -70,10 +80,11 @@ public class GradeHoraria implements Serializable{
 	@Transient
 	private List<Disciplina> listaTabu = new ArrayList<Disciplina>();
 
-	public GradeHoraria(PeriodoAno periodoAnoInformado, List<Professor> professoresInformados,
+	public GradeHoraria(Periodo periodoAnoInformado, String anoInformado, List<Professor> professoresInformados,
 			List<Disciplina> disciplinasInformadas) {
 
-		this.periodoAno = periodoAnoInformado;
+		this.periodo = periodoAnoInformado;
+		this.ano = anoInformado;
 		this.professores.addAll(professoresInformados);
 		this.disciplinas.addAll(disciplinasInformadas);
 
@@ -103,12 +114,12 @@ public class GradeHoraria implements Serializable{
 		return retorno;
 	}
 	
-	public PeriodoAno getPeriodoAno() {
-		return periodoAno;
+	public Periodo getPeriodo() {
+		return periodo;
 	}
 
-	public void setPeriodoAno(PeriodoAno periodoAno) {
-		this.periodoAno = periodoAno;
+	public void setPeriodo(Periodo periodoAno) {
+		this.periodo = periodoAno;
 	}
 
 	public List<Professor> getProfessores() {
@@ -179,7 +190,7 @@ public class GradeHoraria implements Serializable{
 
 	@Override
 	public String toString() {
-		return "GradeHoraria [periodoAno=" + periodoAno + ", \naulaSegunda=" + aulaSegunda + ", \naulaTerca=" + aulaTerca
+		return "GradeHoraria [periodoAno=" + periodo + ", \naulaSegunda=" + aulaSegunda + ", \naulaTerca=" + aulaTerca
 				+ ", \naulaQuarta=" + aulaQuarta + ", \naulaQuinta=" + aulaQuinta + ", \naulaSexta=" + aulaSexta + "]";
 	}
 	
