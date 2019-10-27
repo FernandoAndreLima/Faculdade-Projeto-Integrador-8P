@@ -6,6 +6,7 @@ import { CursosComponent } from './cursos/cursos.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { MenuComponent } from './menu/menu.component';
 import { GradeComponent } from './grade/grade.component';
+import { GerarGradeComponent } from './gerar-grade/gerar-grade.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'cursos', component: CursosComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'grade', component: GradeComponent },
+  { path: 'gerar-grade', component: GerarGradeComponent },
   { path: '', redirectTo: '/menu' , pathMatch: 'full'},
   { path: '**', component: PaginaNaoEncontradaComponent }
 ];

@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // ANgular material
-import { MatSliderModule, MatGridListModule, MatMenuModule, MatIconModule } from '@angular/material';
+import { MatSliderModule, MatGridListModule, MatMenuModule, MatIconModule, MatOptionModule, MatFormFieldModule, MatSelectModule } from '@angular/material';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,6 +18,7 @@ import { CursosComponent } from './cursos/cursos.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { MenuComponent } from './menu/menu.component';
 import { GradeComponent } from './grade/grade.component';
+import { GerarGradeComponent } from './gerar-grade/gerar-grade.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { GradeComponent } from './grade/grade.component';
     CursosComponent,
     PaginaNaoEncontradaComponent,
     MenuComponent,
-    GradeComponent
+    GradeComponent,
+    GerarGradeComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,10 @@ import { GradeComponent } from './grade/grade.component';
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatOptionModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
