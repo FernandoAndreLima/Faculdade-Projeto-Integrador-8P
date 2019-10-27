@@ -1,11 +1,11 @@
-package entities.grade;
+package org.iel.oitavo_periodo.projeto_integrador.entities.grade;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Disciplina;
-import entities.Professor;
-import enums.DiasEnum;
+import org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina;
+import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
+import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
 
 /**
  * Objeto Grade Horária por periodo/turma
