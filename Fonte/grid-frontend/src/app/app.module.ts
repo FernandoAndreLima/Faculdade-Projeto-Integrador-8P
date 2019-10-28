@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // ANgular material
-import { MatSliderModule, MatGridListModule, MatMenuModule, MatIconModule, MatOptionModule, MatFormFieldModule, MatSelectModule, MatCardModule} from '@angular/material';
+// import { MatSliderModule, MatGridListModule, MatMenuModule, MatIconModule, MatOptionModule, MatFormFieldModule, MatSelectModule, MatCardModule} from '@angular/material';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -36,18 +36,20 @@ import { GerarGradeComponent } from './gerar-grade/gerar-grade.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
-    MatSliderModule,
-    MatGridListModule,
     FormsModule,
-    ReactiveFormsModule,
-    MatMenuModule,
-    MatIconModule,
-    MatOptionModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatCardModule
+    ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// MatMenuModule,
+// MatIconModule,
+// MatOptionModule,
+// MatFormFieldModule,
+// MatSelectModule,
+// MatCardModule
+// MatSliderModule,
+// MatGridListModule,

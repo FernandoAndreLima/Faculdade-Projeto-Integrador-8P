@@ -8,40 +8,18 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" mat-button [matMenuTriggerFor]="menuGrade">Grade <span class="sr-only">(current)</span></a>
+          <a class="nav-link">Grade</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" mat-button [matMenuTriggerFor]="menuProfessor">Professores</a>
+          <a class="nav-link" >Professores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" mat-button [matMenuTriggerFor]="menuDisciplina">Disciplinas</a>
+          <a class="nav-link">Disciplinas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" mat-button [matMenuTriggerFor]="menuCurso">Cursos</a>
-        </li>
-        
+          <a class="nav-link">Cursos</a>
+        </li>     
       </ul>
-
-      <mat-menu #menuGrade="matMenu">
-        <button mat-menu-item><a href="/grade">Grades</a></button>
-        <button mat-menu-item><a href="/gerar-grade">Gerar Grade</a></button>
-      </mat-menu>
-      
-      <mat-menu #menuProfessor="matMenu">
-        <button mat-menu-item><a href="/professores">Listar Professores</a></button>
-        <button mat-menu-item><a href="/professores/adicionar">Adicionar Professor</a></button>
-      </mat-menu>
-
-      <mat-menu #menuDisciplina="matMenu">
-        <button mat-menu-item><a href="/disciplinas">Listar Disciplinas</a></button>
-        <button mat-menu-item><a href="/disciplinas/adicionar">Adicionar disciplina</a></button>
-      </mat-menu>
-
-      <mat-menu #menuCurso="matMenu">
-        <button mat-menu-item><a href="/cursos">Listar Cursos</a></button>
-        <button mat-menu-item><a href="/cursos/adicionar">Adicionar curso</a></button>
-      </mat-menu>
-
 
       <div class="form-inline mt-2 mt-md-0">
         <a href="https://github.com/nosrednawall/Faculdade-Projeto-Integrador-8P">
@@ -63,3 +41,42 @@
     <span class="text-muted">Projeto Grid&copy;2019</span>
   </div>
 </footer>
+
+
+
+<!-- <div class="collapse navbar-collapse" id="navbarCollapse">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a class="nav-link" mat-button [matMenuTriggerFor]="menuGrade">Grade <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" mat-button [matMenuTriggerFor]="menuProfessor">Professores</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" mat-button [matMenuTriggerFor]="menuDisciplina">Disciplinas</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" mat-button [matMenuTriggerFor]="menuCurso">Cursos</a>
+    </li>
+    
+  </ul>
+
+  <mat-menu #menuGrade="matMenu">
+    <button mat-menu-item><a href="/grade">Grades</a></button>
+    <button mat-menu-item><a href="/gerar-grade">Gerar Grade</a></button>
+  </mat-menu>
+  
+  <mat-menu #menuProfessor="matMenu">
+    <button mat-menu-item><a href="/professores">Listar Professores</a></button>
+    <button mat-menu-item><a href="/professores/adicionar">Adicionar Professor</a></button>
+  </mat-menu>
+
+  <mat-menu #menuDisciplina="matMenu">
+    <button mat-menu-item><a href="/disciplinas">Listar Disciplinas</a></button>
+    <button mat-menu-item><a href="/disciplinas/adicionar">Adicionar disciplina</a></button>
+  </mat-menu>
+
+  <mat-menu #menuCurso="matMenu">
+    <button mat-menu-item><a href="/cursos">Listar Cursos</a></button>
+    <button mat-menu-item><a href="/cursos/adicionar">Adicionar curso</a></button>
+  </mat-menu> -->
