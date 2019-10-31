@@ -16,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina;
@@ -52,7 +52,7 @@ public class GradeHoraria implements Serializable{
 	private Periodo periodo;
 	
 	@NotNull
-	@NotBlank
+//	@NotBlank
 	@Column(length = 4)
 	private String ano;
 	
