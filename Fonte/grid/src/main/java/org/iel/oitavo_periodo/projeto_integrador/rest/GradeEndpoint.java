@@ -16,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.iel.oitavo_periodo.projeto_integrador.entities.grade.GradeHoraria;
+import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 import org.iel.oitavo_periodo.projeto_integrador.util.UtilCreteFakeData;
 
 @Consumes("application/json")
@@ -35,7 +36,7 @@ public class GradeEndpoint {
 		createDataFake.createData();
 		return Response.ok().build();
 	}
-
+	
 	@GET
 	public List<GradeHoraria> listAll(@QueryParam("start") Integer startPosition,
 			@QueryParam("max") Integer maxResult) {
@@ -50,4 +51,6 @@ public class GradeEndpoint {
 		final List<GradeHoraria> results = findAllQuery.getResultList();
 		return results;
 	}
+	
+
 }

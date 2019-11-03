@@ -1,25 +1,15 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "tab_disciplina")
@@ -49,41 +39,17 @@ public class Disciplina implements Serializable {
 	@Column(length = 6, name = "cargaHoraria", nullable = false)
 	private String cargaHoraria;
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "disciplinas", fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
-	private List<Curso> cursos = new ArrayList<Curso>();
-
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "disciplinas", fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
-	private List<Professor> professores = new ArrayList<Professor>();
-
-	@ManyToMany(fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
-	@JoinTable(name = "tab_turma_diciplinas", joinColumns = {
-			@JoinColumn(name = "id_disciplina", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "id_turma", referencedColumnName = "id") })
-	private List<Turma> turmas = new ArrayList<Turma>();
-	
-	public Disciplina(String nomeRecebido, String tempoDuracaoRecebida, String descricaoRecebida){
+	public Disciplina(String nomeRecebido, String tempoDuracaoRecebida, String descricaoRecebida) {
 		this.nome = nomeRecebido;
 		this.cargaHoraria = tempoDuracaoRecebida;
 		this.descricao = descricaoRecebida;
 //		System.out.println("Disciplina "+nomeRecebido+" criada com sucesso");
 	}
-	
+
 	public boolean contemDisciplina() {
 		return (id != null) && (nome != null && !nome.trim().isEmpty())
 				&& (descricao != null && !descricao.trim().isEmpty())
 				&& (cargaHoraria != null && !cargaHoraria.trim().isEmpty()) ? true : false;
-	}
-
-	public void addProfessor(Professor professor) {
-		professores.add(professor);
-	}
-
-	public void addCurso(Curso curso) {
-		cursos.add(curso);
-
 	}
 
 	public Disciplina() {
@@ -123,30 +89,6 @@ public class Disciplina implements Serializable {
 
 	public void setCargaHoraria(String cargaHoraria) {
 		this.cargaHoraria = cargaHoraria;
-	}
-
-	public List<Curso> getCursos() {
-		return cursos;
-	}
-
-	public void setCursos(List<Curso> cursos) {
-		this.cursos = cursos;
-	}
-
-	public List<Professor> getProfessores() {
-		return professores;
-	}
-
-	public void setProfessores(List<Professor> professores) {
-		this.professores = professores;
-	}
-
-	public List<Turma> getTurmas() {
-		return turmas;
-	}
-
-	public void setTurmas(List<Turma> turmas) {
-		this.turmas = turmas;
 	}
 
 	public static long getSerialversionuid() {

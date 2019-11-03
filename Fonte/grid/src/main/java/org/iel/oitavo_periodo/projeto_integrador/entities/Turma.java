@@ -50,7 +50,7 @@ public class Turma implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private SemestreEnum semestre;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "turmas")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
 	@ManyToOne
@@ -63,9 +63,10 @@ public class Turma implements Serializable {
 
 	@OneToOne
 	private GradeHoraria grade;
-	
-	public Turma() {}
-	
+
+	public Turma() {
+	}
+
 	public List<Disciplina> getDisciplinas() {
 		return disciplinas;
 	}
