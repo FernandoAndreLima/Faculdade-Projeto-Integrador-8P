@@ -1,7 +1,9 @@
 package org.iel.oitavo_periodo.projeto_integrador.util;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -27,9 +29,9 @@ import org.iel.oitavo_periodo.projeto_integrador.enums.TitulacaoEnum;
 @Stateless
 public class UtilCreteFakeData {
 
-	private Set<Professor> professores = new HashSet<>();
-	private Set<Disciplina> disciplinas = new HashSet<>();
-	private Set<Curso> cursos = new HashSet<>();
+	private List<Professor> professores = new ArrayList<Professor>();
+	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+	private List<Curso> cursos = new ArrayList<Curso>();
 
 	@Inject
 	private CursoDao cursoDao;
@@ -43,81 +45,84 @@ public class UtilCreteFakeData {
 	public void createData() {
 		fakeData();
 
-//		for (Professor professor : professores) {
-//			professor.setDataAdmissao(new Date(System.currentTimeMillis()));
-//			professor.setTitulacao(TitulacaoEnum.COLABORADOR);
-//			professorDao.save(professor);
-//		}
+		for (Curso curso : cursos)
+			cursoDao.save(curso);
 
-//		for (Curso curso : cursos) {
-//			cursoDao.save(curso);
-//		}
-//
-//		for (Disciplina disciplina : disciplinas) {
-//			disciplinaDao.save(disciplina);
-//		}
+		for (Disciplina disciplina : disciplinas)
+			disciplinaDao.save(disciplina);
+
+		for (Professor professor : professores)
+			professorDao.save(professor);
 
 		System.out.println("all data created");
 	}
 
 	private void fakeData() {
-		
+
 		Random random = new Random();
-		
-		String[][] nomesCursos = {
-				{"BACHARELADO EM SISTEMAS DA INFORMAÇÃO","4"},
-				{"ADMINISTRAÇÃO","4"},
-				{"DIREITO","5"}
-		};
-		String[] nomesDisciplinasBSI = {"Algoritmos e Estruturas de Dados", "Comunicação Oral e Escrita", "Programação de Computadores", 
-				"Projeto Integrador","Sistemas de Informação", "Lógica Matemática", "Organização e Arquitetura de Computadores", "Sistemas Operacionais",
-				"Análise e Modelagem de Sistemas", "Gestão de Projetos", "Programação Orientada a Objetos", "Banco de Dados e suas Aplicações",
-				"Engenharia de Software","Redes de Computadores","Desenvolvimento de Aplicações","Estágio Supervisionado","Garantia da Qualidade de Software",
-				"Desenvolvimento Web","Modelagem de Processos de Negócios","Pesquisa Operacional","Desenvolvimento Mobile","Inteligência de Negócios",
-				"Interface Humano Computador","Eletiva","Governança de TI","Segurança e Auditoria de Sistemas"};
-		
-		String[] nomesProfessores = {"Arsene Lupin","Cassiana Fagundes Da Silva","Eunelson José da Silva Junior","Mauricio Antonio Ferste",
-				"Thiago Schaedler Uhlmann","Miss Marple","Hercule Poirot","Comissário Maigret"};
-		
-		for(int i = 0; i < nomesDisciplinasBSI.length ; i++) {
-			Disciplina disciplina = new Disciplina(nomesDisciplinasBSI[i],"80",nomesDisciplinasBSI[i]);
-			disciplinas.add(disciplina);
+
+		String[][] nomesCursos = { { "BACHARELADO EM SISTEMAS DA INFORMAÇÃO", "4" }, { "ADMINISTRAÇÃO", "4" },
+				{ "DIREITO", "5" } };
+
+		String[] nomesDisciplinasBSI = { "Algoritmos e Estruturas de Dados", "Comunicação Oral e Escrita",
+				"Programação de Computadores", "Projeto Integrador", "Sistemas de Informação", "Lógica Matemática",
+				"Organização e Arquitetura de Computadores", "Sistemas Operacionais", "Análise e Modelagem de Sistemas",
+				"Gestão de Projetos", "Programação Orientada a Objetos", "Banco de Dados e suas Aplicações",
+				"Engenharia de Software", "Redes de Computadores", "Desenvolvimento de Aplicações",
+				"Estágio Supervisionado", "Garantia da Qualidade de Software", "Desenvolvimento Web",
+				"Modelagem de Processos de Negócios", "Pesquisa Operacional", "Desenvolvimento Mobile",
+				"Inteligência de Negócios", "Interface Humano Computador", "Eletiva", "Governança de TI",
+				"Segurança e Auditoria de Sistemas" };
+
+		String[] nomesProfessores = { "Arsene Lupin", "Cassiana Fagundes Da Silva", "Eunelson José da Silva Junior",
+				"Mauricio Antonio Ferste", "Thiago Schaedler Uhlmann", "Miss Marple", "Hercule Poirot",
+				"Comissário Maigret" };
+
+		for (int i = 0; i < nomesDisciplinasBSI.length; i++) {
+			Disciplina disciplina = new Disciplina(nomesDisciplinasBSI[i], "80", nomesDisciplinasBSI[i]);
+			this.disciplinas.add(disciplina);
+			System.out.println(disciplina.toString());
 		}
-		
-		for(int i = 0; i < nomesProfessores.length; i++) {
-			Professor professor = new Professor(nomesProfessores[i], 
-					RegimeEnum.NOITE, 
-					new Date(System.currentTimeMillis()), 
-					CargoEnum.PROFESSOR, 
-					FormacaoEnum.BACHAREL,
+
+		for (int i = 0; i < nomesProfessores.length; i++) {
+			Professor professor = new Professor(nomesProfessores[i], RegimeEnum.NOITE,
+					new Date(System.currentTimeMillis()), CargoEnum.PROFESSOR, FormacaoEnum.BACHAREL,
 					TitulacaoEnum.COLABORADOR);
-			
-			professores.add(professor);
+
+			this.professores.add(professor);
+			System.out.println(professor.toString());
 		}
-		
-		for(int i = 0; i < 3; i++) {
+
+		for (int i = 0; i < 3; i++) {
 			Curso curso = new Curso(nomesCursos[i][0], "", nomesCursos[i][1]);
-			cursos.add(curso);
+			this.cursos.add(curso);
 		}
-		
-		for(Professor professor : professores) {
-			while(professor.getDisciplinas().size() > 10) {
-				loopDisciplina: for(Disciplina disciplina : disciplinas) {
-					if(disciplina.getNome().equals("Projeto Integrador")) {
+
+		int i = 0;
+		for (Professor professor : professores) {
+			while (professor.getDisciplinas().size() < 15) {
+				loopDisciplina: for (Disciplina disciplina : disciplinas) {
+					if (disciplina.getNome().equals("Projeto Integrador") && !professor.conheceDisciplina(disciplina)) {
 						professor.addDisciplina(disciplina);
 						break loopDisciplina;
+					} else {
+						if (random.nextInt(10) > 5 || random.nextInt(10) == 1 || random.nextInt(10) != 8 && !professor.conheceDisciplina(disciplina)) {
+							professor.addDisciplina(disciplina);
+						}
 					}
-					if(random.nextInt(10) > 5) {
-						professor.addDisciplina(disciplina);
-					}
-					
+
 				}
 			}
+			this.professores.set(i, professor);
+			i++;
+			System.out.println(professor.toString());
 		}
-		
-		for(Professor professor : professores) {
+
+		i = 0;
+
+		for (Professor professor : professores) {
 			int escolha = random.nextInt(10);
-			
+
 			switch (escolha) {
 			case 0:
 				DisponibilidadeProfessor disponibilidadeZero = new DisponibilidadeProfessor();
@@ -129,11 +134,11 @@ public class UtilCreteFakeData {
 				disponibilidadeZero.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
 				disponibilidadeZero.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
 				disponibilidadeZero.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
-								
+
 				professor.setDisponibilidade(disponibilidadeZero);
-				
+
 				break;
-			
+
 			case 1:
 				DisponibilidadeProfessor disponibilidadeUm = new DisponibilidadeProfessor();
 				disponibilidadeUm.setAno("2019");
@@ -150,9 +155,9 @@ public class UtilCreteFakeData {
 				dNDProfe01.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDProfe01.setMotivo("Trabalho voluntário");
 				disponibilidadeUm.addDiasNaoDisponiveis(dNDProfe01);
-				
+
 				professor.setDisponibilidade(disponibilidadeUm);
-				
+
 				break;
 			case 2:
 				DisponibilidadeProfessor disponibilidadeDois = new DisponibilidadeProfessor();
@@ -170,11 +175,11 @@ public class UtilCreteFakeData {
 				dNDProfe02.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDProfe02.setMotivo("Trabalho voluntário");
 				disponibilidadeDois.addDiasNaoDisponiveis(dNDProfe02);
-				
+
 				professor.setDisponibilidade(disponibilidadeDois);
-				
+
 				break;
-			
+
 			case 3:
 				DisponibilidadeProfessor disponibilidadeTres = new DisponibilidadeProfessor();
 				disponibilidadeTres.setAno("2019");
@@ -191,9 +196,9 @@ public class UtilCreteFakeData {
 				dNDTres.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDTres.setMotivo("Trabalho voluntário");
 				disponibilidadeTres.addDiasNaoDisponiveis(dNDTres);
-				
+
 				professor.setDisponibilidade(disponibilidadeTres);
-				
+
 				break;
 
 			case 4:
@@ -212,9 +217,9 @@ public class UtilCreteFakeData {
 				dNDQuatro.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDQuatro.setMotivo("Trabalho voluntário");
 				disponibilidadeQuatro.addDiasNaoDisponiveis(dNDQuatro);
-				
+
 				professor.setDisponibilidade(disponibilidadeQuatro);
-				
+
 				break;
 
 			case 5:
@@ -233,11 +238,11 @@ public class UtilCreteFakeData {
 				dNDCinco.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDCinco.setMotivo("Trabalho voluntário");
 				disponibilidadeCinco.addDiasNaoDisponiveis(dNDCinco);
-				
+
 				professor.setDisponibilidade(disponibilidadeCinco);
-				
+
 				break;
-				
+
 			case 6:
 				DisponibilidadeProfessor disponibilidadeSeis = new DisponibilidadeProfessor();
 				disponibilidadeSeis.setAno("2019");
@@ -254,11 +259,11 @@ public class UtilCreteFakeData {
 				dNDSeis.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDSeis.setMotivo("Trabalho voluntário");
 				disponibilidadeSeis.addDiasNaoDisponiveis(dNDSeis);
-				
+
 				professor.setDisponibilidade(disponibilidadeSeis);
-				
+
 				break;
-				
+
 			case 7:
 				DisponibilidadeProfessor disponibilidadeSete = new DisponibilidadeProfessor();
 				disponibilidadeSete.setAno("2019");
@@ -267,7 +272,7 @@ public class UtilCreteFakeData {
 				disponibilidadeSete.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
 				disponibilidadeSete.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
 				disponibilidadeSete.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
-				
+
 				// dia nao disponivel
 				DiaNaoDisponivel dNDSeteUm = new DiaNaoDisponivel();
 				dNDSeteUm.setDia(DiasEnum.QUINTA_FEIRA);
@@ -275,7 +280,7 @@ public class UtilCreteFakeData {
 				dNDSeteUm.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDSeteUm.setMotivo("Trabalho voluntário");
 				disponibilidadeSete.addDiasNaoDisponiveis(dNDSeteUm);
-				
+
 				// dia nao disponivel
 				DiaNaoDisponivel dNDSete = new DiaNaoDisponivel();
 				dNDSete.setDia(DiasEnum.SEXTA_FEIRA);
@@ -283,11 +288,11 @@ public class UtilCreteFakeData {
 				dNDSete.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDSete.setMotivo("Trabalho voluntário");
 				disponibilidadeSete.addDiasNaoDisponiveis(dNDSete);
-				
+
 				professor.setDisponibilidade(disponibilidadeSete);
-				
+
 				break;
-				
+
 			case 8:
 				DisponibilidadeProfessor disponibilidadeOito = new DisponibilidadeProfessor();
 				disponibilidadeOito.setAno("2019");
@@ -296,7 +301,7 @@ public class UtilCreteFakeData {
 				disponibilidadeOito.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
 				disponibilidadeOito.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
 				disponibilidadeOito.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
-				
+
 				// dia nao disponivel
 				DiaNaoDisponivel dNDOitoUm = new DiaNaoDisponivel();
 				dNDOitoUm.setDia(DiasEnum.SEGUNDA_FEIRA);
@@ -304,7 +309,7 @@ public class UtilCreteFakeData {
 				dNDOitoUm.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDOitoUm.setMotivo("Trabalho voluntário");
 				disponibilidadeOito.addDiasNaoDisponiveis(dNDOitoUm);
-				
+
 				// dia nao disponivel
 				DiaNaoDisponivel dNDOitoDois = new DiaNaoDisponivel();
 				dNDOitoDois.setDia(DiasEnum.TERCA_FEIRA);
@@ -312,11 +317,11 @@ public class UtilCreteFakeData {
 				dNDOitoDois.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDOitoDois.setMotivo("Trabalho voluntário");
 				disponibilidadeOito.addDiasNaoDisponiveis(dNDOitoDois);
-				
+
 				professor.setDisponibilidade(disponibilidadeOito);
-				
+
 				break;
-				
+
 			case 9:
 				DisponibilidadeProfessor disponibilidadeNove = new DisponibilidadeProfessor();
 				disponibilidadeNove.setAno("2019");
@@ -325,7 +330,7 @@ public class UtilCreteFakeData {
 				disponibilidadeNove.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
 				disponibilidadeNove.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
 				disponibilidadeNove.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
-				
+
 				// dia nao disponivel
 				DiaNaoDisponivel dNDNoveUm = new DiaNaoDisponivel();
 				dNDNoveUm.setDia(DiasEnum.TERCA_FEIRA);
@@ -333,7 +338,7 @@ public class UtilCreteFakeData {
 				dNDNoveUm.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDNoveUm.setMotivo("Trabalho voluntário");
 				disponibilidadeNove.addDiasNaoDisponiveis(dNDNoveUm);
-				
+
 				// dia nao disponivel
 				DiaNaoDisponivel dNDNoveDois = new DiaNaoDisponivel();
 				dNDNoveDois.setDia(DiasEnum.QUINTA_FEIRA);
@@ -341,9 +346,9 @@ public class UtilCreteFakeData {
 				dNDNoveDois.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDNoveDois.setMotivo("Trabalho voluntário");
 				disponibilidadeNove.addDiasNaoDisponiveis(dNDNoveDois);
-				
+
 				professor.setDisponibilidade(disponibilidadeNove);
-				
+
 				break;
 			case 10:
 				DisponibilidadeProfessor disponibilidadeDez = new DisponibilidadeProfessor();
@@ -353,7 +358,7 @@ public class UtilCreteFakeData {
 				disponibilidadeDez.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
 				disponibilidadeDez.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
 				disponibilidadeDez.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
-								
+
 				// dia nao disponivel
 				DiaNaoDisponivel dNDDezUm = new DiaNaoDisponivel();
 				dNDDezUm.setDia(DiasEnum.SEGUNDA_FEIRA);
@@ -361,7 +366,7 @@ public class UtilCreteFakeData {
 				dNDDezUm.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDDezUm.setMotivo("Trabalho voluntário");
 				disponibilidadeDez.addDiasNaoDisponiveis(dNDDezUm);
-				
+
 				// dia nao disponivel
 				DiaNaoDisponivel dNDDezDois = new DiaNaoDisponivel();
 				dNDDezDois.setDia(DiasEnum.SEXTA_FEIRA);
@@ -369,12 +374,12 @@ public class UtilCreteFakeData {
 				dNDDezDois.setGrauMotivo(GrauMotivoEnum.ALTO);
 				dNDDezDois.setMotivo("Trabalho voluntário");
 				disponibilidadeDez.addDiasNaoDisponiveis(dNDDezDois);
-				
+
 				professor.setDisponibilidade(disponibilidadeDez);
-				
+
 				break;
 			default:
-				
+
 				DisponibilidadeProfessor disponibilidadeDefault = new DisponibilidadeProfessor();
 				disponibilidadeDefault.setAno("2019");
 				disponibilidadeDefault.setSemestre(SemestreEnum.primeiro);
@@ -384,11 +389,13 @@ public class UtilCreteFakeData {
 				disponibilidadeDefault.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
 				disponibilidadeDefault.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
 				disponibilidadeDefault.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
-								
+
 				professor.setDisponibilidade(disponibilidadeDefault);
-				
+
 				break;
 			}
+			this.professores.set(i, professor);
+			i++;
 		}
 	}
 
