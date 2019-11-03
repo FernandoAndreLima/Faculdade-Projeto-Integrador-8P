@@ -30,8 +30,10 @@ public class UtilCreteFakeData {
 
 	@Inject
 	private static CursoDao cursoDao;
+	
 	@Inject
 	private static ProfessorDao professorDao;
+	
 	@Inject
 	private static DisciplinaDao disciplinaDao;
 

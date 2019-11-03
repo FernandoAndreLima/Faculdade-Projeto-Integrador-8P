@@ -121,10 +121,6 @@ public class Professor implements Serializable {
 		return this.id;
 	}
 
-	public void setId(final Long id) {
-		this.id = id;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

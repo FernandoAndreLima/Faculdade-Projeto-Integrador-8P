@@ -78,10 +78,6 @@ public class DisponibilidadeProfessor implements Serializable {
 		return this.id;
 	}
 
-	public void setId(final Long id) {
-		this.id = id;
-	}
-
 	public int getVersion() {
 		return this.version;
 	}
