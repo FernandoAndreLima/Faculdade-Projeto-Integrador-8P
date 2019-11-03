@@ -82,23 +82,27 @@ public class Professor implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TitulacaoEnum titulacao;
 
-	@ManyToMany(mappedBy = "professor",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@Fetch(FetchMode.SUBSELECT)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "tab_professor_disciplina", 
 		joinColumns = { @JoinColumn(name = "id_professor", referencedColumnName = "id") }, 
 		inverseJoinColumns = { @JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
-	@OneToMany(mappedBy = "professor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_disponibilidade", referencedColumnName = "id")
-	private DisponibilidadeProfessor disponibilidade;
+	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Fetch(FetchMode.SUBSELECT)
+	@JoinTable(name = "tab_professor_disnibilidade",
+		joinColumns = {@JoinColumn(name = "id_professor", referencedColumnName = "id")},
+		inverseJoinColumns = {@JoinColumn(name = "id_disponibilidade", referencedColumnName = "id")}
+			)
+	private List<DisponibilidadeProfessor> disponibilidades = new ArrayList<DisponibilidadeProfessor>();
 
-	public DisponibilidadeProfessor getDisponibilidade() {
-		return disponibilidade;
+	public List<DisponibilidadeProfessor>  getDisponibilidade() {
+		return disponibilidades;
 	}
 
-	public void setDisponibilidade(DisponibilidadeProfessor disponibilidade) {
-		this.disponibilidade = disponibilidade;
+	public void setDisponibilidade(List<DisponibilidadeProfessor>  disponibilidadesRecebidas) {
+		this.disponibilidades.addAll(disponibilidadesRecebidas);
 	}
 
 	public void setDataAdmissao(Date dataAdmissao) {
