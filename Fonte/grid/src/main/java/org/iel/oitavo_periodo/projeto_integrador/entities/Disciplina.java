@@ -63,7 +63,14 @@ public class Disciplina implements Serializable {
 			@JoinColumn(name = "id_disciplina", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "id_turma", referencedColumnName = "id") })
 	private List<Turma> turmas = new ArrayList<Turma>();
-
+	
+	public Disciplina(String nomeRecebido, String tempoDuracaoRecebida, String descricaoRecebida){
+		this.nome = nomeRecebido;
+		this.cargaHoraria = tempoDuracaoRecebida;
+		this.descricao = descricaoRecebida;
+//		System.out.println("Disciplina "+nomeRecebido+" criada com sucesso");
+	}
+	
 	public boolean contemDisciplina() {
 		return (id != null) && (nome != null && !nome.trim().isEmpty())
 				&& (descricao != null && !descricao.trim().isEmpty())

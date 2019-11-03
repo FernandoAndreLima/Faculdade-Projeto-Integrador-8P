@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -66,13 +67,13 @@ public class Professor implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TitulacaoEnum titulacao;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "tab_professor_disciplina", joinColumns = {
 			@JoinColumn(name = "id_professor", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_disponibilidade", referencedColumnName = "id")
 	private DisponibilidadeProfessor disponibilidade;
 
@@ -105,16 +106,17 @@ public class Professor implements Serializable {
 
 	}
 
-	public Professor(Long id, int version, String nomeCompleto, RegimeEnum regime, Date dataAdmissao, CargoEnum cargo,
-			FormacaoEnum formacao) {
-		super();
-		this.id = id;
-		this.version = version;
-		this.nomeCompleto = nomeCompleto;
-		this.regime = regime;
-		this.dataAdmissao = dataAdmissao;
-		this.cargo = cargo;
-		this.formacao = formacao;
+	public Professor(String nomeCompletoRecevido, RegimeEnum regimeRecevido, Date dataAdmissaoRecevido, CargoEnum cargoRecevido,
+			FormacaoEnum formacaoRecevido, TitulacaoEnum tituloRecevido) {
+		
+		this.nomeCompleto = nomeCompletoRecevido;
+		this.regime = regimeRecevido;
+		this.dataAdmissao = dataAdmissaoRecevido;
+		this.cargo = cargoRecevido;
+		this.formacao = formacaoRecevido;
+		this.titulacao = tituloRecevido;
+		
+//		System.out.println("Professor "+nomeCompletoRecevido+" criado com sucesso");
 	}
 
 	public Long getId() {

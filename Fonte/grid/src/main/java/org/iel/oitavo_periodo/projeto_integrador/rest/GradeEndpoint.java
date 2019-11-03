@@ -3,6 +3,7 @@ package org.iel.oitavo_periodo.projeto_integrador.rest;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -25,10 +26,13 @@ public class GradeEndpoint {
 	@PersistenceContext(unitName = "grid-persistence-unit")
 	private EntityManager em;
 
+	@Inject
+	UtilCreteFakeData createDataFake;
+
 	@POST
 	@Path("/criar/")
 	public Response createData() {
-		UtilCreteFakeData.createData();
+		createDataFake.createData();
 		return Response.ok().build();
 	}
 

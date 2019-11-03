@@ -52,6 +52,14 @@ public class Curso implements Serializable {
 
 	public Curso() {}
 	
+	public Curso(String nomeRecebido, String descricaoRecebido, String tempoDusracaoRecebido) {
+		this.nome = nomeRecebido;
+		this.descricao = descricaoRecebido;
+		this.tempoDuracao = tempoDusracaoRecebido;
+		
+//		System.out.println("Curso "+nomeRecebido+" foi criado com sucesso");
+	}
+	
 	public Long getId() {
 		return this.id;
 	}
