@@ -17,19 +17,32 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.iel.oitavo_periodo.projeto_integrador.enums.CargoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.FormacaoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.RegimeEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.TitulacaoEnum;
+
+@NamedQueries({
+		@NamedQuery(name = "Professor.listarTodos", query = "SELECT DISTINCT p FROM Professor p "
+				+ "LEFT JOIN FETCH p.disciplinas " + "LEFT JOIN FETCH p.disponibilidade"),
+
+		@NamedQuery(name = "Professor.busca", query = "SELECT DISTINCT p FROM Professor p "
+				+ "LEFT JOIN FETCH p.disciplinas " + "LEFT JOIN FETCH p.disponibilidade " + "where p.id = :pId"),
+
+		@NamedQuery(name = "Professor.disciplina", query = "SELECT DISTINCT p FROM Professor p "
+				+ "LEFT JOIN FETCH p.disciplinas " + "LEFT JOIN FETCH p.disponibilidade " + "where p.id = :pId") })
 
 @Entity
 @Table(name = "tab_professor")
@@ -69,13 +82,14 @@ public class Professor implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TitulacaoEnum titulacao;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "tab_professor_disciplina", joinColumns = {
-			@JoinColumn(name = "id_professor", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
+	@ManyToMany(mappedBy = "professor",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@Fetch(FetchMode.SUBSELECT)
+	@JoinTable(name = "tab_professor_disciplina", 
+		joinColumns = { @JoinColumn(name = "id_professor", referencedColumnName = "id") }, 
+		inverseJoinColumns = { @JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "professor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_disponibilidade", referencedColumnName = "id")
 	private DisponibilidadeProfessor disponibilidade;
 
@@ -193,10 +207,6 @@ public class Professor implements Serializable {
 				+ disciplinas + "]";
 	}
 
-	public List<Disciplina> getDisciplinas() {
-		return disciplinas;
-	}
-
 	public void setDisciplinas(List<Disciplina> disciplinas) {
 		this.disciplinas.addAll(disciplinas);
 	}
@@ -213,6 +223,10 @@ public class Professor implements Serializable {
 
 	public void setTitulacao(TitulacaoEnum titulacao) {
 		this.titulacao = titulacao;
+	}
+
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
 	}
 
 }

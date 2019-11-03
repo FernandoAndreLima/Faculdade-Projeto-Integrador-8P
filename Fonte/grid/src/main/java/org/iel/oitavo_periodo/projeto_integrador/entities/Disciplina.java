@@ -1,12 +1,15 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,7 +41,10 @@ public class Disciplina implements Serializable {
 
 	@Column(length = 6, name = "cargaHoraria", nullable = false)
 	private String cargaHoraria;
-
+	
+	@ManyToMany(mappedBy = "disciplinas")
+	private List<Professor> professores = new ArrayList<Professor>();
+	
 	public Disciplina(String nomeRecebido, String tempoDuracaoRecebida, String descricaoRecebida) {
 		this.nome = nomeRecebido;
 		this.cargaHoraria = tempoDuracaoRecebida;

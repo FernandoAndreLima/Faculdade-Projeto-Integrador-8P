@@ -128,7 +128,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeZero = new DisponibilidadeProfessor();
 				disponibilidadeZero.setAno("2019");
 				disponibilidadeZero.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeZero.setProfessor(professor);
 				disponibilidadeZero.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
 				disponibilidadeZero.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
 				disponibilidadeZero.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
@@ -143,7 +142,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeUm = new DisponibilidadeProfessor();
 				disponibilidadeUm.setAno("2019");
 				disponibilidadeUm.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeUm.setProfessor(professor);
 				disponibilidadeUm.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
 				disponibilidadeUm.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
 				disponibilidadeUm.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
@@ -163,7 +161,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeDois = new DisponibilidadeProfessor();
 				disponibilidadeDois.setAno("2019");
 				disponibilidadeDois.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeDois.setProfessor(professor);
 				disponibilidadeDois.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
 				disponibilidadeDois.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
 				disponibilidadeDois.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
@@ -184,7 +181,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeTres = new DisponibilidadeProfessor();
 				disponibilidadeTres.setAno("2019");
 				disponibilidadeTres.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeTres.setProfessor(professor);
 				disponibilidadeTres.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
 				disponibilidadeTres.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
 				disponibilidadeTres.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
@@ -205,7 +201,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeQuatro = new DisponibilidadeProfessor();
 				disponibilidadeQuatro.setAno("2019");
 				disponibilidadeQuatro.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeQuatro.setProfessor(professor);
 				disponibilidadeQuatro.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
 				disponibilidadeQuatro.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
 				disponibilidadeQuatro.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
@@ -226,7 +221,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeCinco = new DisponibilidadeProfessor();
 				disponibilidadeCinco.setAno("2019");
 				disponibilidadeCinco.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeCinco.setProfessor(professor);
 				disponibilidadeCinco.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
 				disponibilidadeCinco.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
 				disponibilidadeCinco.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
@@ -247,7 +241,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeSeis = new DisponibilidadeProfessor();
 				disponibilidadeSeis.setAno("2019");
 				disponibilidadeSeis.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeSeis.setProfessor(professor);
 				disponibilidadeSeis.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
 				disponibilidadeSeis.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
 				disponibilidadeSeis.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
@@ -268,7 +261,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeSete = new DisponibilidadeProfessor();
 				disponibilidadeSete.setAno("2019");
 				disponibilidadeSete.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeSete.setProfessor(professor);
 				disponibilidadeSete.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
 				disponibilidadeSete.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
 				disponibilidadeSete.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
@@ -297,7 +289,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeOito = new DisponibilidadeProfessor();
 				disponibilidadeOito.setAno("2019");
 				disponibilidadeOito.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeOito.setProfessor(professor);
 				disponibilidadeOito.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
 				disponibilidadeOito.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
 				disponibilidadeOito.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
@@ -326,7 +317,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeNove = new DisponibilidadeProfessor();
 				disponibilidadeNove.setAno("2019");
 				disponibilidadeNove.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeNove.setProfessor(professor);
 				disponibilidadeNove.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
 				disponibilidadeNove.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
 				disponibilidadeNove.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
@@ -354,7 +344,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeDez = new DisponibilidadeProfessor();
 				disponibilidadeDez.setAno("2019");
 				disponibilidadeDez.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeDez.setProfessor(professor);
 				disponibilidadeDez.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
 				disponibilidadeDez.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
 				disponibilidadeDez.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
@@ -383,7 +372,6 @@ public class UtilCreteFakeData {
 				DisponibilidadeProfessor disponibilidadeDefault = new DisponibilidadeProfessor();
 				disponibilidadeDefault.setAno("2019");
 				disponibilidadeDefault.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeDefault.setProfessor(professor);
 				disponibilidadeDefault.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
 				disponibilidadeDefault.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
 				disponibilidadeDefault.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);

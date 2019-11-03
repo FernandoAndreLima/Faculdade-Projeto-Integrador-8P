@@ -17,7 +17,7 @@ import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
  * 
  */
 @Stateless
-@Path("/professors")
+@Path("/professores")
 @Consumes("application/json")
 @Produces("application/json")
 public class ProfessorEndpoint {
