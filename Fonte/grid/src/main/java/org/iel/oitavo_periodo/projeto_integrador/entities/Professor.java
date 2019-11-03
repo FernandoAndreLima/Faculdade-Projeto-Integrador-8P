@@ -67,9 +67,9 @@ public class Professor implements Serializable {
 	private TitulacaoEnum titulacao;
 
 	@ManyToMany
-	@JoinTable(name = "tab_professor_disciplina", 
-		joinColumns = {@JoinColumn(name = "id_professor",referencedColumnName = "id")}, 
-		inverseJoinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id")})
+	@JoinTable(name = "tab_professor_disciplina", joinColumns = {
+			@JoinColumn(name = "id_professor", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
 	@ManyToOne
@@ -206,4 +206,13 @@ public class Professor implements Serializable {
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	public TitulacaoEnum getTitulacao() {
+		return titulacao;
+	}
+
+	public void setTitulacao(TitulacaoEnum titulacao) {
+		this.titulacao = titulacao;
+	}
+
 }

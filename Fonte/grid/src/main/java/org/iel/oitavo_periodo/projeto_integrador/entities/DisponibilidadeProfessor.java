@@ -34,12 +34,12 @@ public class DisponibilidadeProfessor implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
-	
+
 	@Version
 	@Column(name = "version")
 	private int version;
@@ -56,18 +56,24 @@ public class DisponibilidadeProfessor implements Serializable {
 	private SemestreEnum semestre;
 
 	@ElementCollection(targetClass = DiasEnum.class)
-	@CollectionTable(
-	        name = "tab_disponibilidade_diasenum", 
-	        joinColumns = @JoinColumn(name = "id_disponibilidade")
-	)
+	@CollectionTable(name = "tab_disponibilidade_diasenum", joinColumns = @JoinColumn(name = "id_disponibilidade"))
 	@Column(name = "id_dia_enum")
 	private List<DiasEnum> diasDisponiveis = new ArrayList<>();
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = DiaNaoDisponivel.class)
 	private List<DiaNaoDisponivel> diasNaoDisponiveis = new ArrayList<>();
-	
-	public DisponibilidadeProfessor() {}
-	
+
+	public void addDiasDisponiveis(DiasEnum dia) {
+		this.diasDisponiveis.add(dia);
+	}
+
+	public void addDiasNaoDisponiveis(DiaNaoDisponivel dia) {
+		this.diasNaoDisponiveis.add(dia);
+	}
+
+	public DisponibilidadeProfessor() {
+	}
+
 	public Long getId() {
 		return this.id;
 	}
@@ -147,6 +153,7 @@ public class DisponibilidadeProfessor implements Serializable {
 			result += ", semestre: " + semestre;
 		return result;
 	}
+
 	public List<DiasEnum> getDiasDisponiveis() {
 		return diasDisponiveis;
 	}

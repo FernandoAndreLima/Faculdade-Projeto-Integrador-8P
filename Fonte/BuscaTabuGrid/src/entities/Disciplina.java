@@ -36,7 +36,7 @@ public class Disciplina implements Serializable {
 	public void addProfessor(Professor professor) {
 		professores.add(professor);
 	}
-
+	
 	public void addCurso(Curso curso) {
 		cursos.add(curso);
 	}

@@ -30,12 +30,12 @@ public class Disciplina implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
-	
+
 	@Version
 	@Column(name = "version")
 	private int version;
@@ -52,26 +52,36 @@ public class Disciplina implements Serializable {
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "disciplinas", fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Curso> cursos = new ArrayList<Curso>();
-	
+
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "disciplinas", fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Professor> professores = new ArrayList<Professor>();
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	@JoinTable(name = "tab_turma_diciplinas", joinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id")} , inverseJoinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id")})
+	@JoinTable(name = "tab_turma_diciplinas", joinColumns = {
+			@JoinColumn(name = "id_disciplina", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "id_turma", referencedColumnName = "id") })
 	private List<Turma> turmas = new ArrayList<Turma>();
-	
+
 	public boolean contemDisciplina() {
-		return (id != null)
-				&& (nome != null && !nome.trim().isEmpty())
+		return (id != null) && (nome != null && !nome.trim().isEmpty())
 				&& (descricao != null && !descricao.trim().isEmpty())
-				&& (cargaHoraria != null && !cargaHoraria.trim().isEmpty())
-				? true : false;
+				&& (cargaHoraria != null && !cargaHoraria.trim().isEmpty()) ? true : false;
 	}
-	
-	public Disciplina() {}
-	
+
+	public void addProfessor(Professor professor) {
+		professores.add(professor);
+	}
+
+	public void addCurso(Curso curso) {
+		cursos.add(curso);
+
+	}
+
+	public Disciplina() {
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -165,7 +175,6 @@ public class Disciplina implements Serializable {
 		return result;
 	}
 
-
 	@Override
 	public String toString() {
 		String result = getClass().getSimpleName() + " ";
@@ -180,4 +189,5 @@ public class Disciplina implements Serializable {
 			result += ", cargaHoraria: " + cargaHoraria;
 		return result;
 	}
+
 }
