@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,6 +24,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.IndexColumn;
 import org.iel.oitavo_periodo.projeto_integrador.enums.CargoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.FormacaoEnum;
@@ -67,13 +69,13 @@ public class Professor implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TitulacaoEnum titulacao;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "tab_professor_disciplina", joinColumns = {
 			@JoinColumn(name = "id_professor", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_disponibilidade", referencedColumnName = "id")
 	private DisponibilidadeProfessor disponibilidade;
 
@@ -106,16 +108,16 @@ public class Professor implements Serializable {
 
 	}
 
-	public Professor(String nomeCompletoRecevido, RegimeEnum regimeRecevido, Date dataAdmissaoRecevido, CargoEnum cargoRecevido,
-			FormacaoEnum formacaoRecevido, TitulacaoEnum tituloRecevido) {
-		
+	public Professor(String nomeCompletoRecevido, RegimeEnum regimeRecevido, Date dataAdmissaoRecevido,
+			CargoEnum cargoRecevido, FormacaoEnum formacaoRecevido, TitulacaoEnum tituloRecevido) {
+
 		this.nomeCompleto = nomeCompletoRecevido;
 		this.regime = regimeRecevido;
 		this.dataAdmissao = dataAdmissaoRecevido;
 		this.cargo = cargoRecevido;
 		this.formacao = formacaoRecevido;
 		this.titulacao = tituloRecevido;
-		
+
 //		System.out.println("Professor "+nomeCompletoRecevido+" criado com sucesso");
 	}
 

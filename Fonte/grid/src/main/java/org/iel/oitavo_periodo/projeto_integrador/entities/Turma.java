@@ -1,21 +1,15 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -50,29 +44,14 @@ public class Turma implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private SemestreEnum semestre;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Disciplina> disciplinas = new ArrayList<>();
-
 	@ManyToOne
 	@JoinColumn(name = "id_curso")
 	private Curso curso;
-
-	@ManyToMany
-	@JoinTable(name = "tab_turma_professores", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_professor"))
-	private List<Professor> professores = new ArrayList<>();
 
 	@OneToOne
 	private GradeHoraria grade;
 
 	public Turma() {
-	}
-
-	public List<Disciplina> getDisciplinas() {
-		return disciplinas;
-	}
-
-	public void setDisciplinas(List<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
 	}
 
 	public Curso getCurso() {
@@ -81,14 +60,6 @@ public class Turma implements Serializable {
 
 	public void setCurso(Curso curso) {
 		this.curso = curso;
-	}
-
-	public List<Professor> getProfessores() {
-		return professores;
-	}
-
-	public void setProfessores(List<Professor> professores) {
-		this.professores = professores;
 	}
 
 	public Long getId() {
