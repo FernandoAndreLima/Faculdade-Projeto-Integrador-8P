@@ -80,26 +80,60 @@ public class UtilCreteFakeData {
 				"Thiago Schaedler Uhlmann","Miss Marple","Hercule Poirot","Comissário Maigret"};
 		
 		for(int i = 0; i < nomesDisciplinasBSI.length ; i++) {
-			disciplinas.add(new Disciplina(nomesDisciplinasBSI[i],"80",nomesDisciplinasBSI[i]));
+			Disciplina disciplina = new Disciplina(nomesDisciplinasBSI[i],"80",nomesDisciplinasBSI[i]);
+			disciplinas.add(disciplina);
 		}
 		
 		for(int i = 0; i < nomesProfessores.length; i++) {
-			professores.add(new Professor(nomesProfessores[i], 
+			Professor professor = new Professor(nomesProfessores[i], 
 					RegimeEnum.NOITE, 
 					new Date(System.currentTimeMillis()), 
 					CargoEnum.PROFESSOR, 
 					FormacaoEnum.BACHAREL,
-					TitulacaoEnum.COLABORADOR));
+					TitulacaoEnum.COLABORADOR);
+			
+			professores.add(professor);
 		}
 		
 		for(int i = 0; i < 3; i++) {
-			cursos.add(new Curso(nomesCursos[i][0], "", nomesCursos[i][1]));
+			Curso curso = new Curso(nomesCursos[i][0], "", nomesCursos[i][1]);
+			cursos.add(curso);
+		}
+		
+		for(Professor professor : professores) {
+			while(professor.getDisciplinas().size() > 10) {
+				loopDisciplina: for(Disciplina disciplina : disciplinas) {
+					if(disciplina.getNome().equals("Projeto Integrador")) {
+						professor.addDisciplina(disciplina);
+						break loopDisciplina;
+					}
+					if(random.nextInt(10) > 5) {
+						professor.addDisciplina(disciplina);
+					}
+					
+				}
+			}
 		}
 		
 		for(Professor professor : professores) {
 			int escolha = random.nextInt(10);
 			
 			switch (escolha) {
+			case 0:
+				DisponibilidadeProfessor disponibilidadeZero = new DisponibilidadeProfessor();
+				disponibilidadeZero.setAno("2019");
+				disponibilidadeZero.setSemestre(SemestreEnum.primeiro);
+				disponibilidadeZero.setProfessor(professor);
+				disponibilidadeZero.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
+				disponibilidadeZero.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
+				disponibilidadeZero.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
+				disponibilidadeZero.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
+				disponibilidadeZero.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
+								
+				professor.setDisponibilidade(disponibilidadeZero);
+				
+				break;
+			
 			case 1:
 				DisponibilidadeProfessor disponibilidadeUm = new DisponibilidadeProfessor();
 				disponibilidadeUm.setAno("2019");
@@ -285,244 +319,77 @@ public class UtilCreteFakeData {
 				
 			case 9:
 				DisponibilidadeProfessor disponibilidadeNove = new DisponibilidadeProfessor();
-				disponibilidadeOito.setAno("2019");
-				disponibilidadeOito.setSemestre(SemestreEnum.primeiro);
-				disponibilidadeOito.setProfessor(professor);
-				disponibilidadeOito.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
-				disponibilidadeOito.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
-				disponibilidadeOito.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
+				disponibilidadeNove.setAno("2019");
+				disponibilidadeNove.setSemestre(SemestreEnum.primeiro);
+				disponibilidadeNove.setProfessor(professor);
+				disponibilidadeNove.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
+				disponibilidadeNove.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
+				disponibilidadeNove.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
 				
 				// dia nao disponivel
-				DiaNaoDisponivel dNDOitoUm = new DiaNaoDisponivel();
-				dNDOitoUm.setDia(DiasEnum.SEGUNDA_FEIRA);
-				dNDOitoUm.setDisponibilidade(disponibilidadeOito);
-				dNDOitoUm.setGrauMotivo(GrauMotivoEnum.ALTO);
-				dNDOitoUm.setMotivo("Trabalho voluntário");
-				disponibilidadeOito.addDiasNaoDisponiveis(dNDOitoUm);
+				DiaNaoDisponivel dNDNoveUm = new DiaNaoDisponivel();
+				dNDNoveUm.setDia(DiasEnum.TERCA_FEIRA);
+				dNDNoveUm.setDisponibilidade(disponibilidadeNove);
+				dNDNoveUm.setGrauMotivo(GrauMotivoEnum.ALTO);
+				dNDNoveUm.setMotivo("Trabalho voluntário");
+				disponibilidadeNove.addDiasNaoDisponiveis(dNDNoveUm);
 				
 				// dia nao disponivel
-				DiaNaoDisponivel dNDOitoDois = new DiaNaoDisponivel();
-				dNDOitoDois.setDia(DiasEnum.TERCA_FEIRA);
-				dNDOitoDois.setDisponibilidade(disponibilidadeOito);
-				dNDOitoDois.setGrauMotivo(GrauMotivoEnum.ALTO);
-				dNDOitoDois.setMotivo("Trabalho voluntário");
-				disponibilidadeOito.addDiasNaoDisponiveis(dNDOitoDois);
+				DiaNaoDisponivel dNDNoveDois = new DiaNaoDisponivel();
+				dNDNoveDois.setDia(DiasEnum.QUINTA_FEIRA);
+				dNDNoveDois.setDisponibilidade(disponibilidadeNove);
+				dNDNoveDois.setGrauMotivo(GrauMotivoEnum.ALTO);
+				dNDNoveDois.setMotivo("Trabalho voluntário");
+				disponibilidadeNove.addDiasNaoDisponiveis(dNDNoveDois);
 				
-				professor.setDisponibilidade(disponibilidadeOito);
+				professor.setDisponibilidade(disponibilidadeNove);
 				
 				break;
+			case 10:
+				DisponibilidadeProfessor disponibilidadeDez = new DisponibilidadeProfessor();
+				disponibilidadeDez.setAno("2019");
+				disponibilidadeDez.setSemestre(SemestreEnum.primeiro);
+				disponibilidadeDez.setProfessor(professor);
+				disponibilidadeDez.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
+				disponibilidadeDez.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
+				disponibilidadeDez.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
+								
+				// dia nao disponivel
+				DiaNaoDisponivel dNDDezUm = new DiaNaoDisponivel();
+				dNDDezUm.setDia(DiasEnum.SEGUNDA_FEIRA);
+				dNDDezUm.setDisponibilidade(disponibilidadeDez);
+				dNDDezUm.setGrauMotivo(GrauMotivoEnum.ALTO);
+				dNDDezUm.setMotivo("Trabalho voluntário");
+				disponibilidadeDez.addDiasNaoDisponiveis(dNDDezUm);
 				
+				// dia nao disponivel
+				DiaNaoDisponivel dNDDezDois = new DiaNaoDisponivel();
+				dNDDezDois.setDia(DiasEnum.SEXTA_FEIRA);
+				dNDDezDois.setDisponibilidade(disponibilidadeDez);
+				dNDDezDois.setGrauMotivo(GrauMotivoEnum.ALTO);
+				dNDDezDois.setMotivo("Trabalho voluntário");
+				disponibilidadeDez.addDiasNaoDisponiveis(dNDDezDois);
+				
+				professor.setDisponibilidade(disponibilidadeDez);
+				
+				break;
 			default:
+				
+				DisponibilidadeProfessor disponibilidadeDefault = new DisponibilidadeProfessor();
+				disponibilidadeDefault.setAno("2019");
+				disponibilidadeDefault.setSemestre(SemestreEnum.primeiro);
+				disponibilidadeDefault.setProfessor(professor);
+				disponibilidadeDefault.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
+				disponibilidadeDefault.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
+				disponibilidadeDefault.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
+				disponibilidadeDefault.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
+				disponibilidadeDefault.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
+								
+				professor.setDisponibilidade(disponibilidadeDefault);
+				
 				break;
 			}
 		}
-		
-		// cria os cursos
-		Curso curso1 = new Curso();
-		curso1.setNome("Bacharelado em sistemas da informação");
-		curso1.setTempoDuracao("4");
-		curso1.setDescricao("");
-
-		cursos.add(curso1);
-
-		// cria as disciplinas
-		Disciplina disciplina1 = new Disciplina();
-		disciplina1.setNome("Sistemas de Informação");
-		disciplina1.setCargaHoraria("80");
-		disciplina1.setDescricao("");
-
-		// cria as disciplinas
-		Disciplina disciplina2 = new Disciplina();
-		disciplina2.setNome("Java 1");
-		disciplina2.setCargaHoraria("80");
-		disciplina2.setDescricao("");
-
-		// cria as disciplinas
-		Disciplina disciplina3 = new Disciplina();
-		disciplina3.setNome("Projeto Integrador");
-		disciplina3.setCargaHoraria("80");
-		disciplina3.setDescricao("");
-
-		// cria as disciplinas
-		Disciplina disciplina4 = new Disciplina();
-		disciplina4.setNome("Programação de Computadores");
-		disciplina4.setCargaHoraria("80");
-		disciplina4.setDescricao("");
-
-		// cria as disciplinas
-		Disciplina disciplina5 = new Disciplina();
-		disciplina5.setNome("Algoritmos e Estruturas de Dados");
-		disciplina5.setCargaHoraria("80");
-		disciplina5.setDescricao("");
-		
-		// cria as disciplinas
-		Disciplina disciplina6 = new Disciplina();
-		disciplina5.setNome("Algoritmos e Estruturas de Dados");
-		disciplina5.setCargaHoraria("80");
-		disciplina5.setDescricao("");
-
-		// cria os professores
-		Professor professor1 = new Professor();
-		professor1.setNomeCompleto("Arsène Lupin");
-		professor1.setRegime(RegimeEnum.NOITE);
-		professor1.setCargo(CargoEnum.PROFESSOR);
-		professor1.setFormacao(FormacaoEnum.BACHAREL);
-
-		// disponibilidade professor 01
-		DisponibilidadeProfessor dispoUmProfe01 = new DisponibilidadeProfessor();
-		dispoUmProfe01.setAno("2019");
-		dispoUmProfe01.setSemestre(SemestreEnum.primeiro);
-		dispoUmProfe01.setProfessor(professor1);
-		dispoUmProfe01.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
-		dispoUmProfe01.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
-		dispoUmProfe01.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
-		dispoUmProfe01.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
-		// dia nao disponivel
-		DiaNaoDisponivel dNDProfe01 = new DiaNaoDisponivel();
-		dNDProfe01.setDia(DiasEnum.QUINTA_FEIRA);
-		dNDProfe01.setDisponibilidade(dispoUmProfe01);
-		dNDProfe01.setGrauMotivo(GrauMotivoEnum.ALTO);
-		dNDProfe01.setMotivo("Trabalho voluntário");
-		dispoUmProfe01.addDiasNaoDisponiveis(dNDProfe01);
-
-		// disponibilidade 02 professor 01
-		DisponibilidadeProfessor dispoDoisProfe01 = new DisponibilidadeProfessor();
-		dispoDoisProfe01.setAno("2019");
-		dispoDoisProfe01.setSemestre(SemestreEnum.segundo);
-		dispoDoisProfe01.setProfessor(professor1);
-		dispoDoisProfe01.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
-		dispoDoisProfe01.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
-		dispoDoisProfe01.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
-		dispoDoisProfe01.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
-		// dia nao disponivel
-		DiaNaoDisponivel dNDProfe01Segundo = new DiaNaoDisponivel();
-		dNDProfe01Segundo.setDia(DiasEnum.TERCA_FEIRA);
-		dNDProfe01Segundo.setDisponibilidade(dispoUmProfe01);
-		dNDProfe01Segundo.setGrauMotivo(GrauMotivoEnum.ALTO);
-		dNDProfe01Segundo.setMotivo("Trabalho voluntário");
-		dispoDoisProfe01.addDiasNaoDisponiveis(dNDProfe01Segundo);
-
-		// cria os professores
-		Professor professor2 = new Professor();
-		professor2.setNomeCompleto("Miss Marple");
-		professor2.setRegime(RegimeEnum.NOITE);
-		professor2.setCargo(CargoEnum.PROFESSOR);
-		professor2.setFormacao(FormacaoEnum.BACHAREL);
-
-		// disponibilidade professor 02
-		DisponibilidadeProfessor dispoUmProfe02 = new DisponibilidadeProfessor();
-		dispoUmProfe02.setAno("2019");
-		dispoUmProfe02.setSemestre(SemestreEnum.primeiro);
-		dispoUmProfe02.setProfessor(professor2);
-		dispoUmProfe02.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
-		dispoUmProfe02.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
-		dispoUmProfe02.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
-		dispoUmProfe02.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
-		// dia nao disponivel
-		DiaNaoDisponivel dNDProfe02 = new DiaNaoDisponivel();
-		dNDProfe02.setDia(DiasEnum.SEGUNDA_FEIRA);
-		dNDProfe02.setDisponibilidade(dispoUmProfe01);
-		dNDProfe02.setGrauMotivo(GrauMotivoEnum.ALTO);
-		dNDProfe02.setMotivo("Trabalho em outra instituicao");
-		dispoUmProfe01.addDiasNaoDisponiveis(dNDProfe02);
-
-		// disponibilidade 02 professor 02
-		DisponibilidadeProfessor dispoDoisProfe02 = new DisponibilidadeProfessor();
-		dispoDoisProfe02.setAno("2019");
-		dispoDoisProfe02.setSemestre(SemestreEnum.segundo);
-		dispoDoisProfe02.setProfessor(professor2);
-		dispoDoisProfe02.addDiasDisponiveis(DiasEnum.SEGUNDA_FEIRA);
-		dispoDoisProfe02.addDiasDisponiveis(DiasEnum.TERCA_FEIRA);
-		dispoDoisProfe02.addDiasDisponiveis(DiasEnum.QUARTA_FEIRA);
-		dispoDoisProfe02.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
-		// dia nao disponivel
-		DiaNaoDisponivel dNDProfe02Segundo = new DiaNaoDisponivel();
-		dNDProfe02Segundo.setDia(DiasEnum.SEXTA_FEIRA);
-		dNDProfe02Segundo.setDisponibilidade(dispoUmProfe01);
-		dNDProfe02Segundo.setGrauMotivo(GrauMotivoEnum.ALTO);
-		dNDProfe02Segundo.setMotivo("Trabalho voluntário");
-		dispoDoisProfe02.addDiasNaoDisponiveis(dNDProfe02Segundo);
-
-		// cria os professores
-		Professor professor3 = new Professor();
-		professor3.setNomeCompleto("Arthur Conan Doyle");
-		professor3.setRegime(RegimeEnum.NOITE);
-		professor3.setCargo(CargoEnum.PROFESSOR);
-		professor3.setFormacao(FormacaoEnum.BACHAREL);
-
-		// disponibilidade professor 02
-		DisponibilidadeProfessor dispoUmProfe03 = new DisponibilidadeProfessor();
-		dispoUmProfe03.setAno("2019");
-		dispoUmProfe03.setSemestre(SemestreEnum.primeiro);
-		dispoUmProfe03.setProfessor(professor2);
-		dispoUmProfe03.addDiasDisponiveis(DiasEnum.QUINTA_FEIRA);
-		dispoUmProfe03.addDiasDisponiveis(DiasEnum.SEXTA_FEIRA);
-		// dia nao disponivel
-		DiaNaoDisponivel dNDProfe03 = new DiaNaoDisponivel();
-		dNDProfe03.setDia(DiasEnum.SEGUNDA_FEIRA);
-		dNDProfe03.setDisponibilidade(dispoUmProfe01);
-		dNDProfe03.setGrauMotivo(GrauMotivoEnum.ALTO);
-		dNDProfe03.setMotivo("Trabalho em outra instituicao");
-		dispoUmProfe03.addDiasNaoDisponiveis(dNDProfe03);
-
-		DiaNaoDisponivel dNDDoisProfe03 = new DiaNaoDisponivel();
-		dNDDoisProfe03.setDia(DiasEnum.TERCA_FEIRA);
-		dNDDoisProfe03.setDisponibilidade(dispoUmProfe01);
-		dNDDoisProfe03.setGrauMotivo(GrauMotivoEnum.BAIXO);
-		dNDDoisProfe03.setMotivo("Descanso");
-		dispoUmProfe03.addDiasNaoDisponiveis(dNDDoisProfe03);
-
-		// dia nao disponivel
-		DiaNaoDisponivel dNDTresProfe03 = new DiaNaoDisponivel();
-		dNDTresProfe03.setDia(DiasEnum.QUARTA_FEIRA);
-		dNDTresProfe03.setDisponibilidade(dispoUmProfe01);
-		dNDTresProfe03.setGrauMotivo(GrauMotivoEnum.MEDIO);
-		dNDTresProfe03.setMotivo("Estudo auto diciplinar");
-		dispoDoisProfe02.addDiasNaoDisponiveis(dNDTresProfe03);
-
-		// adiciona os professores na disciplinas
-		disciplina1.addProfessor(professor1);
-		disciplina1.addProfessor(professor2);
-		disciplina2.addProfessor(professor3);
-		disciplina3.addProfessor(professor1);
-		disciplina4.addProfessor(professor3);
-		disciplina5.addProfessor(professor1);
-		disciplina5.addProfessor(professor3);
-
-		// adiciona disciplina no professor 1
-		professor1.addDisciplina(disciplina1);
-		professor1.addDisciplina(disciplina3);
-		professor1.addDisciplina(disciplina5);
-
-		professor2.addDisciplina(disciplina3);
-
-		professor3.addDisciplina(disciplina2);
-		professor3.addDisciplina(disciplina4);
-		professor3.addDisciplina(disciplina5);
-
-//		// adiciona curso na disciplina
-		disciplina1.addCurso(curso1);
-		disciplina2.addCurso(curso1);
-		disciplina3.addCurso(curso1);
-		disciplina4.addCurso(curso1);
-		disciplina5.addCurso(curso1);
-
-		professor1.setDisponibilidade(dispoUmProfe01);
-		professor2.setDisponibilidade(dispoUmProfe02);
-		professor3.setDisponibilidade(dispoUmProfe03);
-
-		professores.add(professor1);
-		professores.add(professor2);
-		professores.add(professor3);
-
-		disciplinas.add(disciplina1);
-		disciplinas.add(disciplina2);
-		disciplinas.add(disciplina4);
-		disciplinas.add(disciplina3);
-		disciplinas.add(disciplina5);
-
-		// adiciona disponibilidade em cada professor
-
 	}
 
 }
