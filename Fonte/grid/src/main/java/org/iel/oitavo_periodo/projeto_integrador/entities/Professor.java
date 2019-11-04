@@ -19,7 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -84,25 +84,20 @@ public class Professor implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
-	@JoinTable(name = "tab_professor_disciplina", 
-		joinColumns = { @JoinColumn(name = "id_professor", referencedColumnName = "id") }, 
-		inverseJoinColumns = { @JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
+	@JoinTable(name = "tab_professor_disciplina", joinColumns = {
+			@JoinColumn(name = "id_professor", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
-	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Fetch(FetchMode.SUBSELECT)
-	@JoinTable(name = "tab_professor_disnibilidade",
-		joinColumns = {@JoinColumn(name = "id_professor", referencedColumnName = "id")},
-		inverseJoinColumns = {@JoinColumn(name = "id_disponibilidade", referencedColumnName = "id")}
-			)
-	private List<DisponibilidadeProfessor> disponibilidades = new ArrayList<DisponibilidadeProfessor>();
+	@OneToOne(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private DisponibilidadeProfessor disponibilidade;
 
-	public List<DisponibilidadeProfessor>  getDisponibilidade() {
-		return disponibilidades;
+	public DisponibilidadeProfessor getDisponibilidade() {
+		return disponibilidade;
 	}
 
-	public void setDisponibilidade(List<DisponibilidadeProfessor>  disponibilidadesRecebidas) {
-		this.disponibilidades.addAll(disponibilidadesRecebidas);
+	public void setDisponibilidade(DisponibilidadeProfessor disponibilidadesRecebidas) {
+		this.disponibilidade = disponibilidadesRecebidas;
 	}
 
 	public void setDataAdmissao(Date dataAdmissao) {

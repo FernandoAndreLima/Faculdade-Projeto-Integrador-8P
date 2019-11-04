@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,10 +41,10 @@ public class Disciplina implements Serializable {
 
 	@Column(length = 6, name = "cargaHoraria", nullable = false)
 	private String cargaHoraria;
-	
+
 	@ManyToMany(mappedBy = "disciplinas")
 	private List<Professor> professores = new ArrayList<Professor>();
-	
+
 	public Disciplina(String nomeRecebido, String tempoDuracaoRecebida, String descricaoRecebida) {
 		this.nome = nomeRecebido;
 		this.cargaHoraria = tempoDuracaoRecebida;
