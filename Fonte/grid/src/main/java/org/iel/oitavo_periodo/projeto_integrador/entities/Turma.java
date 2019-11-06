@@ -4,24 +4,41 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.iel.oitavo_periodo.projeto_integrador.entities.grade.GradeHoraria;
 import org.iel.oitavo_periodo.projeto_integrador.enums.PeriodoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
+
+//@NamedQueries({ @NamedQuery(name = "Turma.listarTodos", query = "SELECT DISTINCT t FROM Turma t "
+//		+ "LEFT JOIN FETCH t.professores " + "LEFT JOIN FETCH t.disciplinas "),
+//
+////	@NamedQuery(name = "Disciplina.busca", query = "SELECT DISTINCT d FROM Disciplina d "
+////			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId"),
+////
+////	@NamedQuery(name = "Disciplina.listaPorPeriodo", query = "SELECT DISTINCT d FROM Disciplina d "
+////			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId") 
+//})
 
 @Entity
 @Table(name = "tab_turma")
@@ -47,7 +64,7 @@ public class Turma implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	private SemestreEnum semestre;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private PeriodoEnum periodo;
 
@@ -58,8 +75,18 @@ public class Turma implements Serializable {
 	@OneToOne
 	private GradeHoraria grade;
 
-	@OneToMany
-	@JoinColumn(name = "disciplina_id")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Fetch(FetchMode.SUBSELECT)
+	@JoinTable(name = "tab_turma_professor", 
+	joinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id") },
+	inverseJoinColumns = {@JoinColumn(name = "id_professor", referencedColumnName = "id") })
+	private List<Professor> professores = new ArrayList<Professor>();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Fetch(FetchMode.SUBSELECT)
+	@JoinTable(name = "tab_turma_disciplina",
+	joinColumns = {	@JoinColumn(name = "id_turma", referencedColumnName = "id") },
+	inverseJoinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
 	public Turma() {
