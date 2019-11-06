@@ -1,11 +1,10 @@
 package org.iel.oitavo_periodo.projeto_integrador.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -13,11 +12,13 @@ import javax.inject.Inject;
 import org.iel.oitavo_periodo.projeto_integrador.dao.CursoDao;
 import org.iel.oitavo_periodo.projeto_integrador.dao.DisciplinaDao;
 import org.iel.oitavo_periodo.projeto_integrador.dao.ProfessorDao;
+import org.iel.oitavo_periodo.projeto_integrador.dao.TurmaDao;
 import org.iel.oitavo_periodo.projeto_integrador.entities.Curso;
 import org.iel.oitavo_periodo.projeto_integrador.entities.DiaNaoDisponivel;
 import org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina;
 import org.iel.oitavo_periodo.projeto_integrador.entities.DisponibilidadeProfessor;
 import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
+import org.iel.oitavo_periodo.projeto_integrador.entities.Turma;
 import org.iel.oitavo_periodo.projeto_integrador.enums.CargoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.FormacaoEnum;
@@ -25,6 +26,7 @@ import org.iel.oitavo_periodo.projeto_integrador.enums.GrauMotivoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.RegimeEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.TitulacaoEnum;
+import org.iel.oitavo_periodo.projeto_integrador.enums.PeriodoEnum;
 
 @Stateless
 public class UtilCreteFakeData {
@@ -32,6 +34,7 @@ public class UtilCreteFakeData {
 	private List<Professor> professores = new ArrayList<Professor>();
 	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 	private List<Curso> cursos = new ArrayList<Curso>();
+	private List<Turma> turmas = new ArrayList<Turma>();
 
 	@Inject
 	private CursoDao cursoDao;
@@ -41,6 +44,9 @@ public class UtilCreteFakeData {
 
 	@Inject
 	private DisciplinaDao disciplinaDao;
+
+	@Inject
+	private TurmaDao turmaDao;
 
 	public void createData() {
 		fakeData();
@@ -53,6 +59,9 @@ public class UtilCreteFakeData {
 
 		for (Professor professor : professores)
 			professorDao.save(professor);
+
+		for (Turma turma : turmas)
+			turmaDao.save(turma);
 
 		System.out.println("all data created");
 	}
@@ -106,7 +115,8 @@ public class UtilCreteFakeData {
 						professor.addDisciplina(disciplina);
 						break loopDisciplina;
 					} else {
-						if (random.nextInt(10) > 5 || random.nextInt(10) == 1 || random.nextInt(10) != 8 && !professor.conheceDisciplina(disciplina)) {
+						if (random.nextInt(10) > 5 || random.nextInt(10) == 1
+								|| random.nextInt(10) != 8 && !professor.conheceDisciplina(disciplina)) {
 							professor.addDisciplina(disciplina);
 						}
 					}
@@ -385,6 +395,17 @@ public class UtilCreteFakeData {
 			this.professores.set(i, professor);
 			i++;
 		}
+
+		List<PeriodoEnum> periodos = carregarAtributos();
+		
+		for(PeriodoEnum periodo : periodos) {
+			
+		}
+
+	}
+
+	public List<PeriodoEnum> carregarAtributos() {
+		return Arrays.asList(PeriodoEnum.values());
 	}
 
 }
