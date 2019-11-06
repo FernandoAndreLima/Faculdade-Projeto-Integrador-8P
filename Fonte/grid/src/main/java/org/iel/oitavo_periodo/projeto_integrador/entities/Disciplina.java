@@ -10,9 +10,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
+
+@NamedQueries({
+	@NamedQuery(name = "Disciplina.listarTodos", query = "SELECT DISTINCT d FROM Disciplina d "
+			+ "LEFT JOIN FETCH d.professores "),
+
+	@NamedQuery(name = "Disciplina.busca", query = "SELECT DISTINCT d FROM Disciplina d "
+			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId"),
+
+	@NamedQuery(name = "Disciplina.listaPorPeriodo", query = "SELECT DISTINCT d FROM Disciplina d "
+			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId") })
+
 
 @Entity
 @Table(name = "tab_disciplina")

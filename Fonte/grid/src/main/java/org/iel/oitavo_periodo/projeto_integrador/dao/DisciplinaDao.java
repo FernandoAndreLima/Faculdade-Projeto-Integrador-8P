@@ -31,7 +31,7 @@ public class DisciplinaDao extends BaseDao<Disciplina> {
 		return em.find(Disciplina.class, id);
 	}
 
-	public List<Disciplina> listAll(Integer startPosition, Integer maxResult) {
+	public List<Disciplina> listAll(Integer startPosition, Integer maxResult, Long idCurso) {
 		TypedQuery<Disciplina> findAllQuery = em.createQuery("SELECT DISTINCT d FROM Disciplina d ORDER BY d.id",
 				Disciplina.class);
 		if (startPosition != null) {
@@ -39,6 +39,9 @@ public class DisciplinaDao extends BaseDao<Disciplina> {
 		}
 		if (maxResult != null) {
 			findAllQuery.setMaxResults(maxResult);
+		}
+		if(idCurso != null) {
+			
 		}
 		return findAllQuery.getResultList();
 	}

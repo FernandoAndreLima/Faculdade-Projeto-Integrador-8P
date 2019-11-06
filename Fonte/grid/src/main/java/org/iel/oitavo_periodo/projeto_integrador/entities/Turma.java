@@ -1,6 +1,8 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,12 +13,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.iel.oitavo_periodo.projeto_integrador.entities.grade.GradeHoraria;
+import org.iel.oitavo_periodo.projeto_integrador.enums.PeriodoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 
 @Entity
@@ -43,6 +47,9 @@ public class Turma implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	private SemestreEnum semestre;
+	
+	@Enumerated(EnumType.ORDINAL)
+	private PeriodoEnum periodo;
 
 	@ManyToOne
 	@JoinColumn(name = "id_curso")
@@ -50,6 +57,10 @@ public class Turma implements Serializable {
 
 	@OneToOne
 	private GradeHoraria grade;
+
+	@OneToMany
+	@JoinColumn(name = "disciplina_id")
+	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
 	public Turma() {
 	}
