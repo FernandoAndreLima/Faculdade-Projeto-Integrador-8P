@@ -17,8 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -77,19 +75,29 @@ public class Turma implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
-	@JoinTable(name = "tab_turma_professor", 
-	joinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id") },
-	inverseJoinColumns = {@JoinColumn(name = "id_professor", referencedColumnName = "id") })
+	@JoinTable(name = "tab_turma_professor", joinColumns = {
+			@JoinColumn(name = "id_turma", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "id_professor", referencedColumnName = "id") })
 	private List<Professor> professores = new ArrayList<Professor>();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
-	@JoinTable(name = "tab_turma_disciplina",
-	joinColumns = {	@JoinColumn(name = "id_turma", referencedColumnName = "id") },
-	inverseJoinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
+	@JoinTable(name = "tab_turma_disciplina", joinColumns = {
+			@JoinColumn(name = "id_turma", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
 	public Turma() {
+	}
+
+	public Turma(List<Disciplina> disciplinasInformadas, List<Professor> professoresInformados, Curso cursoInformado,
+			PeriodoEnum periodoInformado, SemestreEnum semestreInformado, String anoInformado) {
+		this.disciplinas.addAll(disciplinasInformadas);
+		this.professores.addAll(professoresInformados);
+		this.curso = cursoInformado;
+		this.periodo = periodoInformado;
+		this.semestre = semestreInformado;
+		this.ano = anoInformado;
 	}
 
 	public Curso getCurso() {

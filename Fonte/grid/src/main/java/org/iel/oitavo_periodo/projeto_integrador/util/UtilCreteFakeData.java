@@ -28,6 +28,10 @@ import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.TitulacaoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.PeriodoEnum;
 
+/*
+ * todo terminar a geracao da turma
+ */
+
 @Stateless
 public class UtilCreteFakeData {
 
@@ -35,6 +39,7 @@ public class UtilCreteFakeData {
 	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 	private List<Curso> cursos = new ArrayList<Curso>();
 	private List<Turma> turmas = new ArrayList<Turma>();
+	private List<Disciplina>disciplinasDisponiveis = new ArrayList<Disciplina>();
 
 	@Inject
 	private CursoDao cursoDao;
@@ -395,17 +400,42 @@ public class UtilCreteFakeData {
 			this.professores.set(i, professor);
 			i++;
 		}
-
-		List<PeriodoEnum> periodos = carregarAtributos();
-		
-		for(PeriodoEnum periodo : periodos) {
-			
-		}
-
 	}
 
-	public List<PeriodoEnum> carregarAtributos() {
-		return Arrays.asList(PeriodoEnum.values());
+	private void gerarTurma() {
+		PeriodoEnum[] periodos = getPeriodos(SemestreEnum.primeiro);
+		
+		for(PeriodoEnum periodo : periodos) {
+			Curso curso = new Curso();
+			
+			loopCurso: for(Curso cursoLoop : cursos) {
+				if(curso.getNome().equals("BACHARELADO EM SISTEMAS DA INFORMAÇÃO")) {
+					curso = cursoLoop;
+					break loopCurso;
+				}
+			}
+			
+			
+			
+			for(Disciplina disciplina : disciplinas) {
+				for(int i = 0 ; i < 6; i++) {
+					if()
+				}
+			}
+			
+			Turma turma = new Turma(disciplinasInformadas, professoresInformados, curso,
+					periodo, SemestreEnum.primeiro, "2019");
+		}
+	}
+	
+	public PeriodoEnum[] getPeriodos(SemestreEnum semestreEnum) {
+		if(semestreEnum.equals(SemestreEnum.primeiro)) {
+			PeriodoEnum[] periodos = {PeriodoEnum.PRIMEIRO,PeriodoEnum.TERCEIRO,PeriodoEnum.QUINTO,PeriodoEnum.SETIMO};
+			return periodos;
+		}else {
+			PeriodoEnum[] periodos = {PeriodoEnum.SEGUNDO,PeriodoEnum.QUARTO,PeriodoEnum.SEXTO,PeriodoEnum.OITAVO};
+			return periodos;
+		}
 	}
 
 }
