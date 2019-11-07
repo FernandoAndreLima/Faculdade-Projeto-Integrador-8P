@@ -39,7 +39,8 @@ public class UtilCreteFakeData {
 	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 	private List<Curso> cursos = new ArrayList<Curso>();
 	private List<Turma> turmas = new ArrayList<Turma>();
-	private List<Disciplina>disciplinasDisponiveis = new ArrayList<Disciplina>();
+	private List<Disciplina> disciplinasDisponiveis = new ArrayList<Disciplina>();
+	private Random random = new Random();
 
 	@Inject
 	private CursoDao cursoDao;
@@ -72,8 +73,6 @@ public class UtilCreteFakeData {
 	}
 
 	private void fakeData() {
-
-		Random random = new Random();
 
 		String[][] nomesCursos = { { "BACHARELADO EM SISTEMAS DA INFORMAÇÃO", "4" }, { "ADMINISTRAÇÃO", "4" },
 				{ "DIREITO", "5" } };
@@ -112,6 +111,13 @@ public class UtilCreteFakeData {
 			this.cursos.add(curso);
 		}
 
+		gerarProfessorConheceDisciplina();
+		gerarDisponibilidadeProfessor();
+		gerarTurma();
+
+	}
+
+	private void gerarProfessorConheceDisciplina() {
 		int i = 0;
 		for (Professor professor : professores) {
 			while (professor.getDisciplinas().size() < 15) {
@@ -132,8 +138,67 @@ public class UtilCreteFakeData {
 			i++;
 			System.out.println(professor.toString());
 		}
+	}
 
-		i = 0;
+	private void gerarTurma() {
+		PeriodoEnum[] periodos = getPeriodos();
+
+		for (PeriodoEnum periodo : periodos) {
+			Curso curso = new Curso();
+			List<Disciplina> disciplinasInformadas = new ArrayList<Disciplina>();
+
+			loopCurso: for (Curso cursoLoop : this.cursos) {
+				if (cursoLoop.getNome().equals("BACHARELADO EM SISTEMAS DA INFORMAÇÃO")) {
+					curso = cursoLoop;
+					break loopCurso;
+				}
+			}
+
+				loopDisciplinas: for (Disciplina disciplina : disciplinas) {
+										
+					if (!validaItemNaLista(disciplinasInformadas, disciplina)) {
+						disciplinasInformadas.add(disciplina);
+						break loopDisciplinas;
+					}
+					
+					if (!validaProjetoIntegradorNaLista(disciplinasInformadas,"Projeto Integrador")) {
+						Disciplina projeto = new Disciplina("Projeto Integrador", "80", "Projeto Integrador");
+						disciplinasInformadas.add(projeto);
+						break loopDisciplinas;
+					}
+				}
+
+			Turma turma = new Turma(disciplinasInformadas, professores, curso, periodo, SemestreEnum.primeiro, "2019");
+			this.turmas.add(turma);
+		}
+	}
+
+	public static boolean validaItemNaLista(List<Disciplina> lista, Disciplina disciplinaRecebida) {
+		for (Disciplina disciplina : lista) {
+			if(disciplinaRecebida.getNome().equals(disciplina.getNome()))
+				return true;
+		}
+		return false;
+	}
+	
+	public static boolean validaProjetoIntegradorNaLista(List<Disciplina> lista, String projetoIntegrador) {
+		for (Disciplina disciplina : lista) {
+			if(projetoIntegrador.equals(disciplina.getNome()))
+				return true;
+		}
+		return false;
+	}
+	
+	public static boolean validaProjetoIntegradorNaLista(List<Disciplina> lista, int qtda) {
+		int i = 0;
+		for (Disciplina disciplina : lista) {
+			i++;
+		}
+		return i < qtda;
+	}
+	
+	public void gerarDisponibilidadeProfessor() {
+		int i = 0;
 
 		for (Professor professor : professores) {
 			int escolha = random.nextInt(10);
@@ -402,40 +467,10 @@ public class UtilCreteFakeData {
 		}
 	}
 
-	private void gerarTurma() {
-		PeriodoEnum[] periodos = getPeriodos(SemestreEnum.primeiro);
-		
-		for(PeriodoEnum periodo : periodos) {
-			Curso curso = new Curso();
-			
-			loopCurso: for(Curso cursoLoop : cursos) {
-				if(curso.getNome().equals("BACHARELADO EM SISTEMAS DA INFORMAÇÃO")) {
-					curso = cursoLoop;
-					break loopCurso;
-				}
-			}
-			
-			
-			
-			for(Disciplina disciplina : disciplinas) {
-				for(int i = 0 ; i < 6; i++) {
-					if()
-				}
-			}
-			
-			Turma turma = new Turma(disciplinasInformadas, professoresInformados, curso,
-					periodo, SemestreEnum.primeiro, "2019");
-		}
-	}
-	
-	public PeriodoEnum[] getPeriodos(SemestreEnum semestreEnum) {
-		if(semestreEnum.equals(SemestreEnum.primeiro)) {
-			PeriodoEnum[] periodos = {PeriodoEnum.PRIMEIRO,PeriodoEnum.TERCEIRO,PeriodoEnum.QUINTO,PeriodoEnum.SETIMO};
-			return periodos;
-		}else {
-			PeriodoEnum[] periodos = {PeriodoEnum.SEGUNDO,PeriodoEnum.QUARTO,PeriodoEnum.SEXTO,PeriodoEnum.OITAVO};
-			return periodos;
-		}
+	public PeriodoEnum[] getPeriodos() {
+		PeriodoEnum[] periodos = { PeriodoEnum.PRIMEIRO,PeriodoEnum.SEGUNDO, PeriodoEnum.TERCEIRO,PeriodoEnum.QUARTO, PeriodoEnum.QUINTO,PeriodoEnum.SEXTO,
+				PeriodoEnum.SETIMO, PeriodoEnum.OITAVO  };
+		return periodos;
 	}
 
 }
