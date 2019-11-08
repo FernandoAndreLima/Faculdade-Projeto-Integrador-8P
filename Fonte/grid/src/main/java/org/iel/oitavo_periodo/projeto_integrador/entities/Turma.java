@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -28,15 +30,15 @@ import org.iel.oitavo_periodo.projeto_integrador.entities.grade.GradeHoraria;
 import org.iel.oitavo_periodo.projeto_integrador.enums.PeriodoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 
-//@NamedQueries({ @NamedQuery(name = "Turma.listarTodos", query = "SELECT DISTINCT t FROM Turma t "
-//		+ "LEFT JOIN FETCH t.professores " + "LEFT JOIN FETCH t.disciplinas "),
-//
-////	@NamedQuery(name = "Disciplina.busca", query = "SELECT DISTINCT d FROM Disciplina d "
-////			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId"),
-////
-////	@NamedQuery(name = "Disciplina.listaPorPeriodo", query = "SELECT DISTINCT d FROM Disciplina d "
-////			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId") 
-//})
+@NamedQueries({ @NamedQuery(name = "Turma.listarTodos", query = "SELECT DISTINCT t FROM Turma t "
+		+ "LEFT JOIN FETCH t.professores " + "LEFT JOIN FETCH t.disciplinas "),
+
+	@NamedQuery(name = "Turma.busca", query = "SELECT DISTINCT t FROM Turma t "
+			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId"),
+
+	@NamedQuery(name = "Turma.listaTodos", query = "SELECT DISTINCT d FROM Disciplina d "
+			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId") 
+})
 
 @Entity
 @Table(name = "tab_turma")

@@ -7,18 +7,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
 import org.iel.oitavo_periodo.projeto_integrador.entities.Turma;
 
 /**
  * DAO for Turma
  */
 @Stateless
-public class TurmaDao extends BaseDao<Turma>{
+public class TurmaDao extends BaseDao<Turma> {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@PersistenceContext(unitName = "grid-persistence-unit")
 	private EntityManager em;
 
@@ -27,16 +28,20 @@ public class TurmaDao extends BaseDao<Turma>{
 		// TODO Auto-generated method stub
 		return em;
 	}
-	
+
 	public Turma findById(Long id) {
 		return em.find(Turma.class, id);
 	}
-	
-	public List<Turma> listAll(Integer startPosition, Integer maxResult) {
-		TypedQuery<Turma> findAllQuery = em
-				.createQuery(
-						"SELECT DISTINCT t FROM Turma t LEFT JOIN FETCH t.curso ORDER BY t.id",
-						Turma.class);
+
+	public List<Turma> listAll(Integer startPosition, Integer maxResult, Integer idCurso) {
+		
+		TypedQuery<Turma> findAllQuery;
+		if (idCurso != null) {
+			findAllQuery = getEntityManager().createNamedQuery("Turma.listarTodosDoCurso", Turma.class);
+			findAllQuery.setParameter("", value)
+		} else {
+			findAllQuery = getEntityManager().createNamedQuery("Turma.listarTodos", Turma.class);
+		}
 		if (startPosition != null) {
 			findAllQuery.setFirstResult(startPosition);
 		}
