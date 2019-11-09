@@ -31,13 +31,13 @@ import org.iel.oitavo_periodo.projeto_integrador.enums.PeriodoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 
 @NamedQueries({ @NamedQuery(name = "Turma.listarTodos", query = "SELECT DISTINCT t FROM Turma t "
-		+ "LEFT JOIN FETCH t.professores " + "LEFT JOIN FETCH t.disciplinas "),
+		+ "LEFT JOIN FETCH t.professores " + "LEFT JOIN FETCH t.disciplinas " + "LEFT JOIN FETCH t.curso " + "LEFT JOIN FETCH t.grade "),
 
-	@NamedQuery(name = "Turma.busca", query = "SELECT DISTINCT t FROM Turma t "
-			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId"),
-
-	@NamedQuery(name = "Turma.listaTodos", query = "SELECT DISTINCT d FROM Disciplina d "
-			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId") 
+//	@NamedQuery(name = "Turma.busca", query = "SELECT DISTINCT t FROM Turma t "
+//			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId"),
+//
+//	@NamedQuery(name = "Turma.listaTodos", query = "SELECT DISTINCT d FROM Disciplina d "
+//			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId") 
 })
 
 @Entity

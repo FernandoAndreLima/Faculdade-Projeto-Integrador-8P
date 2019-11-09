@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
 import org.iel.oitavo_periodo.projeto_integrador.entities.Turma;
 
 /**
@@ -34,11 +33,11 @@ public class TurmaDao extends BaseDao<Turma> {
 	}
 
 	public List<Turma> listAll(Integer startPosition, Integer maxResult, Integer idCurso) {
-		
+
 		TypedQuery<Turma> findAllQuery;
 		if (idCurso != null) {
 			findAllQuery = getEntityManager().createNamedQuery("Turma.listarTodosDoCurso", Turma.class);
-			findAllQuery.setParameter("", value)
+			findAllQuery.setParameter("pIdCurso", idCurso);
 		} else {
 			findAllQuery = getEntityManager().createNamedQuery("Turma.listarTodos", Turma.class);
 		}
