@@ -24,9 +24,9 @@ public class TurmaEndpoint {
 	@Inject
 	TurmaDao turmaDao;
 
-	@GET
-	public List<Turma> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult, @QueryParam("id") Integer idCurso) {
-		return turmaDao.listAll(startPosition, maxResult, idCurso);
-	}
+//	@GET
+//	public List<Turma> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult, @QueryParam("id") Integer idCurso) {
+//		return turmaDao.buscaTodasTurmasPorCurso(1);
+//	}
 
 }

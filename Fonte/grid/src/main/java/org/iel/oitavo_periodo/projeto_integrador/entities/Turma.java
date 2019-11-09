@@ -29,16 +29,17 @@ import org.hibernate.annotations.FetchMode;
 import org.iel.oitavo_periodo.projeto_integrador.entities.grade.GradeHoraria;
 import org.iel.oitavo_periodo.projeto_integrador.enums.PeriodoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
+@NamedQueries({
+	@NamedQuery(name = "Professor.listarTodos", query = "SELECT DISTINCT p FROM Professor p "
+			+ "LEFT JOIN FETCH p.disciplinas " + "LEFT JOIN FETCH p.disponibilidade"),
 
-@NamedQueries({ @NamedQuery(name = "Turma.listarTodos", query = "SELECT DISTINCT t FROM Turma t "
-		+ "LEFT JOIN FETCH t.professores " + "LEFT JOIN FETCH t.disciplinas " + "LEFT JOIN FETCH t.curso " + "LEFT JOIN FETCH t.grade "),
+	@NamedQuery(name = "Professor.busca", query = "SELECT DISTINCT p FROM Professor p "
+			+ "LEFT JOIN FETCH p.disciplinas " + "LEFT JOIN FETCH p.disponibilidade " + "where p.id = :pId"),
 
-//	@NamedQuery(name = "Turma.busca", query = "SELECT DISTINCT t FROM Turma t "
-//			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId"),
-//
-//	@NamedQuery(name = "Turma.listaTodos", query = "SELECT DISTINCT d FROM Disciplina d "
-//			+ "LEFT JOIN FETCH d.professores " + "where d.id = :pId") 
-})
+	@NamedQuery(name = "Professor.disciplina", query = "SELECT DISTINCT p FROM Professor p "
+			+ "LEFT JOIN FETCH p.disciplinas " + "LEFT JOIN FETCH p.disponibilidade " + "where p.id = :pId") })
+
+
 
 @Entity
 @Table(name = "tab_turma")
@@ -89,9 +90,8 @@ public class Turma implements Serializable {
 					@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
-	public Turma() {
-	}
-
+	public Turma() {}
+	
 	public Turma(List<Disciplina> disciplinasInformadas, List<Professor> professoresInformados, Curso cursoInformado,
 			PeriodoEnum periodoInformado, SemestreEnum semestreInformado, String anoInformado) {
 		this.disciplinas.addAll(disciplinasInformadas);
