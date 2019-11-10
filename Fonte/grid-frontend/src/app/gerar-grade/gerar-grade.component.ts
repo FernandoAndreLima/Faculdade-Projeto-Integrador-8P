@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/api.service';
+import { Curso } from 'src/app/model/curso';
 
-export interface Curso {
-  value: string;
-  viewValue: string;
-}
+// export interface Curso {
+//   value: string;
+//   viewValue: string;
+// }
 
 export interface Semestre {
   value: string;
@@ -23,9 +25,9 @@ export interface Periodo {
 export class GerarGradeComponent implements OnInit {
 
   cursos: Curso[] = [
-    {value: 'BSI', viewValue: 'Bacharelado em sistemas da informação'},
-    {value: 'ADM', viewValue: 'Bacharelado em administração'},
-    {value: 'ENP', viewValue: 'Engenharia de Produção'}
+    {_id: '1', nome: 'Bacharelado em sistemas da informação'},
+    {_id: '2', nome: 'Bacharelado em administração'},
+    {_id: '3', nome: 'Engenharia de Produção'}
   ]
 
   semestres: Semestre[] = [
@@ -46,7 +48,7 @@ export class GerarGradeComponent implements OnInit {
     {value: 'oitavo', viewValue: 'Oitavo Período'}
   ]
 
-  constructor() { }
+  constructor(private _api: ApiService) { }
 
   ngOnInit() {
   }

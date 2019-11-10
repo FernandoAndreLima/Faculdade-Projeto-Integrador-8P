@@ -93,7 +93,6 @@ public class UtilCreteFakeData {
 			Disciplina disciplina = new Disciplina(nomesDisciplinasBSI[i], "80", nomesDisciplinasBSI[i]);
 			disciplina.ramdom = random.nextInt(2000);
 			this.disciplinas.add(disciplina);
-			System.out.println(disciplina.toString());
 		}
 
 		for (int i = 0; i < nomesProfessores.length; i++) {
@@ -102,7 +101,6 @@ public class UtilCreteFakeData {
 					TitulacaoEnum.COLABORADOR);
 			professor.ramdom = random.nextInt(2000);
 			this.professores.add(professor);
-			System.out.println(professor.toString());
 		}
 
 		for (int i = 0; i < 3; i++) {
@@ -135,7 +133,6 @@ public class UtilCreteFakeData {
 			}
 			this.professores.set(i, professor);
 			i++;
-			System.out.println(professor.toString());
 		}
 	}
 
@@ -169,11 +166,8 @@ public class UtilCreteFakeData {
 					}
 				}
 			}
-			System.out.println(disciplinasInformadas);
-			
 			Turma turma = new Turma(disciplinasInformadas, professores, curso, periodo, SemestreEnum.primeiro, "2019");
 			turma.ramdom = random.nextInt(2000);
-			System.out.println(turma);
 			this.turmas.add(turma);
 		}
 	}

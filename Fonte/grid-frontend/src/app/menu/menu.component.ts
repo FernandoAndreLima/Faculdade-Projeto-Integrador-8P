@@ -1,31 +1,21 @@
-import { Component, OnInit, NgModule } from '@angular/core';
-
-export interface Tile{
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-}
-
+import { Component } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
+export class MenuComponent {
 
-export class MenuComponent implements OnInit {
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
-  tiles: Tile[] = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-  ]
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
 }

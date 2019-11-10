@@ -4,8 +4,8 @@
           <div class="form-group">
               <label>Curso</label>
               <select class="form-control" required>
-                  <option *ngFor="let curso of cursos" [value]="curso.value">
-                      {{curso.viewValue}}
+                  <option *ngFor="let curso of cursos" [value]="curso._id">
+                      {{curso.nome}}
                   </option>
               </select>
           </div>
