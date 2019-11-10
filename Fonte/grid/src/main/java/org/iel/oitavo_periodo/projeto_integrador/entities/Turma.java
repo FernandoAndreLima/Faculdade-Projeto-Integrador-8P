@@ -1,10 +1,9 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,17 +35,17 @@ import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 	@NamedQuery(name = "Turma.listaPorCurso", query = ""
 			+ "SELECT DISTINCT t FROM Turma t, Professor p, Disciplina d "
 			+ "LEFT JOIN FETCH t.curso " 
-			+ "LEFT JOIN FETCH t.grade " 
-			+ "JOIN FETCH t.professores " 
-			+ "JOIN FETCH t.disciplinas " 
+//			+ "LEFT JOIN FETCH t.grade " 
+//			+ "JOIN FETCH t.professores " 
+//			+ "JOIN FETCH t.disciplinas " 
 			+" where t.curso.id = :pCursoId "),
 	
 	@NamedQuery(name = "Turma.busca", query = ""
 			+ "SELECT DISTINCT t FROM Turma t, Professor p, Disciplina d "
-			+ "LEFT JOIN FETCH t.curso " 
-			+ "LEFT JOIN FETCH t.grade " 
-			+ "LEFT JOIN FETCH t.professores " 
-			+ "LEFT JOIN FETCH t.disciplinas " 
+//			+ "LEFT JOIN FETCH t.curso " 
+//			+ "LEFT JOIN FETCH t.grade " 
+//			+ "LEFT JOIN FETCH t.professores " 
+//			+ "LEFT JOIN FETCH t.disciplinas " 
 			+" where t.id = :pId"),
  })
 
@@ -89,15 +88,14 @@ public class Turma implements Serializable {
 	@JoinTable(name = "tab_turma_professor", 
 		joinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id") }, 
 		inverseJoinColumns = {@JoinColumn(name = "id_professor", referencedColumnName = "id") })
-	private Set<Professor> professores = new TreeSet<>();
+	private List<Professor> professores;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "tab_turma_disciplina", 
 		joinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id") },
 		inverseJoinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
-	private Set<Disciplina> disciplinas = new TreeSet<>();
-
+	private List<Disciplina> disciplinas;
 	@Transient
 	public int ramdom;
 	
@@ -106,13 +104,16 @@ public class Turma implements Serializable {
 	public Turma(List<Disciplina> disciplinasInformadas, List<Professor> professoresInformados, Curso cursoInformado,
 			PeriodoEnum periodoInformado, SemestreEnum semestreInformado, String anoInformado) {
 		
-		this.professores = professoresInformados.stream()
-				.map(p -> new Professor(p.getNomeCompleto(), p.getRegime(), p.getDataAdmissao(), p.getCargo(), p.getFormacao(), p.getTitulacao(), p.getDisciplinas()))
-				.collect(Collectors.toSet());
+		this.professores = new ArrayList<Professor>(professoresInformados);
+		this.disciplinas = new ArrayList<Disciplina>(disciplinasInformadas);
 		
-		this.disciplinas = disciplinasInformadas.stream()
-				.map(p -> new Disciplina(p.getNome(), p.getCargaHoraria(), p.getCargaHoraria()))
-				.collect(Collectors.toSet());
+//		this.professores = professoresInformados.stream()
+//				.map(p -> new Professor(p.getNomeCompleto(), p.getRegime(), p.getDataAdmissao(), p.getCargo(), p.getFormacao(), p.getTitulacao(), p.getDisciplinas()))
+//				.collect(Collectors.toSet());
+//		
+//		this.disciplinas = disciplinasInformadas.stream()
+//				.map(p -> new Disciplina(p.getNome(), p.getCargaHoraria(), p.getCargaHoraria()))
+//				.collect(Collectors.toSet());
 		
 		
 		this.curso = cursoInformado;
@@ -213,7 +214,7 @@ public class Turma implements Serializable {
 		this.grade = grade;
 	}
 
-	public Set<Professor> getProfessores() {
+	public List<Professor> getProfessores() {
 		return professores;
 	}
 
@@ -221,7 +222,7 @@ public class Turma implements Serializable {
 		this.professores.addAll(professores);
 	}
 
-	public Set<Disciplina> getDisciplinas() {
+	public List<Disciplina> getDisciplinas() {
 		return disciplinas;
 	}
 
