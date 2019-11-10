@@ -7,7 +7,7 @@ import { Curso } from 'src/app/model/curso';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const apiUrl = 'http://localhost:8080/grif/rest/cursos';
+const apiUrl = 'http://localhost:8080/grif/rest/';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getProdutos (): Observable<Curso[]> {
-    return this.http.get<Curso[]>(apiUrl)
+    return this.http.get<Curso[]>(apiUrl+"cursos")
       .pipe(
         tap(produtos => console.log('leu os produtos')),
         catchError(this.handleError('getProdutos', []))

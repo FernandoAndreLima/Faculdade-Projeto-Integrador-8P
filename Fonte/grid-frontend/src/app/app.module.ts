@@ -17,6 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
+import {MatGridListModule} from '@angular/material/grid-list'; 
 
 //Meus importes
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
@@ -47,7 +48,8 @@ import { ConstruirComponent } from './grade/construir/construir.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatSliderModule
+    MatSliderModule,
+    MatGridListModule
 
   ],
   providers: [],
