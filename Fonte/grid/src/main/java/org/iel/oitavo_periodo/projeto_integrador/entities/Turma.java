@@ -35,8 +35,8 @@ import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 			+ "SELECT DISTINCT t FROM Turma t, Professor p, Disciplina d "
 			+ "LEFT JOIN FETCH t.curso " 
 			+ "LEFT JOIN FETCH t.grade " 
-			+ "LEFT JOIN FETCH t.professores " 
-			+ "LEFT JOIN FETCH t.disciplinas " 
+			+ "JOIN FETCH t.professores " 
+			+ "JOIN FETCH t.disciplinas " 
 			+" where t.curso.id = :pCursoId "),
 	
 	@NamedQuery(name = "Turma.busca", query = ""
@@ -75,21 +75,21 @@ public class Turma implements Serializable {
 	@Enumerated(EnumType.ORDINAL)
 	private PeriodoEnum periodo;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_curso")
 	private Curso curso;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	private GradeHoraria grade;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "tab_turma_professor", 
 		joinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id") }, 
 		inverseJoinColumns = {@JoinColumn(name = "id_professor", referencedColumnName = "id") })
 	private Set<Professor> professores = new HashSet<Professor>();
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "tab_turma_disciplina", 
 		joinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id") },
@@ -198,19 +198,19 @@ public class Turma implements Serializable {
 		this.grade = grade;
 	}
 
-//	public Set<Professor> getProfessores() {
-//		return professores;
-//	}
-//
-//	public void setProfessores(Set<Professor> professores) {
-//		this.professores = professores;
-//	}
-//
-//	public Set<Disciplina> getDisciplinas() {
-//		return disciplinas;
-//	}
-//
-//	public void setDisciplinas(Set<Disciplina> disciplinas) {
-//		this.disciplinas = disciplinas;
-//	}
+	public Set<Professor> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(List<Professor> professores) {
+		this.professores.addAll(professores);
+	}
+
+	public Set<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas.addAll(disciplinas);
+	}
 }

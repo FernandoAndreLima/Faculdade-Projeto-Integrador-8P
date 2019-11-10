@@ -24,7 +24,6 @@ public class ProfessorDao extends BaseDao<Professor>{
 
 	@Override
 	protected EntityManager getEntityManager() {
-		// TODO Auto-generated method stub
 		return em;
 	}
 
@@ -32,6 +31,14 @@ public class ProfessorDao extends BaseDao<Professor>{
 		return em.find(Professor.class, id);
 	}
 
+	public List<Professor> findAllProfessoresOfTurma(Long idTurma){
+		
+		TypedQuery<Professor> findAllProfessores = em.createNamedQuery("Professor.listaTodosPorTurma", Professor.class);
+		findAllProfessores.setParameter("pTurmaId", idTurma);
+		
+		return findAllProfessores.getResultList();
+	}
+	
 //	public List<Professor> listAll(Integer startPosition, Integer maxResult) {
 //		TypedQuery<Professor> findAllQuery = getEntityManager().createNamedQuery("Professor.listarTodos", Professor.class);
 //		return findAllQuery.getResultList();

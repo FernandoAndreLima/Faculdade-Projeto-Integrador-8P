@@ -46,4 +46,9 @@ public class DisciplinaDao extends BaseDao<Disciplina> {
 		return findAllQuery.getResultList();
 	}
 
+	public List<Disciplina> findAllDisciplinasOfTurma(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

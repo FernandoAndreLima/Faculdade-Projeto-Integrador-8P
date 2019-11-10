@@ -24,7 +24,6 @@ public class TurmaDao extends BaseDao<Turma> {
 
 	@Override
 	protected EntityManager getEntityManager() {
-		// TODO Auto-generated method stub
 		return em;
 	}
 
@@ -35,6 +34,9 @@ public class TurmaDao extends BaseDao<Turma> {
 	}
 	
 	public List<Turma> findAllWithCurso(Long idCurso) {
+		
+		em.getEntityManagerFactory().getCache().evictAll();
+		
 		TypedQuery<Turma> findAllQuery = em.createNamedQuery("Turma.listaPorCurso", Turma.class);
 		findAllQuery.setParameter("pCursoId", idCurso);
 		return findAllQuery.getResultList();

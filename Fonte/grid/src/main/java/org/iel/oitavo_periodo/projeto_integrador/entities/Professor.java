@@ -40,6 +40,9 @@ import org.iel.oitavo_periodo.projeto_integrador.enums.TitulacaoEnum;
 
 		@NamedQuery(name = "Professor.busca", query = "SELECT DISTINCT p FROM Professor p "
 				+ "LEFT JOIN FETCH p.disciplinas " + "LEFT JOIN FETCH p.disponibilidade " + "where p.id = :pId"),
+		
+		@NamedQuery(name = "Professor.listaTodosPorTurma", query = "SELECT DISTINCT p FROM Professor p "
+				+ "LEFT JOIN FETCH p.disponibilidade " + "LEFT JOIN FETCH p.turmas "),
 
 		@NamedQuery(name = "Professor.disciplina", query = "SELECT DISTINCT p FROM Professor p "
 				+ "LEFT JOIN FETCH p.disciplinas " + "LEFT JOIN FETCH p.disponibilidade " + "where p.id = :pId") })
@@ -82,18 +85,18 @@ public class Professor implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TitulacaoEnum titulacao;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "tab_professor_disciplina", 
 		joinColumns = {@JoinColumn(name = "id_professor", referencedColumnName = "id") }, 
 		inverseJoinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
-	@OneToOne(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "professor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private DisponibilidadeProfessor disponibilidade;
 	
 	@ManyToMany(mappedBy = "professores")
-	private List<Turma>turmas = new ArrayList<Turma>();
+	private List<Turma> turmas = new ArrayList<Turma>();
 
 	public DisponibilidadeProfessor getDisponibilidade() {
 		return disponibilidade;

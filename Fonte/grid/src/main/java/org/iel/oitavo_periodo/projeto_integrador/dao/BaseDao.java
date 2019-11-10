@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.Session;
+
 /**
  * @author Anderson
  * 

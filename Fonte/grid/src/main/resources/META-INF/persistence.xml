@@ -3,6 +3,7 @@
   <persistence-unit name="grid-persistence-unit" transaction-type="JTA">
     <description>Forge Persistence Unit</description>
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    
     <jta-data-source>java:jboss/datasources/grid_ds</jta-data-source>
  	
  	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Curso</class>
