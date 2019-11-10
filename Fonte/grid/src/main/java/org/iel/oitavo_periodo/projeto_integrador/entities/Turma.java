@@ -1,8 +1,9 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,22 +31,27 @@ import org.iel.oitavo_periodo.projeto_integrador.entities.grade.GradeHoraria;
 import org.iel.oitavo_periodo.projeto_integrador.enums.PeriodoEnum;
 import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
 @NamedQueries({
-	@NamedQuery(name = "Professor.listarTodos", query = "SELECT DISTINCT p FROM Professor p "
-			+ "LEFT JOIN FETCH p.disciplinas " + "LEFT JOIN FETCH p.disponibilidade"),
-
-	@NamedQuery(name = "Professor.busca", query = "SELECT DISTINCT p FROM Professor p "
-			+ "LEFT JOIN FETCH p.disciplinas " + "LEFT JOIN FETCH p.disponibilidade " + "where p.id = :pId"),
-
-	@NamedQuery(name = "Professor.disciplina", query = "SELECT DISTINCT p FROM Professor p "
-			+ "LEFT JOIN FETCH p.disciplinas " + "LEFT JOIN FETCH p.disponibilidade " + "where p.id = :pId") })
-
-
+	@NamedQuery(name = "Turma.listaPorCurso", query = ""
+			+ "SELECT DISTINCT t FROM Turma t, Professor p, Disciplina d "
+			+ "LEFT JOIN FETCH t.curso " 
+			+ "LEFT JOIN FETCH t.grade " 
+			+ "LEFT JOIN FETCH t.professores " 
+			+ "LEFT JOIN FETCH t.disciplinas " 
+			+" where t.curso.id = :pCursoId "),
+	
+	@NamedQuery(name = "Turma.busca", query = ""
+			+ "SELECT DISTINCT t FROM Turma t, Professor p, Disciplina d "
+			+ "LEFT JOIN FETCH t.curso " 
+			+ "LEFT JOIN FETCH t.grade " 
+			+ "LEFT JOIN FETCH t.professores " 
+			+ "LEFT JOIN FETCH t.disciplinas " 
+			+" where t.id = :pId"),
+ })
 
 @Entity
 @Table(name = "tab_turma")
 @XmlRootElement
 public class Turma implements Serializable {
-
 	/**
 	 * 
 	 */
@@ -69,26 +75,26 @@ public class Turma implements Serializable {
 	@Enumerated(EnumType.ORDINAL)
 	private PeriodoEnum periodo;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_curso")
 	private Curso curso;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	private GradeHoraria grade;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
-	@JoinTable(name = "tab_turma_professor", joinColumns = {
-			@JoinColumn(name = "id_turma", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "id_professor", referencedColumnName = "id") })
-	private List<Professor> professores = new ArrayList<Professor>();
+	@JoinTable(name = "tab_turma_professor", 
+		joinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id") }, 
+		inverseJoinColumns = {@JoinColumn(name = "id_professor", referencedColumnName = "id") })
+	private Set<Professor> professores = new HashSet<Professor>();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
-	@JoinTable(name = "tab_turma_disciplina", joinColumns = {
-			@JoinColumn(name = "id_turma", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
-	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+	@JoinTable(name = "tab_turma_disciplina", 
+		joinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id") },
+		inverseJoinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
+	private Set<Disciplina> disciplinas = new HashSet<Disciplina>();
 
 	public Turma() {}
 	
@@ -175,4 +181,36 @@ public class Turma implements Serializable {
 			result += ", semestre: " + semestre;
 		return result;
 	}
+	
+	public PeriodoEnum getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(PeriodoEnum periodo) {
+		this.periodo = periodo;
+	}
+
+	public GradeHoraria getGrade() {
+		return grade;
+	}
+
+	public void setGrade(GradeHoraria grade) {
+		this.grade = grade;
+	}
+
+//	public Set<Professor> getProfessores() {
+//		return professores;
+//	}
+//
+//	public void setProfessores(Set<Professor> professores) {
+//		this.professores = professores;
+//	}
+//
+//	public Set<Disciplina> getDisciplinas() {
+//		return disciplinas;
+//	}
+//
+//	public void setDisciplinas(Set<Disciplina> disciplinas) {
+//		this.disciplinas = disciplinas;
+//	}
 }

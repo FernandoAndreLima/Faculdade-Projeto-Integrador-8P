@@ -1,12 +1,10 @@
 package org.iel.oitavo_periodo.projeto_integrador.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.iel.oitavo_periodo.projeto_integrador.entities.Turma;
@@ -31,6 +29,14 @@ public class TurmaDao extends BaseDao<Turma> {
 	}
 
 	public Turma findById(Long id) {
-		return em.find(Turma.class, id);
+		TypedQuery<Turma> findAllQuery = em.createNamedQuery("Turma.busca", Turma.class);
+		findAllQuery.setParameter("pId", id);
+		return findAllQuery.getSingleResult();
+	}
+	
+	public List<Turma> findAllWithCurso(Long idCurso) {
+		TypedQuery<Turma> findAllQuery = em.createNamedQuery("Turma.listaPorCurso", Turma.class);
+		findAllQuery.setParameter("pCursoId", idCurso);
+		return findAllQuery.getResultList();
 	}
 }

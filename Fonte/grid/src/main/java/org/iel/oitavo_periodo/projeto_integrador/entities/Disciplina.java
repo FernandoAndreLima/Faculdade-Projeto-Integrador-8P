@@ -2,16 +2,15 @@ package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Entity;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -56,13 +55,15 @@ public class Disciplina implements Serializable {
 	private String cargaHoraria;
 
 	@ManyToMany(mappedBy = "disciplinas")
-	private List<Professor> professores = new ArrayList<Professor>();
+	private Set<Professor> professores = new HashSet<Professor>();
+	
+	@ManyToMany(mappedBy = "disciplinas")
+	private Set<Turma>turmas = new HashSet<Turma>();
 
 	public Disciplina(String nomeRecebido, String tempoDuracaoRecebida, String descricaoRecebida) {
 		this.nome = nomeRecebido;
 		this.cargaHoraria = tempoDuracaoRecebida;
 		this.descricao = descricaoRecebida;
-//		System.out.println("Disciplina "+nomeRecebido+" criada com sucesso");
 	}
 
 	public boolean contemDisciplina() {

@@ -32,8 +32,8 @@ public class ProfessorDao extends BaseDao<Professor>{
 		return em.find(Professor.class, id);
 	}
 
-	public List<Professor> listAll(Integer startPosition, Integer maxResult) {
-		TypedQuery<Professor> findAllQuery = getEntityManager().createNamedQuery("Professor.listarTodos", Professor.class);
-		return findAllQuery.getResultList();
-	}
+//	public List<Professor> listAll(Integer startPosition, Integer maxResult) {
+//		TypedQuery<Professor> findAllQuery = getEntityManager().createNamedQuery("Professor.listarTodos", Professor.class);
+//		return findAllQuery.getResultList();
+//	}
 }

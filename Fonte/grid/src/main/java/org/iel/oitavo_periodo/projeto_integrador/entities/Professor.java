@@ -84,13 +84,16 @@ public class Professor implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
-	@JoinTable(name = "tab_professor_disciplina", joinColumns = {
-			@JoinColumn(name = "id_professor", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
+	@JoinTable(name = "tab_professor_disciplina", 
+		joinColumns = {@JoinColumn(name = "id_professor", referencedColumnName = "id") }, 
+		inverseJoinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
 	@OneToOne(mappedBy = "professor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private DisponibilidadeProfessor disponibilidade;
+	
+	@ManyToMany(mappedBy = "professores")
+	private List<Turma>turmas = new ArrayList<Turma>();
 
 	public DisponibilidadeProfessor getDisponibilidade() {
 		return disponibilidade;

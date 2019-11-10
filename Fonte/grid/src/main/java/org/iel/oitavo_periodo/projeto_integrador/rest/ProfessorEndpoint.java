@@ -24,9 +24,9 @@ public class ProfessorEndpoint {
 	@Inject
 	private ProfessorDao dao;
 
-	@GET
-	public List<Professor> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult) {
-
-		return dao.listAll(startPosition, maxResult);
-	}
+//	@GET
+//	public List<Professor> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult) {
+//
+//		return dao.listAll(startPosition, maxResult);
+//	}
 }
