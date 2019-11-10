@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-export interface Food {
+export interface ItemTela {
   value: string;
   viewValue: string;
 }
@@ -13,10 +13,8 @@ export interface Food {
 })
 export class GradeComponent implements OnInit {
 
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
+  itensTela: ItemTela[] = [
+    {value: '/grade/gerar', viewValue: 'Gerar grade'}
   ];
 
   constructor() { }

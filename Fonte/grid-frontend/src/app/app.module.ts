@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatGridListModule} from '@angular/material/grid-list'; 
+import {MatCardModule} from '@angular/material/card'; 
 
 //Meus importes
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
@@ -49,7 +50,8 @@ import { ConstruirComponent } from './grade/construir/construir.component';
     MatIconModule,
     MatListModule,
     MatSliderModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule
 
   ],
   providers: [],

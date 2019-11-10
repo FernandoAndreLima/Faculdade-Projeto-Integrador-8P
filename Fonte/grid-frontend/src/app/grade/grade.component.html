@@ -1,4 +1,34 @@
-<h4>work</h4>
+
+<mat-toolbar color="primary">
+        <mat-toolbar-row *ngFor="let item of itensTela">
+          <a href="{{item.value}}"><span>{{item.viewValue}}</span> </a>
+        </mat-toolbar-row>
+      
+        <mat-toolbar-row>
+          <span>Second Line</span>
+          <span class="example-spacer"></span>
+          <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">verified_user</mat-icon>
+        </mat-toolbar-row>
+      
+        <mat-toolbar-row>
+          <span>Third Line</span>
+          <span class="example-spacer"></span>
+          <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
+          <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      
+
+<mat-card>
+<mat-nav-list>
+    
+    <mat-card-content ><a mat-list-item color="primary" href="#"></a></mat-card-content>
+
+</mat-nav-list>
+</mat-card>
+        <button mat-raised-button color="primary">Teste</button>
+
+
 <h3>Raised Buttons</h3>
 <div class="example-button-row">
   <button mat-raised-button>Basic</button>
