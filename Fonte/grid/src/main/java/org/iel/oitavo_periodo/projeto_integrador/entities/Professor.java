@@ -23,6 +23,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -98,6 +99,9 @@ public class Professor implements Serializable {
 	@ManyToMany(mappedBy = "professores")
 	private List<Turma> turmas = new ArrayList<Turma>();
 
+	@Transient
+	public int ramdom;
+	
 	public DisponibilidadeProfessor getDisponibilidade() {
 		return disponibilidade;
 	}
@@ -137,7 +141,20 @@ public class Professor implements Serializable {
 		this.formacao = formacaoRecevido;
 		this.titulacao = tituloRecevido;
 
-//		System.out.println("Professor "+nomeCompletoRecevido+" criado com sucesso");
+	}
+	
+	public Professor(String nomeCompletoRecevido, RegimeEnum regimeRecevido, Date dataAdmissaoRecevido,
+			CargoEnum cargoRecevido, FormacaoEnum formacaoRecevido, TitulacaoEnum tituloRecevido, List<Disciplina> disciplinasRecebidas) {
+
+		this.nomeCompleto = nomeCompletoRecevido;
+		this.regime = regimeRecevido;
+		this.dataAdmissao = dataAdmissaoRecevido;
+		this.cargo = cargoRecevido;
+		this.formacao = formacaoRecevido;
+		this.titulacao = tituloRecevido;
+		
+		this.disciplinas.addAll(disciplinasRecebidas);
+
 	}
 
 	public Long getId() {

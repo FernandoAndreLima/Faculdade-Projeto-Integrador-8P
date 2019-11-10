@@ -1,9 +1,10 @@
 package org.iel.oitavo_periodo.projeto_integrador.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +23,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -87,27 +89,47 @@ public class Turma implements Serializable {
 	@JoinTable(name = "tab_turma_professor", 
 		joinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id") }, 
 		inverseJoinColumns = {@JoinColumn(name = "id_professor", referencedColumnName = "id") })
-	private Set<Professor> professores = new HashSet<Professor>();
-
+	private Set<Professor> professores = new TreeSet<>();
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "tab_turma_disciplina", 
 		joinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id") },
 		inverseJoinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
-	private Set<Disciplina> disciplinas = new HashSet<Disciplina>();
+	private Set<Disciplina> disciplinas = new TreeSet<>();
 
+	@Transient
+	public int ramdom;
+	
 	public Turma() {}
 	
 	public Turma(List<Disciplina> disciplinasInformadas, List<Professor> professoresInformados, Curso cursoInformado,
 			PeriodoEnum periodoInformado, SemestreEnum semestreInformado, String anoInformado) {
-		this.disciplinas.addAll(disciplinasInformadas);
-		this.professores.addAll(professoresInformados);
+		
+		this.professores = professoresInformados.stream()
+				.map(p -> new Professor(p.getNomeCompleto(), p.getRegime(), p.getDataAdmissao(), p.getCargo(), p.getFormacao(), p.getTitulacao(), p.getDisciplinas()))
+				.collect(Collectors.toSet());
+		
+		this.disciplinas = disciplinasInformadas.stream()
+				.map(p -> new Disciplina(p.getNome(), p.getCargaHoraria(), p.getCargaHoraria()))
+				.collect(Collectors.toSet());
+		
+		
 		this.curso = cursoInformado;
 		this.periodo = periodoInformado;
 		this.semestre = semestreInformado;
 		this.ano = anoInformado;
 	}
 
+	public void addAllToDisciplinas(Set<Disciplina> disciplinasInformadas) {
+		for(Disciplina disciplina : disciplinasInformadas)
+			System.out.println(addDisciplinaToSet(disciplina));
+	}
+	
+	public boolean addDisciplinaToSet(Disciplina disciplina) {
+		return this.disciplinas.add(disciplina);
+	}
+	
 	public Curso getCurso() {
 		return curso;
 	}
@@ -171,15 +193,8 @@ public class Turma implements Serializable {
 
 	@Override
 	public String toString() {
-		String result = getClass().getSimpleName() + " ";
-		if (id != null)
-			result += "id: " + id;
-		result += ", version: " + version;
-		if (ano != null && !ano.trim().isEmpty())
-			result += ", ano: " + ano;
-		if (semestre != null)
-			result += ", semestre: " + semestre;
-		return result;
+		return "Turma [ano=" + ano + ", semestre=" + semestre + ", periodo=" + periodo + ", curso=" + curso + ", grade="
+				+ grade + ", professores=" + professores + ", disciplinas=" + disciplinas + "]";
 	}
 	
 	public PeriodoEnum getPeriodo() {

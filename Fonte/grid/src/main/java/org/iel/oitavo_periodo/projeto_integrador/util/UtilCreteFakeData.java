@@ -34,11 +34,10 @@ import org.iel.oitavo_periodo.projeto_integrador.enums.TitulacaoEnum;
 @Stateless
 public class UtilCreteFakeData {
 
-	private List<Professor> professores = new ArrayList<Professor>();
-	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
-	private List<Curso> cursos = new ArrayList<Curso>();
-	private List<Turma> turmas = new ArrayList<Turma>();
-//	private List<Disciplina> disciplinasDisponiveis = new ArrayList<Disciplina>();
+	private List<Professor> professores = new ArrayList<>();
+	private List<Disciplina> disciplinas = new ArrayList<>();
+	private List<Curso> cursos = new ArrayList<>();
+	private List<Turma> turmas = new ArrayList<>();
 	private Random random = new Random();
 
 	@Inject
@@ -92,6 +91,7 @@ public class UtilCreteFakeData {
 
 		for (int i = 0; i < nomesDisciplinasBSI.length; i++) {
 			Disciplina disciplina = new Disciplina(nomesDisciplinasBSI[i], "80", nomesDisciplinasBSI[i]);
+			disciplina.ramdom = random.nextInt(2000);
 			this.disciplinas.add(disciplina);
 			System.out.println(disciplina.toString());
 		}
@@ -100,7 +100,7 @@ public class UtilCreteFakeData {
 			Professor professor = new Professor(nomesProfessores[i], RegimeEnum.NOITE,
 					new Date(System.currentTimeMillis()), CargoEnum.PROFESSOR, FormacaoEnum.BACHAREL,
 					TitulacaoEnum.COLABORADOR);
-
+			professor.ramdom = random.nextInt(2000);
 			this.professores.add(professor);
 			System.out.println(professor.toString());
 		}
@@ -141,10 +141,11 @@ public class UtilCreteFakeData {
 
 	private void gerarTurma() {
 		PeriodoEnum[] periodos = getPeriodos();
-
+		List<Disciplina> disciplinasJaAtribuidas = new ArrayList<Disciplina>();
+		
 		for (PeriodoEnum periodo : periodos) {
-			Curso curso = new Curso();
 			List<Disciplina> disciplinasInformadas = new ArrayList<Disciplina>();
+			Curso curso = new Curso();
 
 			loopCurso: for (Curso cursoLoop : this.cursos) {
 				if (cursoLoop.getNome().equals("BACHARELADO EM SISTEMAS DA INFORMAÇÃO")) {
@@ -152,11 +153,12 @@ public class UtilCreteFakeData {
 					break loopCurso;
 				}
 			}
-
+			while(disciplinasInformadas.size() < 4) {
 				loopDisciplinas: for (Disciplina disciplina : disciplinas) {
 										
-					if (!validaItemNaLista(disciplinasInformadas, disciplina)) {
+					if (!validaItemNaLista(disciplinasInformadas, disciplinasJaAtribuidas, disciplina)) {
 						disciplinasInformadas.add(disciplina);
+						disciplinasJaAtribuidas.add(disciplina);
 						break loopDisciplinas;
 					}
 					
@@ -166,18 +168,30 @@ public class UtilCreteFakeData {
 						break loopDisciplinas;
 					}
 				}
-
+			}
+			System.out.println(disciplinasInformadas);
+			
 			Turma turma = new Turma(disciplinasInformadas, professores, curso, periodo, SemestreEnum.primeiro, "2019");
+			turma.ramdom = random.nextInt(2000);
+			System.out.println(turma);
 			this.turmas.add(turma);
 		}
 	}
 
-	public static boolean validaItemNaLista(List<Disciplina> lista, Disciplina disciplinaRecebida) {
+	public static boolean validaItemNaLista(List<Disciplina> lista, List<Disciplina> listaAtribuida, Disciplina disciplinaRecebida) {
+		boolean contemNaPrimeiraLista = false;
+		boolean contemNaSegundaLista = false;
+		
 		for (Disciplina disciplina : lista) {
 			if(disciplinaRecebida.getNome().equals(disciplina.getNome()))
-				return true;
+				contemNaPrimeiraLista =  true;
 		}
-		return false;
+		
+		for(Disciplina disciplina : listaAtribuida) {
+			if(disciplinaRecebida.getNome().equals(disciplina.getNome()))
+				contemNaSegundaLista =  true;
+		}
+		return (contemNaPrimeiraLista || contemNaSegundaLista) ? true : false;
 	}
 	
 	public static boolean validaProjetoIntegradorNaLista(List<Disciplina> lista, String projetoIntegrador) {

@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -59,6 +60,9 @@ public class Disciplina implements Serializable {
 	@ManyToMany(mappedBy = "disciplinas")
 	private Set<Turma>turmas = new HashSet<Turma>();
 
+	@Transient
+	public int ramdom;
+	
 	public Disciplina(String nomeRecebido, String tempoDuracaoRecebida, String descricaoRecebida) {
 		this.nome = nomeRecebido;
 		this.cargaHoraria = tempoDuracaoRecebida;
