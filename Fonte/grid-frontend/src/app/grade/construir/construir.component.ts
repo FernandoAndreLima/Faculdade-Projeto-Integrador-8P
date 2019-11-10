@@ -18,11 +18,11 @@ export interface Periodo {
 }
 
 @Component({
-  selector: 'app-gerar-grade',
-  templateUrl: './gerar-grade.component.html',
-  styleUrls: ['./gerar-grade.component.css']
+  selector: 'app-construir',
+  templateUrl: './construir.component.html',
+  styleUrls: ['./construir.component.css']
 })
-export class GerarGradeComponent implements OnInit {
+export class ConstruirComponent implements OnInit {
 
   cursos: Curso[] = [
     {_id: '1', nome: 'Bacharelado em sistemas da informação'},
