@@ -26,7 +26,7 @@ import { MenuComponent } from './menu/menu.component';
 import { GradeComponent } from './grade/grade.component';
 
 
-import { ConstruirComponent } from './grade/construir/construir.component';
+import { GerarComponent } from './gerar/gerar.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { ConstruirComponent } from './grade/construir/construir.component';
     PaginaNaoEncontradaComponent,
     MenuComponent,
     GradeComponent,
-    ConstruirComponent
+    GerarComponent
   ],
   imports: [
     BrowserModule,

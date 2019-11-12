@@ -3,12 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { GradeComponent } from './grade/grade.component';
-import { ConstruirComponent } from './grade/construir/construir.component';
+import { GerarComponent } from './gerar/gerar.component';
 
 
 const routes: Routes = [
   { path: 'grade', component: GradeComponent },
-  { path: 'grade/construir', component: ConstruirComponent },
+  { path: 'construir', component: GerarComponent },
   { path: '', redirectTo: '/' , pathMatch: 'full'},
   { path: '**', component: PaginaNaoEncontradaComponent }
 ];

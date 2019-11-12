@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="grid-persistence-unit" transaction-type="JTA">
+    <description>Forge Persistence Unit</description>
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    
+    <jta-data-source>java:jboss/datasources/grid_ds</jta-data-source>
+ 	
+ 	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Curso</class>
+ 	<class>org.iel.oitavo_periodo.projeto_integrador.entities.DiaNaoDisponivel</class>
+ 	<class>org.iel.oitavo_periodo.projeto_integrador.entities.DisponibilidadeProfessor</class>
+ 	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Endereco</class>
+ 	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Instituicao</class>
+ 	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Professor</class>
+ 	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Turma</class>
+ 	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Usuario</class>
+ 	<class>org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina</class>
+	
+ 	
+    <properties>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.transaction.flush_before_completion" value="true"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+    </properties>
+  </persistence-unit>
+</persistence>
