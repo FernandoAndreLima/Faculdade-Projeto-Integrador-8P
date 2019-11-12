@@ -16,9 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina;
-import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
-import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
+import iel.org.projeto_grid.model.enums.DiasEnum;
 
 @Entity
 @Table(name = "tab_aula")

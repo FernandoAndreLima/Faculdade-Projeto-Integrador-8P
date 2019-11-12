@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.GrauMotivoEnum;
+import iel.org.projeto_grid.model.enums.DiasEnum;
+import iel.org.projeto_grid.model.enums.GrauMotivoEnum;
 
 @Entity
 @Table(name = "tab_dia_nao_disponivel")

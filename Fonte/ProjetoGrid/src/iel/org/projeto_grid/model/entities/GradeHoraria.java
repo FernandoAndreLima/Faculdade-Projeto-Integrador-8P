@@ -19,12 +19,10 @@ import javax.persistence.Transient;
 //import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina;
-import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
-import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.Periodo;
-
 import com.sun.istack.NotNull;
+
+import iel.org.projeto_grid.model.enums.DiasEnum;
+import iel.org.projeto_grid.model.enums.Periodo;
 
 /**
  * Objeto Grade Horária por periodo/turma

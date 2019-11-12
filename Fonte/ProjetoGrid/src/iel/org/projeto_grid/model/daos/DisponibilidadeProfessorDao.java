@@ -2,17 +2,15 @@ package iel.org.projeto_grid.model.daos;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.iel.oitavo_periodo.projeto_integrador.entities.DisponibilidadeProfessor;;
+import iel.org.projeto_grid.model.entities.DisponibilidadeProfessor;;
 
 /**
  * DAO for DisponibilidadeProfessor
  */
-@Stateless
 public class DisponibilidadeProfessorDao extends BaseDao<DisponibilidadeProfessor> {
 	/**
 	 * 

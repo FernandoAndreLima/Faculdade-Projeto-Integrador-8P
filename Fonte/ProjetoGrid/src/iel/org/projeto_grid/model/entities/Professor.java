@@ -29,11 +29,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.iel.oitavo_periodo.projeto_integrador.enums.CargoEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.FormacaoEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.RegimeEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.TitulacaoEnum;
+
+import iel.org.projeto_grid.model.enums.CargoEnum;
+import iel.org.projeto_grid.model.enums.DiasEnum;
+import iel.org.projeto_grid.model.enums.FormacaoEnum;
+import iel.org.projeto_grid.model.enums.RegimeEnum;
+import iel.org.projeto_grid.model.enums.TitulacaoEnum;
 
 @NamedQueries({
 		@NamedQuery(name = "Professor.listarTodos", query = "SELECT DISTINCT p FROM Professor p "

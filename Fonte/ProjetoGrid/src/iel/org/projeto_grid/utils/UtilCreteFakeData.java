@@ -5,33 +5,29 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-
-import org.iel.oitavo_periodo.projeto_integrador.dao.CursoDao;
-import org.iel.oitavo_periodo.projeto_integrador.dao.DisciplinaDao;
-import org.iel.oitavo_periodo.projeto_integrador.dao.ProfessorDao;
-import org.iel.oitavo_periodo.projeto_integrador.dao.TurmaDao;
-import org.iel.oitavo_periodo.projeto_integrador.entities.Curso;
-import org.iel.oitavo_periodo.projeto_integrador.entities.DiaNaoDisponivel;
-import org.iel.oitavo_periodo.projeto_integrador.entities.Disciplina;
-import org.iel.oitavo_periodo.projeto_integrador.entities.DisponibilidadeProfessor;
-import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
-import org.iel.oitavo_periodo.projeto_integrador.entities.Turma;
-import org.iel.oitavo_periodo.projeto_integrador.enums.CargoEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.DiasEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.FormacaoEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.GrauMotivoEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.PeriodoEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.RegimeEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.TitulacaoEnum;
+import iel.org.projeto_grid.model.daos.CursoDao;
+import iel.org.projeto_grid.model.daos.DisciplinaDao;
+import iel.org.projeto_grid.model.daos.ProfessorDao;
+import iel.org.projeto_grid.model.daos.TurmaDao;
+import iel.org.projeto_grid.model.entities.Curso;
+import iel.org.projeto_grid.model.entities.DiaNaoDisponivel;
+import iel.org.projeto_grid.model.entities.Disciplina;
+import iel.org.projeto_grid.model.entities.DisponibilidadeProfessor;
+import iel.org.projeto_grid.model.entities.Professor;
+import iel.org.projeto_grid.model.entities.Turma;
+import iel.org.projeto_grid.model.enums.CargoEnum;
+import iel.org.projeto_grid.model.enums.DiasEnum;
+import iel.org.projeto_grid.model.enums.FormacaoEnum;
+import iel.org.projeto_grid.model.enums.GrauMotivoEnum;
+import iel.org.projeto_grid.model.enums.PeriodoEnum;
+import iel.org.projeto_grid.model.enums.RegimeEnum;
+import iel.org.projeto_grid.model.enums.SemestreEnum;
+import iel.org.projeto_grid.model.enums.TitulacaoEnum;
 
 /*
  * todo terminar a geracao da turma
  */
 
-@Stateless
 public class UtilCreteFakeData {
 
 	private List<Professor> professores = new ArrayList<>();
@@ -40,16 +36,12 @@ public class UtilCreteFakeData {
 	private List<Turma> turmas = new ArrayList<>();
 	private Random random = new Random();
 
-	@Inject
 	private CursoDao cursoDao;
 
-	@Inject
 	private ProfessorDao professorDao;
 
-	@Inject
 	private DisciplinaDao disciplinaDao;
 
-	@Inject
 	private TurmaDao turmaDao;
 
 	public void createData() {

@@ -3,9 +3,9 @@ package iel.org.projeto_grid.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.iel.oitavo_periodo.projeto_integrador.entities.Professor;
-import org.iel.oitavo_periodo.projeto_integrador.entities.grade.Aula;
-import org.iel.oitavo_periodo.projeto_integrador.entities.grade.GradeHoraria;
+import iel.org.projeto_grid.model.entities.Aula;
+import iel.org.projeto_grid.model.entities.GradeHoraria;
+import iel.org.projeto_grid.model.entities.Professor;
 
 /**
  * Classe responsável por atribuir um professor a uma disciplina em um dis especifico

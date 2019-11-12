@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.iel.oitavo_periodo.projeto_integrador.entities.grade.GradeHoraria;
-import org.iel.oitavo_periodo.projeto_integrador.enums.PeriodoEnum;
-import org.iel.oitavo_periodo.projeto_integrador.enums.SemestreEnum;
+
+import iel.org.projeto_grid.model.enums.PeriodoEnum;
+import iel.org.projeto_grid.model.enums.SemestreEnum;
 @NamedQueries({
 	@NamedQuery(name = "Turma.listaPorCurso", query = ""
 			+ "SELECT DISTINCT t FROM Turma t, Professor p, Disciplina d "
