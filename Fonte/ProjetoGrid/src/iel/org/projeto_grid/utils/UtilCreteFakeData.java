@@ -36,6 +36,7 @@ public class UtilCreteFakeData {
 	private List<Turma> turmas = new ArrayList<>();
 	private Random random = new Random();
 
+
 	private CursoDao cursoDao;
 
 	private ProfessorDao professorDao;
@@ -47,17 +48,22 @@ public class UtilCreteFakeData {
 	public void createData() {
 		fakeData();
 
-		for (Curso curso : cursos)
-			cursoDao.save(curso);
-
-		for (Disciplina disciplina : disciplinas)
-			disciplinaDao.save(disciplina);
-
-		for (Professor professor : professores)
-			professorDao.save(professor);
-
-		for (Turma turma : turmas)
-			turmaDao.save(turma);
+//		cursoDao = new CursoDao();
+//		professorDao = new ProfessorDao();
+//		disciplinaDao = new DisciplinaDao();
+//		turmaDao = new TurmaDao();
+//		
+//		for (Curso curso : cursos)
+//			cursoDao.save(curso);
+//
+//		for (Disciplina disciplina : disciplinas)
+//			disciplinaDao.save(disciplina);
+//
+//		for (Professor professor : professores)
+//			professorDao.save(professor);
+//
+//		for (Turma turma : turmas)
+//			turmaDao.save(turma);
 
 		System.out.println("all data created");
 	}
@@ -470,6 +476,38 @@ public class UtilCreteFakeData {
 		PeriodoEnum[] periodos = { PeriodoEnum.PRIMEIRO,PeriodoEnum.SEGUNDO, PeriodoEnum.TERCEIRO,PeriodoEnum.QUARTO, PeriodoEnum.QUINTO,PeriodoEnum.SEXTO,
 				PeriodoEnum.SETIMO, PeriodoEnum.OITAVO  };
 		return periodos;
+	}
+
+	public List<Professor> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
+	}
+
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
 	}
 
 }

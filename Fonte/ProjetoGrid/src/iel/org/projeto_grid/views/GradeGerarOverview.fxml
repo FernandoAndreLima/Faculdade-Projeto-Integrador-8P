@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iel.org.projeto_grid.views.GradeGerarOverviewController">
+   <children>
+      <SplitPane layoutX="170.0" layoutY="70.0" prefHeight="300.0" prefWidth="600.0" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="label-header" stylesheets="@DarkTheme.css">
+               <children>
+                  <ComboBox fx:id="btEscolhaCurso" layoutX="463.0" layoutY="87.0" prefHeight="25.0" prefWidth="289.0" />
+                  <Label layoutX="463.0" layoutY="61.0" text="Curso" />
+                  <Label layoutX="463.0" layoutY="127.0" text="Semestre" />
+                  <ComboBox fx:id="btEscolhaSemestre" layoutX="463.0" layoutY="153.0" prefHeight="25.0" prefWidth="289.0" />
+                  <TableView layoutX="250.0" layoutY="254.0" prefHeight="200.0" prefWidth="790.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Periodo" />
+                      <TableColumn prefWidth="122.0" text="Segunda-feira" />
+                        <TableColumn prefWidth="129.0" text="Terça-feira" />
+                        <TableColumn prefWidth="115.0" text="Quarta-feira" />
+                        <TableColumn prefWidth="122.0" text="Quinta-feira" />
+                        <TableColumn prefWidth="122.0" text="Sexta-feira" />
+                        <TableColumn prefWidth="104.0" text="Configurar" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="617.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleGerarGrade" text="Gerar Grade" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
