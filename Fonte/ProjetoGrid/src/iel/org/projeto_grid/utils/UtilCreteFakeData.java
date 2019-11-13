@@ -34,6 +34,8 @@ public class UtilCreteFakeData {
 	private List<Disciplina> disciplinas = new ArrayList<>();
 	private List<Curso> cursos = new ArrayList<>();
 	private List<Turma> turmas = new ArrayList<>();
+	private Curso bsi;
+	
 	private Random random = new Random();
 
 
@@ -46,6 +48,7 @@ public class UtilCreteFakeData {
 	private TurmaDao turmaDao;
 
 	public void createData() {
+		this.bsi = new Curso();
 		fakeData();
 
 //		cursoDao = new CursoDao();
@@ -103,6 +106,8 @@ public class UtilCreteFakeData {
 
 		for (int i = 0; i < 3; i++) {
 			Curso curso = new Curso(nomesCursos[i][0], "", nomesCursos[i][1]);
+			if(curso.getNome().equals("BACHARELADO EM SISTEMAS DA INFORMAÇÃO"))
+				this.bsi = curso;
 			this.cursos.add(curso);
 		}
 
@@ -508,6 +513,13 @@ public class UtilCreteFakeData {
 
 	public void setTurmas(List<Turma> turmas) {
 		this.turmas = turmas;
+	}
+	public Curso getBsi() {
+		return bsi;
+	}
+
+	public void setBsi(Curso bsi) {
+		this.bsi = bsi;
 	}
 
 }

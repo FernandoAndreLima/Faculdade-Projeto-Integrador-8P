@@ -5,17 +5,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iel.org.projeto_grid.views.GradeGerarOverviewController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iel.org.projeto_grid.views.GradeGerarOverviewController">
    <children>
       <SplitPane layoutX="170.0" layoutY="70.0" prefHeight="300.0" prefWidth="600.0" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="label-header" stylesheets="@DarkTheme.css">
                <children>
-                  <ComboBox fx:id="btEscolhaCurso" layoutX="463.0" layoutY="87.0" prefHeight="25.0" prefWidth="289.0" />
-                  <Label layoutX="463.0" layoutY="61.0" text="Curso" />
-                  <Label layoutX="463.0" layoutY="127.0" text="Semestre" />
-                  <ComboBox fx:id="btEscolhaSemestre" layoutX="463.0" layoutY="153.0" prefHeight="25.0" prefWidth="289.0" />
-                  <TableView layoutX="250.0" layoutY="254.0" prefHeight="200.0" prefWidth="790.0">
+                  <ComboBox fx:id="btEscolhaCurso" layoutX="326.0" layoutY="82.0" prefHeight="25.0" prefWidth="289.0" />
+                  <Label layoutX="326.0" layoutY="56.0" text="Curso" />
+                  <Label layoutX="326.0" layoutY="122.0" text="Semestre" />
+                  <ComboBox fx:id="btEscolhaSemestre" layoutX="326.0" layoutY="148.0" prefHeight="25.0" prefWidth="289.0" />
+                  <TableView layoutX="54.0" layoutY="256.0" prefHeight="200.0" prefWidth="790.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="Periodo" />
                       <TableColumn prefWidth="122.0" text="Segunda-feira" />
@@ -26,7 +26,7 @@
                         <TableColumn prefWidth="104.0" text="Configurar" />
                     </columns>
                   </TableView>
-                  <Button layoutX="617.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleGerarGrade" text="Gerar Grade" />
+                  <Button layoutX="383.0" layoutY="514.0" mnemonicParsing="false" onAction="#handleGerarGrade" text="Gerar Grade" />
                </children>
             </AnchorPane>
         </items>

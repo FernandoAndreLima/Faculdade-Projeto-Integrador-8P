@@ -3,6 +3,7 @@ package iel.org.projeto_grid;
 import java.io.IOException;
 
 import iel.org.projeto_grid.model.entities.Person;
+import iel.org.projeto_grid.views.GradeGerarOverviewController;
 import iel.org.projeto_grid.views.PersonEditDialogController;
 import iel.org.projeto_grid.views.PersonOverviewController;
 import javafx.application.Application;
@@ -52,7 +53,8 @@ public class MainApp extends Application {
 		this.primaryStage.getIcons().add(new Image("file:resources/images/icone.png"));
 		
 		initRootLayout();
-		showPersonOverview();
+//		showPersonOverview();
+		showGradeGerarOverview();
 	}
 
 	/**
@@ -70,6 +72,25 @@ public class MainApp extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+	private void showGradeGerarOverview() {
+		try {
+			//carrega o person overview
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("views/GradeGerarOverview.fxml"));
+			AnchorPane gradeGerarOverview = (AnchorPane) loader.load();
+			
+			//define o personoverview dentro do root layout
+			rootLayout.setCenter(gradeGerarOverview);
+			
+	        // Dá ao controlador acesso à the main app.
+	        GradeGerarOverviewController controller = loader.getController();
+	        controller.setMainApp(this);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

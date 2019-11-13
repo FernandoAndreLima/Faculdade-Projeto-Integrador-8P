@@ -3,27 +3,28 @@ package iel.org.projeto_grid.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.jandex.Main;
-
 import iel.org.projeto_grid.MainApp;
 import iel.org.projeto_grid.model.entities.Curso;
 import iel.org.projeto_grid.model.entities.Turma;
 import iel.org.projeto_grid.model.enums.SemestreEnum;
 import iel.org.projeto_grid.utils.UtilCreteFakeData;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
 public class GradeGerarOverviewController {
 	
 	private List<Turma> turmas;
+	private List<Curso> cursos;
 
 	@FXML
-	private ChoiceBox<Curso> btEscolhaCurso;
+	private ComboBox<String> btEscolhaCurso;
 	
 	@FXML
-	private ChoiceBox<SemestreEnum> btEscolhaSemestre;
+	private ComboBox<SemestreEnum> btEscolhaSemestre;
 	
 	@FXML
 	private Label labelCurso;
@@ -43,7 +44,23 @@ public class GradeGerarOverviewController {
 		this.createFakeData = new UtilCreteFakeData();
 		this.createFakeData.createData();
 		this.turmas = new ArrayList<Turma>(this.createFakeData.getTurmas());
+		this.cursos = new ArrayList<Curso>(this.createFakeData.getCursos());
+		String[] nomesCursos =  { "BACHARELADO EM SISTEMAS DA INFORMAÇÃO","ADMINISTRAÇÃO", "DIREITO" };
+		this.btEscolhaCurso = new ComboBox<>(FXCollections.observableArrayList(nomesCursos));
+		
+        EventHandler<ActionEvent> event = 
+                new EventHandler<ActionEvent>() { 
+          public void handle(ActionEvent e) 
+          { 
+              System.out.println(btEscolhaCurso.getValue() + " selected"); 
+          } 
+      }; 
+      
+      this.btEscolhaCurso.setOnAction(event);
+		
 	}
+	
+	
 	
 	@FXML
 	private void handleGerarGrade() {}
@@ -54,19 +71,19 @@ public class GradeGerarOverviewController {
 
 	}
 	
-	public ChoiceBox<Curso> getBtEscolhaCurso() {
+	public ComboBox<String> getBtEscolhaCurso() {
 		return btEscolhaCurso;
 	}
 
-	public void setBtEscolhaCurso(ChoiceBox<Curso> btEscolhaCurso) {
+	public void setBtEscolhaCurso(ComboBox<String> btEscolhaCurso) {
 		this.btEscolhaCurso = btEscolhaCurso;
 	}
 
-	public ChoiceBox<SemestreEnum> getBtEscolhaSemestre() {
+	public ComboBox<SemestreEnum> getBtEscolhaSemestre() {
 		return btEscolhaSemestre;
 	}
 
-	public void setBtEscolhaSemestre(ChoiceBox<SemestreEnum> btEscolhaSemestre) {
+	public void setBtEscolhaSemestre(ComboBox<SemestreEnum> btEscolhaSemestre) {
 		this.btEscolhaSemestre = btEscolhaSemestre;
 	}
 
