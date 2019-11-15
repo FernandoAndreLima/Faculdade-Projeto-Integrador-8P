@@ -2,6 +2,8 @@ package iel.org.projeto_grid;
 
 import java.io.IOException;
 
+import org.hibernate.validator.internal.constraintvalidators.bv.number.bound.MaxValidatorForNumber;
+
 import iel.org.projeto_grid.model.entities.Person;
 import iel.org.projeto_grid.views.GradeGerarOverviewController;
 import iel.org.projeto_grid.views.PersonEditDialogController;
@@ -11,6 +13,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -47,10 +52,16 @@ public class MainApp extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
+		/*
+		 * Menu grade
+		 */
+
+		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Projeto Grid");
-		
 		this.primaryStage.getIcons().add(new Image("file:resources/images/icone.png"));
+		
+		
 		
 		initRootLayout();
 //		showPersonOverview();
@@ -62,10 +73,22 @@ public class MainApp extends Application {
 	 */
 	private void initRootLayout() {
 		try {
+			
+			Menu gradeMenu = new Menu("Grade");
+			
+			gradeMenu.getItems().add(new MenuItem("Gerar Grade"));
+			gradeMenu.getItems().add(new MenuItem("Visualizar grades geradas"));
+			gradeMenu.getItems().add(new MenuItem("Teste"));
+			
+			MenuBar menuBar = new MenuBar();
+			menuBar.getMenus().addAll(gradeMenu); 
+			
 			//carrega o rootlayout do arquivo fxml
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("views/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
+			
+			rootLayout.setTop(menuBar);
 			
 			//mostra a scene contendo o rootlayout
 			Scene scene = new Scene(rootLayout);
