@@ -19,7 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
-public class GradeGerarOverviewController  implements Initializable{
+public class LoginOverviewController  implements Initializable{
 
 	private List<Turma> turmas;
 	private List<Curso> cursos;
@@ -42,7 +42,7 @@ public class GradeGerarOverviewController  implements Initializable{
 
 	private UtilCreteFakeData createFakeData;
 
-	public GradeGerarOverviewController() { }
+	public LoginOverviewController() { }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
