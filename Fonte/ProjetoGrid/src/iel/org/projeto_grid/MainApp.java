@@ -38,8 +38,7 @@ public class MainApp extends Application {
 	/**
 	 * Constructor
 	 */
-	public MainApp() {
-	}
+	public MainApp() {}
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -138,7 +137,7 @@ public class MainApp extends Application {
 		try {
 			// carrega o person overview
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("views/GradeGerarOverview.fxml"));
+			loader.setLocation(MainApp.class.getResource("views/grade/GradeGerarOverview.fxml"));
 			AnchorPane gradeGerarOverview = (AnchorPane) loader.load();
 
 			// define o personoverview dentro do root layout
