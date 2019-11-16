@@ -29,9 +29,9 @@
                     </rowConstraints>
                      <children>
                         <Label GridPane.rowIndex="1" />
-                        <Label text="E-mail" />
+                        <Label text="Login" />
                         <Label text="Senha" GridPane.rowIndex="2" />
-                        <TextField fx:id="txtFieldEmail" promptText="ex: fulano@organizacao.com.br" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtFieldLogin" promptText="ex: fulano" GridPane.rowIndex="1" />
                         <PasswordField fx:id="txtFieldSenha" GridPane.rowIndex="3" />
                         <Button fx:id="btnLogar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#efetuaLogin" prefHeight="25.0" prefWidth="117.0" text="Logar" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                         <Text fx:id="lbActionTarget" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="217.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
