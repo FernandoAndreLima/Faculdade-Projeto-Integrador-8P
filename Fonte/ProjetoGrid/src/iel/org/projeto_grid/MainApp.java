@@ -3,6 +3,8 @@ package iel.org.projeto_grid;
 import java.io.IOException;
 
 import iel.org.projeto_grid.model.entities.Person;
+import iel.org.projeto_grid.model.entities.Usuario;
+import iel.org.projeto_grid.utils.EventosJavaFxUtil;
 import iel.org.projeto_grid.views.GradeGerarOverviewController;
 import iel.org.projeto_grid.views.PersonEditDialogController;
 import iel.org.projeto_grid.views.login.LoginOverviewController;
@@ -14,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -21,32 +24,30 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
-	
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	
+	private Usuario usuarioLogado;
+
 	/**
 	 * Os dados estarão como uma observable list de Persons
 	 */
 	private ObservableList<Person> personData = FXCollections.observableArrayList();
-	
+
 	/**
 	 * Constructor
 	 */
-	public MainApp() {}
-	
+	public MainApp() {
+	}
+
 	@Override
 	public void start(Stage primaryStage) {
 
-		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Projeto Grid");
 		this.primaryStage.getIcons().add(new Image("file:resources/images/icone.png"));
-		
+
 		initRootLayout();
-//		showPersonOverview();
-//		showGradeGerarOverview();
 		showLoginOverview();
 	}
 
@@ -55,43 +56,50 @@ public class MainApp extends Application {
 		 * Menu grade
 		 */
 		Menu gradeMenu = new Menu("Grade");
-		
+
 		MenuItem itemGerarGrade = new MenuItem("Gerar Grade...");
-		
+
 		itemGerarGrade.setOnAction(e -> {
-		    System.out.println("Menu Item 1 Selected");
+			showGradeGerarOverview();
 		});
-		
+
 		MenuItem itemGrades = new MenuItem("Grades...");
-		
+
 		itemGrades.setOnAction(e -> {
-		    System.out.println("Menu Item 2 Selected");
+			EventosJavaFxUtil.alerta(AlertType.WARNING, "Em construção", "Em construção", "Em construção");
 		});
-		
+
+		Menu logoffMenu = new Menu("Sair");
+		logoffMenu.setOnAction(e -> {
+			if (EventosJavaFxUtil.popUpConfirma(rootLayout)) {
+				this.usuarioLogado = null;
+				showLoginOverview();
+			}
+		});
+
 		gradeMenu.getItems().add(itemGerarGrade);
 		gradeMenu.getItems().add(itemGrades);
-		
-			
+
 		MenuBar menuBar = new MenuBar();
-		menuBar.getMenus().addAll(gradeMenu); 
-			
+		menuBar.getMenus().addAll(gradeMenu);
+		menuBar.getMenus().addAll(logoffMenu);
+
 		rootLayout.setTop(menuBar);
 	}
-	
-	
+
 	private void showLoginOverview() {
 		try {
-			//carrega o loginOverview
+			// carrega o loginOverview
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("views/login/LoginOverview.fxml"));
 			AnchorPane loginOverview = (AnchorPane) loader.load();
-			
-			//define o loginOverview dentro do root layout
+
+			// define o loginOverview dentro do root layout
 			rootLayout.setCenter(loginOverview);
-			
-	        // Dá ao controlador acesso à the main app.
-	        LoginOverviewController controller = loader.getController();
-	        controller.setMainApp(this);
+
+			// Dá ao controlador acesso à the main app.
+			LoginOverviewController controller = loader.getController();
+			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -102,89 +110,86 @@ public class MainApp extends Application {
 	 */
 	private void initRootLayout() {
 		try {
-			//carrega o rootlayout do arquivo fxml
+			// carrega o rootlayout do arquivo fxml
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("views/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
-			
-			//mostra a scene contendo o rootlayout
+
+			// mostra a scene contendo o rootlayout
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	
-	public void showGradeGerarOverview() {
-
-		menuConstructor();
-		
-		try {
-			//carrega o person overview
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("views/GradeGerarOverview.fxml"));
-			AnchorPane gradeGerarOverview = (AnchorPane) loader.load();
-			
-			//define o personoverview dentro do root layout
-			rootLayout.setCenter(gradeGerarOverview);
-			
-	        // Dá ao controlador acesso à the main app.
-	        GradeGerarOverviewController controller = loader.getController();
-	        controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
 
+	public void showGradeGerarOverview() {
+
+		menuConstructor();
+
+		try {
+			// carrega o person overview
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("views/GradeGerarOverview.fxml"));
+			AnchorPane gradeGerarOverview = (AnchorPane) loader.load();
+
+			// define o personoverview dentro do root layout
+			rootLayout.setCenter(gradeGerarOverview);
+
+			// Dá ao controlador acesso à the main app.
+			GradeGerarOverviewController controller = loader.getController();
+			controller.setMainApp(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
-	 * Abre uma janela para editar detalhes para a pessoa especificada. Se o usuário clicar
-	 * OK, as mudanças são salvasno objeto pessoa fornecido e retorna true.
+	 * Abre uma janela para editar detalhes para a pessoa especificada. Se o usuário
+	 * clicar OK, as mudanças são salvasno objeto pessoa fornecido e retorna true.
 	 * 
 	 * @param person O objeto pessoa a ser editado
-	 * @return true Se o usuário clicou OK,  caso contrário false.
+	 * @return true Se o usuário clicou OK, caso contrário false.
 	 */
 	public boolean showPersonEditDialog(Person person) {
-	    try {
-	        // Carrega o arquivo fxml e cria um novo stage para a janela popup.
-	        FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(MainApp.class.getResource("views/PersonEditDialog.fxml"));
-	        AnchorPane page = (AnchorPane) loader.load();
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("views/PersonEditDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
 
-	        // Cria o palco dialogStage.
-	        Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Edit Person");
-	        dialogStage.initModality(Modality.WINDOW_MODAL);
-	        dialogStage.initOwner(primaryStage);
-	        Scene scene = new Scene(page);
-	        dialogStage.setScene(scene);
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Person");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
 
-	        // Define a pessoa no controller.
-	        PersonEditDialogController controller = loader.getController();
-	        controller.setDialogStage(dialogStage);
-	        controller.setPerson(person);
+			// Define a pessoa no controller.
+			PersonEditDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setPerson(person);
 
-	        // Mostra a janela e espera até o usuário fechar.
-	        dialogStage.showAndWait();
+			// Mostra a janela e espera até o usuário fechar.
+			dialogStage.showAndWait();
 
-	        return controller.isOkClicked();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        return false;
-	    }
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
-	
+
 	/**
 	 * Retorna o palco principal
+	 * 
 	 * @return
 	 */
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
-
 
 	public static void main(String[] args) {
 		launch(args);
@@ -193,8 +198,15 @@ public class MainApp extends Application {
 	public ObservableList<Person> getPersonData() {
 		return personData;
 	}
-}
 
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Usuario usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
+}
 
 ///**
 // * Constructor

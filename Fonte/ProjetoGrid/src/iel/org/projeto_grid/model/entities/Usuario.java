@@ -41,6 +41,12 @@ public class Usuario implements Serializable {
 
 	public Usuario() {}
 	
+	public Usuario(String nomeCompletoRecebido, String logiRecebido, String senhaRecebida) {
+		this.nomeCompleto = nomeCompletoRecebido;
+		this.login = logiRecebido;
+		this.senha = senhaRecebida;
+	}
+	
 	public Long getId() {
 		return this.id;
 	}

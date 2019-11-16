@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import iel.org.projeto_grid.MainApp;
+import iel.org.projeto_grid.model.entities.Usuario;
 import iel.org.projeto_grid.utils.EventosJavaFxUtil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -52,25 +53,11 @@ public class LoginOverviewController implements Initializable {
 	}
 
 	@FXML
-	void goTo(ActionEvent event) {
-		Node node = (Node) event.getSource();
-
-		Stage stage = (Stage) node.getScene().getWindow();
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("views/GradeGerarOverview.fxml"));
-		} catch (IOException ex) {
-		}
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-	}
-
-	@FXML
 	public void efetuaLogin() {	
 		if ((txtFieldLogin.getText().equals("admin")) && (txtFieldSenha.getText().equals("admin"))) {
 			EventosJavaFxUtil.alertaSenhaPasswordLogin(lbActionTarget, Color.GREEN,
 					"Login efetuado com sucesso", TextAlignment.CENTER);
+			mainApp.setUsuarioLogado(new Usuario("admin", "admin", "admin"));
 			mainApp.showGradeGerarOverview();
 		} else {
 			EventosJavaFxUtil.alerta(AlertType.WARNING, "Erro login", "Erro login",

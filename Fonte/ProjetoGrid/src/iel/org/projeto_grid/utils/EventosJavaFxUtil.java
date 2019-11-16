@@ -21,4 +21,9 @@ public class EventosJavaFxUtil {
 		alert.setContentText(conteudo);
 		alert.showAndWait();
     }
+
+	public static boolean popUpConfirma() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
