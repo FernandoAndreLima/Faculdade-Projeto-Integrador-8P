@@ -8,15 +8,16 @@ import iel.org.projeto_grid.utils.EventosJavaFxUtil;
 import iel.org.projeto_grid.views.GradeGerarOverviewController;
 import iel.org.projeto_grid.views.PersonEditDialogController;
 import iel.org.projeto_grid.views.login.LoginOverviewController;
+import iel.org.projeto_grid.views.login.LogoffDialogController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -69,20 +70,26 @@ public class MainApp extends Application {
 			EventosJavaFxUtil.alerta(AlertType.WARNING, "Em construção", "Em construção", "Em construção");
 		});
 
-		Menu logoffMenu = new Menu("Sair");
-		logoffMenu.setOnAction(e -> {
-			if (EventosJavaFxUtil.popUpConfirma(rootLayout)) {
+		Menu usuarioMenu = new Menu("Usuário");
+		
+		MenuItem itemLogoff = new MenuItem("Logoff...");
+		itemLogoff.setOnAction(e -> {
+			boolean okClicked = showLogoffDialog();
+			if (okClicked) {
 				this.usuarioLogado = null;
+				rootLayout.setTop(null);
 				showLoginOverview();
 			}
 		});
 
+		usuarioMenu.getItems().add(itemLogoff);
+		
 		gradeMenu.getItems().add(itemGerarGrade);
 		gradeMenu.getItems().add(itemGrades);
 
 		MenuBar menuBar = new MenuBar();
 		menuBar.getMenus().addAll(gradeMenu);
-		menuBar.getMenus().addAll(logoffMenu);
+		menuBar.getMenus().addAll(usuarioMenu);
 
 		rootLayout.setTop(menuBar);
 	}
@@ -182,6 +189,42 @@ public class MainApp extends Application {
 		}
 	}
 
+	/**
+	 * Abre uma janela para editar detalhes para a pessoa especificada. Se o usuário
+	 * clicar OK, as mudanças são salvasno objeto pessoa fornecido e retorna true.
+	 * 
+	 * @param person O objeto pessoa a ser editado
+	 * @return true Se o usuário clicou OK, caso contrário false.
+	 */
+	public boolean showLogoffDialog() {
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("views/login/LogoffDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Atenção");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Define a pessoa no controller.
+			LogoffDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+
+			// Mostra a janela e espera até o usuário fechar.
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	/**
 	 * Retorna o palco principal
 	 * 

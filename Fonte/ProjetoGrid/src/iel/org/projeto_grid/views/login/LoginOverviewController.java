@@ -1,20 +1,13 @@
 package iel.org.projeto_grid.views.login;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import iel.org.projeto_grid.MainApp;
 import iel.org.projeto_grid.model.entities.Usuario;
 import iel.org.projeto_grid.utils.EventosJavaFxUtil;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -22,9 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 
-@SuppressWarnings("restriction")
 public class LoginOverviewController implements Initializable {
 
 	private MainApp mainApp;

@@ -2,6 +2,7 @@ package iel.org.projeto_grid.utils;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -22,8 +23,8 @@ public class EventosJavaFxUtil {
 		alert.showAndWait();
     }
 
-	public static boolean popUpConfirma() {
+	public static boolean popUpConfirma(BorderPane rootLayout) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }
