@@ -23,6 +23,16 @@ public class GradeGerarOverviewController{
 	
 	private Curso cursoEscolhido;
 	private List<Turma> turmasSelecionadas;
+	
+	private Turma posUm;
+	private Turma posDois;
+	private Turma posTres;
+	private Turma posQuatro;
+	
+	private boolean isConfigPos1 = false;
+	private boolean isConfigPos2 = false;
+	private boolean isConfigPos3 = false;
+	private boolean isConfigPos4 = false;
 
 	@FXML
     private Text txtPeriodoPos1;
@@ -124,41 +134,57 @@ public class GradeGerarOverviewController{
 			switch (turma.getPeriodo()) {
 			case PRIMEIRO:
 				txtPeriodoPos1.setText(turma.getPeriodo().toString());
+				posUm = new Turma();
+				posUm = turma;
 				btnConfPos1.setDisable(false);
 				break;
 			
 			case SEGUNDO:
 				txtPeriodoPos1.setText(turma.getPeriodo().toString());
+				posUm = new Turma();
+				posUm = turma;
 				btnConfPos1.setDisable(false);
 				break;
 			
 			case TERCEIRO:
 				txtPeriodoPos2.setText(turma.getPeriodo().toString());
+				posDois = new Turma();
+				posDois = turma;
 				btnConfPos2.setDisable(false);
 				break;
 			
 			case QUARTO:
 				txtPeriodoPos2.setText(turma.getPeriodo().toString());
+				posDois = new Turma();
+				posDois = turma;
 				btnConfPos2.setDisable(false);
 				break;
 				
 			case QUINTO:
 				txtPeriodoPos3.setText(turma.getPeriodo().toString());
+				posTres = new Turma();
+				posTres = turma;
 				btnConfPos3.setDisable(false);
 				break;
 			
 			case SEXTO:
 				txtPeriodoPos3.setText(turma.getPeriodo().toString());
+				posTres = new Turma();
+				posTres = turma;
 				btnConfPos3.setDisable(false);
 				break;
 				
 			case SETIMO:
 				txtPeriodoPos4.setText(turma.getPeriodo().toString());
+				posQuatro = new Turma();
+				posQuatro = turma;
 				btnConfPos4.setDisable(false);
 				break;
 				
 			case OITAVO:
 				txtPeriodoPos4.setText(turma.getPeriodo().toString());
+				posQuatro = new Turma();
+				posQuatro = turma;
 				btnConfPos4.setDisable(false);
 				break;
 				
@@ -171,7 +197,27 @@ public class GradeGerarOverviewController{
 
 	@FXML
 	private void handleGerarGrade() {}
-
+	
+	@FXML
+	private void handleConfigurarPos1() {
+		isConfigPos1 = mainApp.showGerarGradeDialog(posUm);
+	}
+	
+	@FXML
+	private void handleConfigurarPos2() {
+		isConfigPos2 = mainApp.showGerarGradeDialog(posDois);
+	}
+	
+	@FXML
+	private void handleConfigurarPos3() {
+		isConfigPos3 = mainApp.showGerarGradeDialog(posTres);
+	}
+	
+	@FXML
+	private void handleConfigurarPos4() {
+		isConfigPos4 = mainApp.showGerarGradeDialog(posQuatro);
+	}
+	
 	public void setMainApp(MainApp mainApp) {this.mainApp = mainApp;}
 
 	public ComboBox<String> getBtEscolhaCurso() {return btEscolhaCurso;}

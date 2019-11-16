@@ -47,10 +47,10 @@
                         <Text fx:id="txtPeriodoPos2" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="88.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Text fx:id="txtPeriodoPos3" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="88.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Text fx:id="txtPeriodoPos4" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="88.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <Button fx:id="btnConfPos1" mnemonicParsing="false" text="Configurar" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <Button fx:id="btnConfPos2" mnemonicParsing="false" text="Configurar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                        <Button fx:id="btnConfPos3" mnemonicParsing="false" text="Configurar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                        <Button fx:id="btnConfPos4" mnemonicParsing="false" text="Configurar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Button fx:id="btnConfPos1" mnemonicParsing="false" onAction="#handleConfigurarPos1" text="Configurar" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Button fx:id="btnConfPos2" mnemonicParsing="false" onAction="#handleConfigurarPos2" text="Configurar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Button fx:id="btnConfPos3" mnemonicParsing="false" onAction="#handleConfigurarPos3" text="Configurar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Button fx:id="btnConfPos4" mnemonicParsing="false" onAction="#handleConfigurarPos4" text="Configurar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>

@@ -3,9 +3,11 @@ package iel.org.projeto_grid;
 import java.io.IOException;
 
 import iel.org.projeto_grid.model.entities.Person;
+import iel.org.projeto_grid.model.entities.Turma;
 import iel.org.projeto_grid.model.entities.Usuario;
 import iel.org.projeto_grid.utils.EventosJavaFxUtil;
 import iel.org.projeto_grid.views.PersonEditDialogController;
+import iel.org.projeto_grid.views.grade.GradeGerarDialogController;
 import iel.org.projeto_grid.views.grade.GradeGerarOverviewController;
 import iel.org.projeto_grid.views.login.LoginOverviewController;
 import iel.org.projeto_grid.views.login.LogoffDialogController;
@@ -223,6 +225,44 @@ public class MainApp extends Application {
 			return false;
 		}
 	}
+	
+	/**
+	 * Abre uma janela para editar detalhes para a pessoa especificada. Se o usuário
+	 * clicar OK, as mudanças são salvasno objeto pessoa fornecido e retorna true.
+	 * 
+	 * @param person O objeto pessoa a ser editado
+	 * @return true Se o usuário clicou OK, caso contrário false.
+	 */
+	public boolean showGerarGradeDialog(Turma turma) {
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("views/grade/GradesGerarDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Configurar Turma");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Define a pessoa no controller.
+			GradeGerarDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setTurma(turma);
+
+			// Mostra a janela e espera até o usuário fechar.
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	
 	/**
 	 * Retorna o palco principal
