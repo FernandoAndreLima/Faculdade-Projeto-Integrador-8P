@@ -1,4 +1,4 @@
-package iel.org.projeto_grid.views;
+package iel.org.projeto_grid.views.grade;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,37 +10,58 @@ import iel.org.projeto_grid.model.entities.Curso;
 import iel.org.projeto_grid.model.entities.Turma;
 import iel.org.projeto_grid.model.enums.SemestreEnum;
 import iel.org.projeto_grid.utils.UtilCreteFakeData;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 
 public class GradeGerarOverviewController  implements Initializable{
 
+	private MainApp mainApp;
+	private UtilCreteFakeData createFakeData;
 	private List<Turma> turmas;
 	private List<Curso> cursos;
 	private String[] nomesCursos = { "BACHARELADO EM SISTEMAS DA INFORMAÇÃO", "ADMINISTRAÇÃO", "DIREITO" };
 	private ObservableList<String> options;
 	
-	@FXML
-	private ComboBox<String> btEscolhaCurso;
+    @FXML
+    private Text txtPeriodoPos1;
 
-	@FXML
-	private ComboBox<SemestreEnum> btEscolhaSemestre;
+    @FXML
+    private Text txtPeriodoPos4;
 
+    @FXML
+    private ComboBox<?> btEscolhaSemestre;
+
+    @FXML
+    private Text txtPeriodoPos2;
+
+    @FXML
+    private Button btnConfPos4;
+
+    @FXML
+    private Text txtPeriodoPos3;
+
+    @FXML
+    private ComboBox<?> btEscolhaCurso;
+
+    @FXML
+    private Button btnConfPos2;
+
+    @FXML
+    private Button btnConfPos3;
+
+    @FXML
+    private Button btnConfPos1;
+	
 	@FXML
 	private Label labelCurso;
 
 	@FXML
 	private Label labelSemestre;
-
-	private MainApp mainApp;
-
-	private UtilCreteFakeData createFakeData;
 
 	public GradeGerarOverviewController() { }
 
@@ -57,19 +78,13 @@ public class GradeGerarOverviewController  implements Initializable{
 
 	@FXML
 	private void initialize() {
-		this.createFakeData = new UtilCreteFakeData();
-		this.createFakeData.createData();
-		this.turmas = new ArrayList<Turma>(this.createFakeData.getTurmas());
-		this.cursos = new ArrayList<Curso>(this.createFakeData.getCursos());
-
-		this.options = FXCollections.observableArrayList( "Option 1",
-	            "Option 2",
-	            "Option 3"
-	        );
+		createFakeData = new UtilCreteFakeData();
+		createFakeData.createData();
 		
-		this.btEscolhaCurso = new ComboBox<>(FXCollections.observableArrayList(options));
-
-
+		turmas = new ArrayList<Turma>(createFakeData.getTurmas());
+		cursos = new ArrayList<Curso>(createFakeData.getCursos());
+		
+		
 	}
 
 	@FXML
