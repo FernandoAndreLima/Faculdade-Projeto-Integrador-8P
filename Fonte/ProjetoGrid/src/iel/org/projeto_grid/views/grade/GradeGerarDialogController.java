@@ -71,9 +71,10 @@ public class GradeGerarDialogController {
     	try {
     		if((!combSegunda.getValue().isEmpty())&&(!combTerca.getValue().isEmpty())&&(!combQuarta.getValue().isEmpty())&&(!combQuinta.getValue().isEmpty())&&(!combSexta.getValue().isEmpty())) {
     			btConfirma.setDisable(false);
+    		}else {
+    			btConfirma.setDisable(true);
     		}
-		} catch (NullPointerException np) {
-		}
+		} catch (NullPointerException np) {}
 
 	}
 	
@@ -96,37 +97,17 @@ public class GradeGerarDialogController {
     }
     
     /**
-     * Valida a entrada do usuário nos campos de texto.
-     * 
-     * @return true se a entrada é válida
+     * parei aqui quando iria enviar os dados ajustados para a tela de gerar grade
      */
-    private boolean isInputValid() {
-        String errorMessage = "";
-
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            // Mostra a mensagem de erro.
-            Alert alert = new Alert(AlertType.ERROR);
-                      alert.setTitle("Campos Inválidos");
-                      alert.setHeaderText("Por favor, corrija os campos inválidos");
-                      alert.setContentText(errorMessage);
-                alert.showAndWait();
-                
-            return false;
-        }
-    }
     
+    saas
     /**
      * Chamado quando o usuário clica OK.
      */
     @FXML
     private void handleOk() {
-        if (isInputValid()) {
-
-            okClicked = true;
-            dialogStage.close();
-        }
+    	okClicked = true;
+        dialogStage.close();
     }
     
     /**
