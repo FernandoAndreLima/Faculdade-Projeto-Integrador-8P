@@ -35,7 +35,7 @@ public class MainApp extends Application {
 	 * Constructor
 	 */
 	public MainApp() {}
-		
+	
 	@Override
 	public void start(Stage primaryStage) {
 
@@ -50,6 +50,35 @@ public class MainApp extends Application {
 		showLoginOverview();
 	}
 
+	private void menuConstructor() {
+		/*
+		 * Menu grade
+		 */
+		Menu gradeMenu = new Menu("Grade");
+		
+		MenuItem itemGerarGrade = new MenuItem("Gerar Grade...");
+		
+		itemGerarGrade.setOnAction(e -> {
+		    System.out.println("Menu Item 1 Selected");
+		});
+		
+		MenuItem itemGrades = new MenuItem("Grades...");
+		
+		itemGrades.setOnAction(e -> {
+		    System.out.println("Menu Item 2 Selected");
+		});
+		
+		gradeMenu.getItems().add(itemGerarGrade);
+		gradeMenu.getItems().add(itemGrades);
+		
+			
+		MenuBar menuBar = new MenuBar();
+		menuBar.getMenus().addAll(gradeMenu); 
+			
+		rootLayout.setTop(menuBar);
+	}
+	
+	
 	private void showLoginOverview() {
 		try {
 			//carrega o loginOverview
@@ -88,21 +117,9 @@ public class MainApp extends Application {
 	}
 
 	
-	@SuppressWarnings("unused")
-	private void showGradeGerarOverview() {
-		/*
-		 * Menu grade
-		 */
-		Menu gradeMenu = new Menu("Grade");
-		
-		gradeMenu.getItems().add(new MenuItem("Gerar Grade"));
-		gradeMenu.getItems().add(new MenuItem("Visualizar grades geradas"));
-		gradeMenu.getItems().add(new MenuItem("Teste"));
-		
-		MenuBar menuBar = new MenuBar();
-		menuBar.getMenus().addAll(gradeMenu); 
-		rootLayout.setTop(menuBar);
-		
+	public void showGradeGerarOverview() {
+
+		menuConstructor();
 		
 		try {
 			//carrega o person overview

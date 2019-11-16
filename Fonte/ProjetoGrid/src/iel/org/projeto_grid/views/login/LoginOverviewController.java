@@ -1,5 +1,6 @@
 package iel.org.projeto_grid.views.login;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -8,18 +9,23 @@ import iel.org.projeto_grid.utils.EventosJavaFxUtil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
+@SuppressWarnings("restriction")
 public class LoginOverviewController implements Initializable {
 
-	@SuppressWarnings("unused")
 	private MainApp mainApp;
 
 	@FXML
@@ -46,31 +52,34 @@ public class LoginOverviewController implements Initializable {
 	}
 
 	@FXML
-	public void efetuaLogin() {
-		btnLogar.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
+	void goTo(ActionEvent event) {
+		Node node = (Node) event.getSource();
 
-				if ((txtFieldLogin.getText().equals("admin")) && (txtFieldSenha.getText().equals("admin"))) {
-					EventosJavaFxUtil.alertaSenhaPasswordLogin(
-							lbActionTarget, 
-							Color.GREEN, 
-							"Login efetuado com sucesso",
-							TextAlignment.CENTER);
-					
+		Stage stage = (Stage) node.getScene().getWindow();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("views/GradeGerarOverview.fxml"));
+		} catch (IOException ex) {
+		}
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 
-				} else {
-					EventosJavaFxUtil.alerta(AlertType.WARNING, "Erro login", "Erro login", "Login ou senha incorreto!");
-					EventosJavaFxUtil.alertaSenhaPasswordLogin(
-							lbActionTarget, 
-							Color.FIREBRICK,
-							"Login ou senha incorreto!",
-							TextAlignment.CENTER);
-					txtFieldLogin.setText("");
-					txtFieldSenha.setText("");
-				}
-			}
-		});
+	@FXML
+	public void efetuaLogin() {	
+		if ((txtFieldLogin.getText().equals("admin")) && (txtFieldSenha.getText().equals("admin"))) {
+			EventosJavaFxUtil.alertaSenhaPasswordLogin(lbActionTarget, Color.GREEN,
+					"Login efetuado com sucesso", TextAlignment.CENTER);
+			mainApp.showGradeGerarOverview();
+		} else {
+			EventosJavaFxUtil.alerta(AlertType.WARNING, "Erro login", "Erro login",
+					"Login ou senha incorreto!");
+			EventosJavaFxUtil.alertaSenhaPasswordLogin(lbActionTarget, Color.FIREBRICK,
+					"Login ou senha incorreto!", TextAlignment.CENTER);
+			txtFieldLogin.setText("");
+			txtFieldSenha.setText("");
+		}
 	}
 
 	public PasswordField getTxtFieldSenha() {
