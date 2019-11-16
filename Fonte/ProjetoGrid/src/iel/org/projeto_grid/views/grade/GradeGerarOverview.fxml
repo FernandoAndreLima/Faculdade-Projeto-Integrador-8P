@@ -27,10 +27,10 @@
                         <Label text="Curso" />
                         <ComboBox fx:id="btEscolhaCurso" onAction="#holdComboCurso" prefHeight="25.0" prefWidth="289.0" GridPane.columnIndex="1" />
                         <Label text="Semestre" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="btEscolhaSemestre" prefHeight="25.0" prefWidth="288.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="btEscolhaSemestre" onAction="#holdComboSemestre" prefHeight="25.0" prefWidth="288.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <GridPane alignment="CENTER" layoutX="278.0" layoutY="158.0">
+                  <GridPane alignment="CENTER" layoutX="278.0" layoutY="180.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -43,10 +43,10 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Text fx:id="txtPeriodoPos1" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.rowIndex="1" />
-                        <Text fx:id="txtPeriodoPos2" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="88.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Text fx:id="txtPeriodoPos3" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="88.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Text fx:id="txtPeriodoPos4" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="88.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Text fx:id="txtPeriodoPos1" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Text fx:id="txtPeriodoPos2" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="88.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Text fx:id="txtPeriodoPos3" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="88.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Text fx:id="txtPeriodoPos4" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="88.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Button fx:id="btnConfPos1" mnemonicParsing="false" text="Configurar" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                         <Button fx:id="btnConfPos2" mnemonicParsing="false" text="Configurar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                         <Button fx:id="btnConfPos3" mnemonicParsing="false" text="Configurar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />

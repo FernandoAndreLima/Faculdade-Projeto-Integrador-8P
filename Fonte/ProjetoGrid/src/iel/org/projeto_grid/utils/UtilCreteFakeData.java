@@ -169,7 +169,15 @@ public class UtilCreteFakeData {
 					}
 				}
 			}
-			Turma turma = new Turma(disciplinasInformadas, professores, curso, periodo, SemestreEnum.primeiro, "2019");
+			Turma turma;
+			
+			if((periodo == PeriodoEnum.PRIMEIRO) || (periodo == PeriodoEnum.TERCEIRO)|| (periodo == PeriodoEnum.QUINTO) || (periodo == PeriodoEnum.SETIMO))
+			{
+				turma = new Turma(disciplinasInformadas, professores, curso, periodo, SemestreEnum.primeiro, "2019");
+			}else {
+				turma = new Turma(disciplinasInformadas, professores, curso, periodo, SemestreEnum.segundo, "2019");
+			}
+			
 			turma.ramdom = random.nextInt(2000);
 			this.turmas.add(turma);
 		}

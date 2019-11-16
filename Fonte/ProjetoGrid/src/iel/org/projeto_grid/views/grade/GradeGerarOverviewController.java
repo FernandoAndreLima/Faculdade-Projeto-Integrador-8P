@@ -20,6 +20,9 @@ public class GradeGerarOverviewController{
 	private UtilCreteFakeData createFakeData;
 	private List<Turma> turmas;
 	private List<Curso> cursos;
+	
+	private Curso cursoEscolhido;
+	private List<Turma> turmasSelecionadas;
 
 	@FXML
     private Text txtPeriodoPos1;
@@ -28,7 +31,7 @@ public class GradeGerarOverviewController{
     private Text txtPeriodoPos4;
 
     @FXML
-    private ComboBox<?> btEscolhaSemestre;
+    private ComboBox<SemestreEnum> btEscolhaSemestre;
 
     @FXML
     private Text txtPeriodoPos2;
@@ -70,10 +73,99 @@ public class GradeGerarOverviewController{
 		for (Curso curso : cursos) {
 			btEscolhaCurso.getItems().add(curso.getNome());
 		}
+		btEscolhaSemestre.setDisable(true);
+		btEscolhaSemestre.getItems().add(SemestreEnum.primeiro);
+		btEscolhaSemestre.getItems().add(SemestreEnum.segundo);
+		
+		removeDadosFormulario();
 	}
 	
 	@FXML
 	public void holdComboCurso() {
+		removeDadosFormulario();
+		for (Curso curso : cursos) {
+			if(btEscolhaCurso.getValue().equals(curso.getNome())) {
+				cursoEscolhido = new Curso();
+				cursoEscolhido = curso;
+				btEscolhaSemestre.setDisable(false);
+			}
+		}
+	}
+	
+	private void removeDadosFormulario() {
+		btEscolhaSemestre.setValue(null);
+		btEscolhaSemestre.setDisable(true);
+		
+		txtPeriodoPos1.setText("");
+		txtPeriodoPos2.setText("");
+		txtPeriodoPos3.setText("");
+		txtPeriodoPos4.setText("");
+		
+		btnConfPos1.setDisable(true);
+		btnConfPos2.setDisable(true);
+		btnConfPos3.setDisable(true);
+		btnConfPos4.setDisable(true);
+	
+	}
+
+	@FXML
+	public void holdComboSemestre() {
+		turmasSelecionadas = new ArrayList<>();
+		for(Turma turma : turmas) {
+			if(turma.getSemestre().toString().equals(btEscolhaSemestre.getValue().toString())) {
+				turmasSelecionadas.add(turma);
+				System.out.println(turmasSelecionadas.size());
+			}
+		}
+		
+		
+		for(Turma turma : turmasSelecionadas) {
+			
+			switch (turma.getPeriodo()) {
+			case PRIMEIRO:
+				txtPeriodoPos1.setText(turma.getPeriodo().toString());
+				btnConfPos1.setDisable(false);
+				break;
+			
+			case SEGUNDO:
+				txtPeriodoPos1.setText(turma.getPeriodo().toString());
+				btnConfPos1.setDisable(false);
+				break;
+			
+			case TERCEIRO:
+				txtPeriodoPos2.setText(turma.getPeriodo().toString());
+				btnConfPos2.setDisable(false);
+				break;
+			
+			case QUARTO:
+				txtPeriodoPos2.setText(turma.getPeriodo().toString());
+				btnConfPos2.setDisable(false);
+				break;
+				
+			case QUINTO:
+				txtPeriodoPos3.setText(turma.getPeriodo().toString());
+				btnConfPos3.setDisable(false);
+				break;
+			
+			case SEXTO:
+				txtPeriodoPos3.setText(turma.getPeriodo().toString());
+				btnConfPos3.setDisable(false);
+				break;
+				
+			case SETIMO:
+				txtPeriodoPos4.setText(turma.getPeriodo().toString());
+				btnConfPos4.setDisable(false);
+				break;
+				
+			case OITAVO:
+				txtPeriodoPos4.setText(turma.getPeriodo().toString());
+				btnConfPos4.setDisable(false);
+				break;
+				
+			default:
+				break;
+			}
+		} 
 		
 	}
 
