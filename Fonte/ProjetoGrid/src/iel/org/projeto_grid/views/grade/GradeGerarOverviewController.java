@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iel.org.projeto_grid.MainApp;
+import iel.org.projeto_grid.controller.Resolvedor;
 import iel.org.projeto_grid.model.entities.Curso;
 import iel.org.projeto_grid.model.entities.Turma;
 import iel.org.projeto_grid.model.enums.SemestreEnum;
@@ -19,10 +20,12 @@ public class GradeGerarOverviewController{
 	private MainApp mainApp;
 	private UtilCreteFakeData createFakeData;
 	private List<Turma> turmas;
+	private List<Turma> turmasSelecionadas;
+	private List<Turma> turmasProntas;
 	private List<Curso> cursos;
 	
+	@SuppressWarnings("unused")
 	private Curso cursoEscolhido;
-	private List<Turma> turmasSelecionadas;
 	
 	private Turma posUm;
 	private Turma posDois;
@@ -69,6 +72,9 @@ public class GradeGerarOverviewController{
 
 	@FXML
 	private Label labelSemestre;
+	
+    @FXML
+    private Button btGerarGrade;
 
 	public GradeGerarOverviewController() { }
 
@@ -78,6 +84,7 @@ public class GradeGerarOverviewController{
 		createFakeData.createData();
 		
 		turmas = new ArrayList<Turma>(createFakeData.getTurmas());
+		turmasProntas = new ArrayList<Turma>();
 		cursos = new ArrayList<Curso>(createFakeData.getCursos());
 		
 		for (Curso curso : cursos) {
@@ -115,6 +122,8 @@ public class GradeGerarOverviewController{
 		btnConfPos2.setDisable(true);
 		btnConfPos3.setDisable(true);
 		btnConfPos4.setDisable(true);
+		
+		btGerarGrade.setDisable(true);
 	
 	}
 
@@ -196,26 +205,71 @@ public class GradeGerarOverviewController{
 	}
 
 	@FXML
-	private void handleGerarGrade() {}
-	
-	@FXML
-	private void handleConfigurarPos1() {
-		isConfigPos1 = mainApp.showGerarGradeDialog(posUm);
+	private void handleGerarGrade() {
+		
+		Resolvedor resolvedor = new Resolvedor();
+		
+		for (Turma turma : turmasProntas) {
+			System.out.println(turma.getGrade());
+		}
 	}
 	
 	@FXML
+	private void handleConfigurarPos1() {
+		Turma finalizada = mainApp.showGerarGradeDialog(posUm);
+		if(finalizada.diasConfigurados) {
+			turmasProntas.add(finalizada);
+			isConfigPos1 = true;
+		}else {
+			isConfigPos1 = false;
+		}
+		verificaSeTodosAsTurmasEstaoConfiguradas();
+	}
+	
+
+
+	@FXML
 	private void handleConfigurarPos2() {
-		isConfigPos2 = mainApp.showGerarGradeDialog(posDois);
+		Turma finalizada = mainApp.showGerarGradeDialog(posDois);
+		if(finalizada.diasConfigurados) {
+			turmasProntas.add(finalizada);
+			isConfigPos2 = true;
+		}else {
+			isConfigPos2 = false;
+		}
+		verificaSeTodosAsTurmasEstaoConfiguradas();
 	}
 	
 	@FXML
 	private void handleConfigurarPos3() {
-		isConfigPos3 = mainApp.showGerarGradeDialog(posTres);
+		Turma finalizada =  mainApp.showGerarGradeDialog(posTres);
+		if(finalizada.diasConfigurados) {
+			turmasProntas.add(finalizada);
+			isConfigPos3 = true;
+		}else {
+			isConfigPos3 = false;
+		}
+		verificaSeTodosAsTurmasEstaoConfiguradas();
 	}
 	
 	@FXML
 	private void handleConfigurarPos4() {
-		isConfigPos4 = mainApp.showGerarGradeDialog(posQuatro);
+		Turma finalizada = mainApp.showGerarGradeDialog(posQuatro);
+		if(finalizada.diasConfigurados) {
+			turmasProntas.add(finalizada);
+			isConfigPos4 = true;
+		}else {
+			isConfigPos4 = false;
+		}
+		verificaSeTodosAsTurmasEstaoConfiguradas();
+	}
+	
+	private void verificaSeTodosAsTurmasEstaoConfiguradas() {
+		if(isConfigPos1 && isConfigPos2 && isConfigPos3 && isConfigPos4) {
+			btGerarGrade.setDisable(false);
+		}else {
+			btGerarGrade.setDisable(true);
+		}
 	}
 	
 	public void setMainApp(MainApp mainApp) {this.mainApp = mainApp;}

@@ -14,7 +14,7 @@ import iel.org.projeto_grid.model.entities.Professor;
  *
  */
 public class Resolvedor {
-
+	
 	/*
 	 * Professores
 	 */

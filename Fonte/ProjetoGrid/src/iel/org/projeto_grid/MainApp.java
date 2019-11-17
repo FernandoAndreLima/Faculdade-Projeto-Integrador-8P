@@ -233,7 +233,7 @@ public class MainApp extends Application {
 	 * @param person O objeto pessoa a ser editado
 	 * @return true Se o usuário clicou OK, caso contrário false.
 	 */
-	public boolean showGerarGradeDialog(Turma turma) {
+	public Turma showGerarGradeDialog(Turma turma) {
 		try {
 			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
 			FXMLLoader loader = new FXMLLoader();
@@ -255,12 +255,14 @@ public class MainApp extends Application {
 
 			// Mostra a janela e espera até o usuário fechar.
 			dialogStage.showAndWait();
-
-			return controller.isOkClicked();
+			if(controller.isOkClicked()) {
+				return controller.getTurma();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+			return turma;
 		}
+		return turma;
 	}
 	
 	

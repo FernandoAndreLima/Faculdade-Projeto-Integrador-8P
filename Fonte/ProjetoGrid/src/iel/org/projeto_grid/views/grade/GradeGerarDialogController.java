@@ -1,12 +1,13 @@
 package iel.org.projeto_grid.views.grade;
 
+import iel.org.projeto_grid.model.entities.Aula;
 import iel.org.projeto_grid.model.entities.Disciplina;
+import iel.org.projeto_grid.model.entities.GradeHoraria;
 import iel.org.projeto_grid.model.entities.Turma;
+import iel.org.projeto_grid.model.enums.DiasEnum;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
@@ -17,7 +18,6 @@ public class GradeGerarDialogController {
     private Turma turma;
     private boolean okClicked = false;
     
-//    private List<String> disciplinasDisponiveis;  
 	private ObservableList<String> disciplinasDisponiveis = FXCollections.observableArrayList();
     
     @FXML
@@ -97,20 +97,37 @@ public class GradeGerarDialogController {
     }
     
     /**
-     * parei aqui quando iria enviar os dados ajustados para a tela de gerar grade
-     */
-    
-    saas
-    /**
      * Chamado quando o usuário clica OK.
      */
     @FXML
     private void handleOk() {
+    	
+    	GradeHoraria gradeHoraria = new GradeHoraria();
+    	gradeHoraria.setAulaSegunda(new Aula(buscaDisciplinaSelecionada(combSegunda.getValue()), DiasEnum.SEGUNDA_FEIRA));
+    	gradeHoraria.setAulaTerca(new Aula(buscaDisciplinaSelecionada(combTerca.getValue()), DiasEnum.TERCA_FEIRA));
+    	gradeHoraria.setAulaQuarta(new Aula(buscaDisciplinaSelecionada(combQuarta.getValue()), DiasEnum.QUARTA_FEIRA));
+    	gradeHoraria.setAulaQuinta(new Aula(buscaDisciplinaSelecionada(combQuinta.getValue()), DiasEnum.QUINTA_FEIRA));
+    	gradeHoraria.setAulaSexta(new Aula(buscaDisciplinaSelecionada(combSexta.getValue()), DiasEnum.SEXTA_FEIRA));
+    	
+    	turma.setGrade(gradeHoraria);
+    	turma.diasConfigurados = true;
+    	
     	okClicked = true;
         dialogStage.close();
     }
     
-    /**
+    private Disciplina buscaDisciplinaSelecionada(String nomeDisciplina) {
+    	
+    	Disciplina disciplinaSelecionada = new Disciplina();
+    	for (Disciplina disciplina : turma.getDisciplinas()) {
+			if(nomeDisciplina.equals(disciplina.getNome())){
+				disciplinaSelecionada = disciplina;
+			}
+		}
+		return disciplinaSelecionada;
+	}
+
+	/**
      * Chamado quando o usuário clica Cancel.
      */
     @FXML
@@ -120,5 +137,9 @@ public class GradeGerarDialogController {
     
 	public ObservableList<String> getDisciplinasDisponiveis() {
 		return disciplinasDisponiveis;
+	}
+
+	public Turma getTurma() {
+		return turma;
 	}
 }

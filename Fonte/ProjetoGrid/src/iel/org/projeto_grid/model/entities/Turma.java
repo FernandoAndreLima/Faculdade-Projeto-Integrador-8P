@@ -96,8 +96,12 @@ public class Turma implements Serializable {
 		joinColumns = {@JoinColumn(name = "id_turma", referencedColumnName = "id") },
 		inverseJoinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas;
+	
 	@Transient
 	public int ramdom;
+	
+	@Transient
+	public boolean diasConfigurados = false;
 	
 	public Turma() {}
 	
