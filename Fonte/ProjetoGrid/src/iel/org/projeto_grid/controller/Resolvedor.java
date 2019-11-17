@@ -22,8 +22,8 @@ public class Resolvedor {
 	/*
 	 * Professores
 	 */
-	public List<Professor> professores = new ArrayList<Professor>();
-	public List<Professor> professoresAtualizados = new ArrayList<Professor>();
+	private List<Professor> professores;
+	protected List<Professor> professoresAtualizados;
 
 	/**
 	 * Método que atribui os professores nas matérias e retorna uma grade
@@ -32,13 +32,18 @@ public class Resolvedor {
 	 */
 
 	public Curso controiGradeCurso(Curso curso) {
+		this.professores = new ArrayList<Professor>();
+		this.professoresAtualizados = new ArrayList<Professor>();
+		
 		List<Turma>turmasAtualizadas = new ArrayList<Turma>();
 		List<Turma>turmasFinalizadas = new ArrayList<Turma>();
 		
 		for (Turma turma : curso.getTurmas()) {
-			GradeHoraria grade = new GradeHoraria();
+			if(professores.isEmpty()) {
+				professores.addAll(turma.getProfessores());
+			}
 			
-			professores.addAll(turma.getProfessores());
+			GradeHoraria grade = new GradeHoraria();
 			
 			grade = constroiGradeTurma(turma.getGrade());
 			turma.setGrade(grade);
@@ -48,8 +53,8 @@ public class Resolvedor {
 		
 		for (Turma turma : turmasAtualizadas) {
 			Turma nova = turma;
-			nova.setProfessores(professoresAtualizados);
-			nova.getGrade().setProfessores(professoresAtualizados);
+			nova.setProfessores(this.professoresAtualizados);
+			nova.getGrade().setProfessores(this.professoresAtualizados);
 			turmasFinalizadas.add(nova);
 		}
 		curso.setTurmas(turmasFinalizadas);
@@ -91,10 +96,11 @@ public class Resolvedor {
 			/*
 			 * Forach de profesores
 			 */
+			System.out.println(this.professores.size() == this.professoresAtualizados.size());
+			System.out.println("professores "+this.professores.size()+" " + " professores atualizados "+this.professoresAtualizados.size());
+			if(this.professores.size() == this.professoresAtualizados.size()) {
 			
-			if(professores.size() == professoresAtualizados.size()) {
-			
-				loopProfessor: for (Professor professor : professoresAtualizados) {
+				loopProfessor: for (Professor professor : this.professoresAtualizados) {
 					/*
 					 * Efetua as 2 verificações:
 					 * Se o professor conhece a disciplina
@@ -134,7 +140,8 @@ public class Resolvedor {
 								);
 						professor.getDisponibilidade().addDiasNaoDisponiveis(diaNaoDisponivel);
 						aula.setProfessor(professor);
-						addProfessorAtualizado(professor);
+						professoresAtualizados.add(professor);
+//						addProfessorAtualizado(professor);
 						sair = true;
 						break loopProfessor;
 					}
@@ -147,27 +154,31 @@ public class Resolvedor {
 		return aula;
 	}
 	
-	public void addProfessorAtualizado(Professor professor) {
-		int indiceASerRemovido = 0;
+	public boolean contemProfessor(Professor professor, List<Professor>professores) {
 		boolean contemProfessor = false;
-		for(Professor professorLista : professoresAtualizados) {
+		for(Professor professorLista : professores) {
 			if(professorLista.getNomeCompleto().equals(professor.getNomeCompleto())) {
 				contemProfessor = true;
 				break;
 			}
-		}
-		
+		}	
+		return contemProfessor;
+	}
+	
+	public void addProfessorAtualizado(Professor professor) {
+		int indiceASerRemovido = 0;
+		boolean contemProfessor = contemProfessor(professor, professoresAtualizados);		
 		if(contemProfessor) {
 			for(Professor professor2 : professoresAtualizados) {
 				if((professor.getNomeCompleto().equals(professor2.getNomeCompleto())) && (professor.getDisponibilidade().qtdaDiasDisponiveis() != professor2.getDisponibilidade().qtdaDiasDisponiveis())) {
 					indiceASerRemovido = professoresAtualizados.indexOf(professor2);
-					professoresAtualizados.add(professor);
+					this.professoresAtualizados.add(professor);
 				}
 			}
-			professoresAtualizados.remove(indiceASerRemovido);
+			this.professoresAtualizados.remove(indiceASerRemovido);
 		}
 		else {
-			professoresAtualizados.add(professor);
+			this.professoresAtualizados.add(professor);
 		}
 	}
 }
