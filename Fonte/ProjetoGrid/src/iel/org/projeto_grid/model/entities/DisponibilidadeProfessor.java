@@ -23,6 +23,7 @@ import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import iel.org.projeto_grid.model.enums.DiasEnum;
+import iel.org.projeto_grid.model.enums.GrauMotivoEnum;
 import iel.org.projeto_grid.model.enums.SemestreEnum;
 
 @Entity
@@ -63,6 +64,24 @@ public class DisponibilidadeProfessor implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = DiaNaoDisponivel.class)
 	private List<DiaNaoDisponivel> diasNaoDisponiveis = new ArrayList<>();
 
+	public List<DiaNaoDisponivel> getDiasNaoDisponiveis() {
+		return diasNaoDisponiveis;
+	}
+
+	public void setDiasNaoDisponiveis(List<DiaNaoDisponivel> diasNaoDisponiveis) {
+		this.diasNaoDisponiveis.addAll(diasNaoDisponiveis);
+	}
+
+	public GrauMotivoEnum retornaGrauDiaIndisponivel(DiasEnum dia) {
+		GrauMotivoEnum retorno = GrauMotivoEnum.BAIXO;
+		for(DiaNaoDisponivel diaND : diasNaoDisponiveis) {
+			if(diaND.getDia().equals(dia))
+				retorno = diaND.getGrauMotivo();
+		}
+		
+		return retorno;
+	}
+	
 	public int qtdaDiasDisponiveis() {
 		return diasDisponiveis.size();
 	}
@@ -72,7 +91,7 @@ public class DisponibilidadeProfessor implements Serializable {
 	}
 
 	public void addDiasNaoDisponiveis(DiaNaoDisponivel dia) {
-		dia.setDisponibilidade(this);
+//		dia.setDisponibilidade(this);
 		this.diasNaoDisponiveis.add(dia);
 	}
 

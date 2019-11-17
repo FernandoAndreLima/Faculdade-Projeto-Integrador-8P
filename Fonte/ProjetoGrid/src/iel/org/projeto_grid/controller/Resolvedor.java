@@ -9,6 +9,7 @@ import iel.org.projeto_grid.model.entities.DiaNaoDisponivel;
 import iel.org.projeto_grid.model.entities.GradeHoraria;
 import iel.org.projeto_grid.model.entities.Professor;
 import iel.org.projeto_grid.model.entities.Turma;
+import iel.org.projeto_grid.model.enums.DiasEnum;
 import iel.org.projeto_grid.model.enums.GrauMotivoEnum;
 
 /**
@@ -23,7 +24,6 @@ public class Resolvedor {
 	 * Professores
 	 */
 	private List<Professor> professores;
-	protected List<Professor> professoresAtualizados;
 
 	/**
 	 * Método que atribui os professores nas matérias e retorna uma grade
@@ -33,7 +33,6 @@ public class Resolvedor {
 
 	public Curso controiGradeCurso(Curso curso) {
 		this.professores = new ArrayList<Professor>();
-		this.professoresAtualizados = new ArrayList<Professor>();
 		
 		List<Turma>turmasAtualizadas = new ArrayList<Turma>();
 		List<Turma>turmasFinalizadas = new ArrayList<Turma>();
@@ -50,11 +49,12 @@ public class Resolvedor {
 			turmasAtualizadas.add(turma);
 			
 		}
-		
+		//ultima atualizacao de professores
 		for (Turma turma : turmasAtualizadas) {
-			Turma nova = turma;
-			nova.setProfessores(this.professoresAtualizados);
-			nova.getGrade().setProfessores(this.professoresAtualizados);
+			Turma nova = new Turma();
+			nova = turma;
+			nova.setProfessores(this.professores);
+			nova.getGrade().setProfessores(this.professores);
 			turmasFinalizadas.add(nova);
 		}
 		curso.setTurmas(turmasFinalizadas);
@@ -85,6 +85,7 @@ public class Resolvedor {
 	 * @return
 	 */
 	private Aula resolveAula(Aula aula) {
+		Professor professorEscolhido = new Professor();
 		/*
 		 * boolean do loop do while
 		 */
@@ -93,59 +94,32 @@ public class Resolvedor {
 		 * Enquanto sair não for verdadeiro continua no loop
 		 */
 		while (!sair) {
-			/*
-			 * Forach de profesores
-			 */
-			System.out.println(this.professores.size() == this.professoresAtualizados.size());
-			System.out.println("professores "+this.professores.size()+" " + " professores atualizados "+this.professoresAtualizados.size());
-			if(this.professores.size() == this.professoresAtualizados.size()) {
-			
-				loopProfessor: for (Professor professor : this.professoresAtualizados) {
-					/*
-					 * Efetua as 2 verificações:
-					 * Se o professor conhece a disciplina
-					 * Se o professor possui disponibilidade no dia
-					 * Caso seja verdadeiro atribui o professor na aula, 
-					 * sair recebe true e para o loop dos professores
-					 */
-					if (professor.conheceDisciplina(aula.getDisciplina())
-							&& professor.possuiDisponibilidadeNoDia(aula.getDiasSemana())) {
+			if(!aula.getDisciplina().getNome().equals("Estudo auto dirigido")) {	
+				/*
+				 * Forach de profesores
+				 */
+				int index = 0;
+				for (Professor professor : professores) {
+
+					if (validaProfessorParaOdia(professor, aula.getDiasSemana())) {
+						index = professores.indexOf(professor);
 						
-						DiaNaoDisponivel diaNaoDisponivel = new DiaNaoDisponivel(aula.getDiasSemana(),
+						DiaNaoDisponivel diaNaoDisponivel = new DiaNaoDisponivel(
+								aula.getDiasSemana(),
 								"lecionar disciplina "+aula.getDisciplina().getNome(),
 								GrauMotivoEnum.TRABALHO
 								);
-						professor.getDisponibilidade().addDiasNaoDisponiveis(diaNaoDisponivel);
+						
+						professor.getDisponibilidade().getDiasNaoDisponiveis().add(diaNaoDisponivel);
 						aula.setProfessor(professor);
-						addProfessorAtualizado(professor);
+						professorEscolhido = professor;
 						sair = true;
-						break loopProfessor;
 					}
 				}
+				professores.remove(index);
+				professores.add(professorEscolhido);
 			}else {
-				loopProfessor: for (Professor professor : professores) {
-					/*
-					 * Efetua as 2 verificações:
-					 * Se o professor conhece a disciplina
-					 * Se o professor possui disponibilidade no dia
-					 * Caso seja verdadeiro atribui o professor na aula, 
-					 * sair recebe true e para o loop dos professores
-					 */
-					if (professor.conheceDisciplina(aula.getDisciplina())
-							&& professor.possuiDisponibilidadeNoDia(aula.getDiasSemana())) {
-						
-						DiaNaoDisponivel diaNaoDisponivel = new DiaNaoDisponivel(aula.getDiasSemana(),
-								"lecionar disciplina "+aula.getDisciplina().getNome(),
-								GrauMotivoEnum.TRABALHO
-								);
-						professor.getDisponibilidade().addDiasNaoDisponiveis(diaNaoDisponivel);
-						aula.setProfessor(professor);
-						professoresAtualizados.add(professor);
-//						addProfessorAtualizado(professor);
-						sair = true;
-						break loopProfessor;
-					}
-				}
+				aula.setProfessor(professorEscolhido);
 			}
 		}
 		/*
@@ -154,31 +128,18 @@ public class Resolvedor {
 		return aula;
 	}
 	
-	public boolean contemProfessor(Professor professor, List<Professor>professores) {
-		boolean contemProfessor = false;
-		for(Professor professorLista : professores) {
-			if(professorLista.getNomeCompleto().equals(professor.getNomeCompleto())) {
-				contemProfessor = true;
-				break;
-			}
-		}	
-		return contemProfessor;
-	}
-	
-	public void addProfessorAtualizado(Professor professor) {
-		int indiceASerRemovido = 0;
-		boolean contemProfessor = contemProfessor(professor, professoresAtualizados);		
-		if(contemProfessor) {
-			for(Professor professor2 : professoresAtualizados) {
-				if((professor.getNomeCompleto().equals(professor2.getNomeCompleto())) && (professor.getDisponibilidade().qtdaDiasDisponiveis() != professor2.getDisponibilidade().qtdaDiasDisponiveis())) {
-					indiceASerRemovido = professoresAtualizados.indexOf(professor2);
-					this.professoresAtualizados.add(professor);
-				}
-			}
-			this.professoresAtualizados.remove(indiceASerRemovido);
+	private boolean validaProfessorParaOdia(Professor professor, DiasEnum diasSemana) {
+		boolean validado = true;
+		try {
+			if(!professor.getDisponibilidade().getDiasDisponiveis().contains(diasSemana))
+				validado = false;
+
+			if(professor.getDisponibilidade().retornaGrauDiaIndisponivel(diasSemana).equals(GrauMotivoEnum.ALTO) || professor.getDisponibilidade().retornaGrauDiaIndisponivel(diasSemana).equals(GrauMotivoEnum.TRABALHO))
+				validado = false;
+		} catch (Exception e) {
 		}
-		else {
-			this.professoresAtualizados.add(professor);
-		}
+
+		
+		return validado;
 	}
 }
