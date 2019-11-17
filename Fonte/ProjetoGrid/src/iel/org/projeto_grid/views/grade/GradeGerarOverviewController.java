@@ -6,6 +6,7 @@ import java.util.List;
 import iel.org.projeto_grid.MainApp;
 import iel.org.projeto_grid.controller.Resolvedor;
 import iel.org.projeto_grid.model.entities.Curso;
+import iel.org.projeto_grid.model.entities.Professor;
 import iel.org.projeto_grid.model.entities.Turma;
 import iel.org.projeto_grid.model.enums.SemestreEnum;
 import iel.org.projeto_grid.utils.UtilCreteFakeData;
@@ -19,12 +20,13 @@ public class GradeGerarOverviewController{
 
 	private MainApp mainApp;
 	private UtilCreteFakeData createFakeData;
+	
 	private List<Turma> turmas;
 	private List<Turma> turmasSelecionadas;
 	private List<Turma> turmasProntas;
 	private List<Curso> cursos;
+	private List<Professor> professores;
 	
-	@SuppressWarnings("unused")
 	private Curso cursoEscolhido;
 	
 	private Turma posUm;
@@ -86,10 +88,13 @@ public class GradeGerarOverviewController{
 		turmas = new ArrayList<Turma>(createFakeData.getTurmas());
 		turmasProntas = new ArrayList<Turma>();
 		cursos = new ArrayList<Curso>(createFakeData.getCursos());
+		professores = new ArrayList<Professor>(createFakeData.getProfessores());
+		
 		
 		for (Curso curso : cursos) {
 			btEscolhaCurso.getItems().add(curso.getNome());
 		}
+		
 		btEscolhaSemestre.setDisable(true);
 		btEscolhaSemestre.getItems().add(SemestreEnum.primeiro);
 		btEscolhaSemestre.getItems().add(SemestreEnum.segundo);
@@ -133,7 +138,6 @@ public class GradeGerarOverviewController{
 		for(Turma turma : turmas) {
 			if(turma.getSemestre().toString().equals(btEscolhaSemestre.getValue().toString())) {
 				turmasSelecionadas.add(turma);
-				System.out.println(turmasSelecionadas.size());
 			}
 		}
 		
@@ -206,18 +210,25 @@ public class GradeGerarOverviewController{
 
 	@FXML
 	private void handleGerarGrade() {
+		long tempoInicial = System.currentTimeMillis();
+		cursoEscolhido.setTurmas(turmasProntas);
 		
 		Resolvedor resolvedor = new Resolvedor();
+		Curso gradeFinalizada = new Curso();
+		gradeFinalizada = resolvedor.controiGradeCurso(cursoEscolhido);
 		
-		for (Turma turma : turmasProntas) {
+		for (Turma turma : gradeFinalizada.getTurmas()) {
 			System.out.println(turma.getGrade());
 		}
+		long tempoFinal = System.currentTimeMillis();
+		System.out.println("Tempo em millis: " + (tempoFinal - tempoInicial) );
 	}
 	
 	@FXML
 	private void handleConfigurarPos1() {
 		Turma finalizada = mainApp.showGerarGradeDialog(posUm);
 		if(finalizada.diasConfigurados) {
+			finalizada.setProfessores(professores);
 			turmasProntas.add(finalizada);
 			isConfigPos1 = true;
 		}else {

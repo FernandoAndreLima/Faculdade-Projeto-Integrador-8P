@@ -54,6 +54,13 @@ public class DiaNaoDisponivel implements Serializable {
 
 	public DiaNaoDisponivel() {}
 	
+	public DiaNaoDisponivel(DiasEnum diaRecebido, String motivoRecebido, GrauMotivoEnum grauMotivoRecebido) {
+		this.dia = diaRecebido;
+		this.motivo = motivoRecebido;
+		this.grauMotivo = grauMotivoRecebido;
+//		this.disponibilidade = disponibilidadeRecebido;
+	}
+	
 	public DisponibilidadeProfessor getDisponibilidade() {
 		return disponibilidade;
 	}

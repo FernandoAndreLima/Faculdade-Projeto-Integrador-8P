@@ -77,6 +77,9 @@ public class GradeHoraria implements Serializable{
 
 	@Transient
 	private List<Disciplina> listaTabu = new ArrayList<Disciplina>();
+	
+	@Transient
+	private List<Professor> professoresAtualizados = new ArrayList<Professor>();
 
 	public GradeHoraria(Periodo periodoAnoInformado, String anoInformado, List<Professor> professoresInformados,
 			List<Disciplina> disciplinasInformadas) {
@@ -93,6 +96,19 @@ public class GradeHoraria implements Serializable{
 		this.aulaSexta = new Aula(buscaDisciplina(), DiasEnum.SEXTA_FEIRA);
 
 	}
+	
+	public void addProfessorAtualizado(Professor professor) {
+		int indiceASerRemovido = 0;
+		for(Professor professor2 : professoresAtualizados) {
+			if((professor.getNomeCompleto().equals(professor2.getNomeCompleto())) && (professor.getDisponibilidade().qtdaDiasDisponiveis() != professor2.getDisponibilidade().qtdaDiasDisponiveis())) {
+				indiceASerRemovido = professoresAtualizados.indexOf(professor2);
+				professoresAtualizados.add(professor);
+			}
+		}
+		professoresAtualizados.remove(indiceASerRemovido);
+
+	}
+	
 	
 	public GradeHoraria() {}
 

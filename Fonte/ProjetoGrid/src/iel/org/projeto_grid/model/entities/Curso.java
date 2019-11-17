@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -45,21 +46,25 @@ public class Curso implements Serializable {
 	private String tempoDuracao;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "tab_curso_diciplina", 
-		joinColumns = {@JoinColumn(name = "id_curso", referencedColumnName = "id")}, 	
-		inverseJoinColumns = {@JoinColumn(name = "id_disciplina", referencedColumnName = "id")})
+	@JoinTable(name = "tab_curso_diciplina", joinColumns = {
+			@JoinColumn(name = "id_curso", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "id_disciplina", referencedColumnName = "id") })
 	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
-	public Curso() {}
-	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curso")
+	private List<Turma> turmas = new ArrayList<Turma>();
+
+	public Curso() {
+	}
+
 	public Curso(String nomeRecebido, String descricaoRecebido, String tempoDusracaoRecebido) {
 		this.nome = nomeRecebido;
 		this.descricao = descricaoRecebido;
 		this.tempoDuracao = tempoDusracaoRecebido;
-		
+
 //		System.out.println("Curso "+nomeRecebido+" foi criado com sucesso");
 	}
-	
+
 	public Long getId() {
 		return this.id;
 	}
@@ -135,4 +140,13 @@ public class Curso implements Serializable {
 			result += ", tempoDuracao: " + tempoDuracao;
 		return result;
 	}
+
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
+	}
+
 }

@@ -102,7 +102,7 @@ public class Professor implements Serializable {
 
 	@Transient
 	public int ramdom;
-	
+		
 	public DisponibilidadeProfessor getDisponibilidade() {
 		return disponibilidade;
 	}

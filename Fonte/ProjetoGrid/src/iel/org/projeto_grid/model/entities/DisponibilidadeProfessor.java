@@ -63,11 +63,16 @@ public class DisponibilidadeProfessor implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = DiaNaoDisponivel.class)
 	private List<DiaNaoDisponivel> diasNaoDisponiveis = new ArrayList<>();
 
+	public int qtdaDiasDisponiveis() {
+		return diasDisponiveis.size();
+	}
+	
 	public void addDiasDisponiveis(DiasEnum dia) {
 		this.diasDisponiveis.add(dia);
 	}
 
 	public void addDiasNaoDisponiveis(DiaNaoDisponivel dia) {
+		dia.setDisponibilidade(this);
 		this.diasNaoDisponiveis.add(dia);
 	}
 
