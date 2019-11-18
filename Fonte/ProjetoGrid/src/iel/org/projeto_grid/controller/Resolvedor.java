@@ -56,6 +56,24 @@ public class Resolvedor {
 		return curso;
 	}
 	
+	public boolean resolveProfessorAula(Aula aula, Professor professor) {
+		boolean validado = true;
+		
+		if(aula.getProfessor()!=null)
+			validado = false;
+		
+		if(!validaProfessorParaAAula(professor,aula))
+			validado = false;
+				
+		if(!verificaProfessorNaLista(professor))
+			validado = false;
+		
+		if(aula.getDisciplina().getNome().equals(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO))
+			validado = true;
+
+		return validado;
+	}
+	
 	/**
 	 * metodo resolve a grade de uma turma
 	 * @param turma
@@ -66,69 +84,35 @@ public class Resolvedor {
 		while(!sair) {
 		
 			for(Professor professor : turma.getProfessores()) {
-				if(turma.getGrade().getAulaSegunda().getDisciplina().getNome().equals(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO)) {
-					turma.getGrade().getAulaSegunda().setProfessor(new Professor(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO, null, null, null, null, null));
-				}else {
-					//professor não pode lecionar duas vezes na mesma turma
-					if(!turma.getGrade().verificaSeProfessorJaLecionaNaGrade(professor)&&(turma.getGrade().getAulaSegunda().getProfessor()==null)) {
-						if(validaProfessorParaAAula(professor,turma.getGrade().getAulaSegunda())) {
-							turma.getGrade().getAulaSegunda().setProfessor(resolveAulaBuscaProfessor(professor,turma.getGrade().getAulaSegunda()));
-							if(turma.getGrade().getAulaSegunda().getProfessor() != null) {
-								updateListaProfessores(turma.getGrade().getAulaSegunda().getProfessor());
-								break;
-							}
-						}
-					}
-				
-					
-					if(turma.getGrade().getAulaTerca().getDisciplina().getNome().equals(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO)) {
-						turma.getGrade().getAulaTerca().setProfessor(new Professor(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO, null, null, null, null, null));
-					}else {
-						if(validaProfessorParaAAula(professor,turma.getGrade().getAulaTerca())&&(turma.getGrade().getAulaTerca().getProfessor()==null)) {
-							turma.getGrade().getAulaTerca().setProfessor(resolveAulaBuscaProfessor(professor,turma.getGrade().getAulaTerca()));
-							if(turma.getGrade().getAulaTerca().getProfessor() != null) {
-								updateListaProfessores(turma.getGrade().getAulaTerca().getProfessor());
-								break;
-							}
-						}
-					}
-					if(turma.getGrade().getAulaQuarta().getDisciplina().getNome().equals(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO)) {
-						turma.getGrade().getAulaQuarta().setProfessor(new Professor(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO, null, null, null, null, null));
-					}else {
-						if(validaProfessorParaAAula(professor,turma.getGrade().getAulaQuarta())&&(turma.getGrade().getAulaQuarta().getProfessor()==null)) {
-							turma.getGrade().getAulaQuarta().setProfessor(resolveAulaBuscaProfessor(professor,turma.getGrade().getAulaQuarta()));
-							if(turma.getGrade().getAulaQuarta().getProfessor() != null) {
-								updateListaProfessores(turma.getGrade().getAulaQuarta().getProfessor());
-								break;
-							}
-						}
-					}
-					
-					if(turma.getGrade().getAulaQuinta().getDisciplina().getNome().equals(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO)) {
-						turma.getGrade().getAulaQuinta().setProfessor(new Professor(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO, null, null, null, null, null));
-					}else {
-						if(validaProfessorParaAAula(professor,turma.getGrade().getAulaQuinta())&&(turma.getGrade().getAulaQuinta().getProfessor()==null)) {
-							turma.getGrade().getAulaQuinta().setProfessor(resolveAulaBuscaProfessor(professor,turma.getGrade().getAulaQuinta()));
-							if(turma.getGrade().getAulaQuinta().getProfessor() != null) {
-								updateListaProfessores(turma.getGrade().getAulaQuinta().getProfessor());
-								break;
-							}
-						}
-					}
-					
-					if(turma.getGrade().getAulaSexta().getDisciplina().getNome().equals(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO)) {
-						turma.getGrade().getAulaSexta().setProfessor(new Professor(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO, null, null, null, null, null));
-					}else {
-						if(validaProfessorParaAAula(professor,turma.getGrade().getAulaSexta())&&(turma.getGrade().getAulaSexta().getProfessor()==null)) {
-							turma.getGrade().getAulaSexta().setProfessor(resolveAulaBuscaProfessor(professor,turma.getGrade().getAulaSexta()));
-							if(turma.getGrade().getAulaSexta().getProfessor() != null) {
-								updateListaProfessores(turma.getGrade().getAulaSexta().getProfessor());
-								break;
-							}
-						}
-					}
+
+				//professor não pode lecionar duas vezes na mesma turma
+				if(resolveProfessorAula(turma.getGrade().getAulaSegunda(),professor)){
+					turma.getGrade().getAulaSegunda().setProfessor(resolveAulaBuscaProfessor(professor,turma.getGrade().getAulaSegunda()));
+					updateListaProfessores(turma.getGrade().getAulaSegunda().getProfessor());
 				}
-	
+				
+				
+				if(resolveProfessorAula(turma.getGrade().getAulaTerca(),professor)){
+					turma.getGrade().getAulaTerca().setProfessor(resolveAulaBuscaProfessor(professor,turma.getGrade().getAulaTerca()));
+					updateListaProfessores(turma.getGrade().getAulaTerca().getProfessor());
+				}
+				
+				if(resolveProfessorAula(turma.getGrade().getAulaQuarta(),professor)){
+					turma.getGrade().getAulaQuarta().setProfessor(resolveAulaBuscaProfessor(professor,turma.getGrade().getAulaQuarta()));
+					updateListaProfessores(turma.getGrade().getAulaQuarta().getProfessor());
+				}
+					
+					
+				if(resolveProfessorAula(turma.getGrade().getAulaQuinta(),professor)){
+					turma.getGrade().getAulaQuinta().setProfessor(resolveAulaBuscaProfessor(professor,turma.getGrade().getAulaQuinta()));
+					updateListaProfessores(turma.getGrade().getAulaQuinta().getProfessor());
+				}
+					
+					
+				if(resolveProfessorAula(turma.getGrade().getAulaTerca(),professor)){
+					turma.getGrade().getAulaSexta().setProfessor(resolveAulaBuscaProfessor(professor,turma.getGrade().getAulaSexta()));
+					updateListaProfessores(turma.getGrade().getAulaSexta().getProfessor());
+				}
 			}
 			
 			if(turma.getGrade().verificaSeTodasAsAulasEstaoPreenchidas()) {
@@ -139,6 +123,14 @@ public class Resolvedor {
 		return turma;
 	}
 
+	private boolean verificaProfessorNaLista(Professor professor) {
+		int index = listaProfessoresAtualizados.indexOf(professor);
+		if(index > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	private List<Professor> updateListaProfessoresLoop(Turma turma, List<Professor> listaProfessoresAtualizados2) {
 		List<Professor> professorsLoop = new ArrayList<Professor>(turma.getProfessores());
 		for(Professor professorAtualizado:listaProfessoresAtualizados2) {
