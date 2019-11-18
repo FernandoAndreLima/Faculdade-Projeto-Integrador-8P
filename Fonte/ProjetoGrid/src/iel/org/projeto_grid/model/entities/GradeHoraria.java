@@ -242,5 +242,26 @@ public class GradeHoraria implements Serializable{
 		return "GradeHoraria [periodoAno=" + periodo + ", \naulaSegunda=" + aulaSegunda + ", \naulaTerca=" + aulaTerca
 				+ ", \naulaQuarta=" + aulaQuarta + ", \naulaQuinta=" + aulaQuinta + ", \naulaSexta=" + aulaSexta + "]";
 	}
+
+	public boolean verificaSeTodasAsAulasEstaoPreenchidas() {
+		boolean estaoPreenchidas = true;
+		
+		if(!getAulaSegunda().isAulaCompleta())
+			estaoPreenchidas = false;
+		
+		if(!getAulaTerca().isAulaCompleta())
+			estaoPreenchidas = false;
+		
+		if(!getAulaQuarta().isAulaCompleta())
+			estaoPreenchidas = false;
+		
+		if(!getAulaQuinta().isAulaCompleta())
+			estaoPreenchidas = false;
+		
+		if(!getAulaSexta().isAulaCompleta())
+			estaoPreenchidas = false;
+			
+		return estaoPreenchidas;
+	}
 	
 }

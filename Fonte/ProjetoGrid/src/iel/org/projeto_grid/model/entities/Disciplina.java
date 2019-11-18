@@ -63,6 +63,10 @@ public class Disciplina implements Serializable {
 	@Transient
 	public int ramdom;
 	
+	@Transient
+	public boolean estudoAutoDirigido = false;
+	
+
 	public Disciplina(String nomeRecebido, String tempoDuracaoRecebida, String descricaoRecebida) {
 		this.nome = nomeRecebido;
 		this.cargaHoraria = tempoDuracaoRecebida;
@@ -157,5 +161,14 @@ public class Disciplina implements Serializable {
 			result += ", cargaHoraria: " + cargaHoraria;
 		return result;
 	}
+	
+	public boolean isEstudoAutoDirigido() {
+		return estudoAutoDirigido;
+	}
+
+	public void setEstudoAutoDirigido(boolean estudoAutoDirigido) {
+		this.estudoAutoDirigido = estudoAutoDirigido;
+	}
+
 
 }

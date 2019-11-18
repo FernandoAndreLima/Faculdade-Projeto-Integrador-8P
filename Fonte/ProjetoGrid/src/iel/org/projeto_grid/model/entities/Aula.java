@@ -125,4 +125,20 @@ public class Aula implements Comparable<Aula>, Serializable {
 	public boolean contemProfessor() {
 		return professor.contemProfessor();
 	}
+	public boolean isAulaCompleta() {
+		boolean estaCompleta = true;
+		//se for estudo vai pular validacao
+		if(!getDisciplina().isEstudoAutoDirigido()) {
+		
+			if(getProfessor() == null || getProfessor().contemProfessor())
+				estaCompleta = false;
+			
+			if(getDiasSemana() == null)
+				estaCompleta = false;
+			
+			if(getDisciplina() == null || getDisciplina().contemDisciplina())
+				estaCompleta = false;
+		}
+		return estaCompleta;
+	}
 }

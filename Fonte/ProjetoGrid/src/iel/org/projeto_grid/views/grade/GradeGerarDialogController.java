@@ -5,6 +5,7 @@ import iel.org.projeto_grid.model.entities.Disciplina;
 import iel.org.projeto_grid.model.entities.GradeHoraria;
 import iel.org.projeto_grid.model.entities.Turma;
 import iel.org.projeto_grid.model.enums.DiasEnum;
+import iel.org.projeto_grid.utils.ConstantesUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -57,7 +58,7 @@ public class GradeGerarDialogController {
 			getDisciplinasDisponiveis().add(disciplina.getNome());
 		}
 		
-		getDisciplinasDisponiveis().add("Estudo auto dirigido");
+		getDisciplinasDisponiveis().add(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO);
 				
 		combSegunda.getItems().addAll(disciplinasDisponiveis);
 		combTerca.getItems().addAll(disciplinasDisponiveis);
@@ -119,11 +120,20 @@ public class GradeGerarDialogController {
     private Disciplina buscaDisciplinaSelecionada(String nomeDisciplina) {
     	
     	Disciplina disciplinaSelecionada = new Disciplina();
+    	    	
     	for (Disciplina disciplina : turma.getDisciplinas()) {
 			if(nomeDisciplina.equals(disciplina.getNome())){
 				disciplinaSelecionada = disciplina;
 			}
 		}
+    	
+    	if(nomeDisciplina.equals(ConstantesUtil.ESTUDO_AUTO_DIRIGIDO)) {
+    		disciplinaSelecionada.setNome(nomeDisciplina);
+    		disciplinaSelecionada.setCargaHoraria("80");
+    		disciplinaSelecionada.setDescricao("");
+    		disciplinaSelecionada.setEstudoAutoDirigido(true);
+    	}
+    	
 		return disciplinaSelecionada;
 	}
 
