@@ -102,6 +102,9 @@ public class Professor implements Serializable {
 
 	@Transient
 	public int ramdom;
+	
+	@Transient
+	public int score;
 		
 	public DisponibilidadeProfessor getDisponibilidade() {
 		return disponibilidade;
@@ -250,6 +253,14 @@ public class Professor implements Serializable {
 
 	public List<Disciplina> getDisciplinas() {
 		return disciplinas;
+	}
+
+	public int getScore() {
+		return  this.score;
+	}
+
+	public void setScore(DisponibilidadeProfessor disponibilidade2) {
+		this.score = disponibilidade2.getDiasDisponiveis().size();
 	}
 
 }

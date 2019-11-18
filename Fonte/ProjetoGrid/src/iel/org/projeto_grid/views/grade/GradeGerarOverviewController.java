@@ -210,18 +210,24 @@ public class GradeGerarOverviewController{
 
 	@FXML
 	private void handleGerarGrade() {
-		long tempoInicial = System.currentTimeMillis();
-		cursoEscolhido.setTurmas(turmasProntas);
-		
-		Resolvedor resolvedor = new Resolvedor();
-		Curso gradeFinalizada = new Curso();
-		gradeFinalizada = resolvedor.controiGradeCurso(cursoEscolhido);
-		
-		for (Turma turma : gradeFinalizada.getTurmas()) {
-			System.out.println(turma.getGrade());
+		try {
+			long tempoInicial = System.currentTimeMillis();
+			cursoEscolhido.setTurmas(turmasProntas);
+			cursoEscolhido.setProfessores(professores);
+			
+			Resolvedor resolvedor = new Resolvedor();
+			Curso gradeFinalizada = new Curso();
+			gradeFinalizada = resolvedor.resolveGradesCurso(cursoEscolhido);
+			
+			for (Turma turma : gradeFinalizada.getTurmas()) {
+				System.out.println(turma.getGrade());
+			}
+			long tempoFinal = System.currentTimeMillis();
+			System.out.println("Tempo em millis: " + (tempoFinal - tempoInicial) );
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		long tempoFinal = System.currentTimeMillis();
-		System.out.println("Tempo em millis: " + (tempoFinal - tempoInicial) );
+
 	}
 	
 	@FXML

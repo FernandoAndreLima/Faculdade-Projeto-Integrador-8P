@@ -97,6 +97,41 @@ public class GradeHoraria implements Serializable{
 
 	}
 	
+	public boolean verificaSeProfessorJaLecionaNaGrade(Professor professor) {
+		boolean jaLeciona = false;
+		
+		if(getAulaSegunda().getProfessor() != null) {
+			if((getAulaSegunda().getProfessor().contemProfessor())
+					&& (getAulaSegunda().getProfessor().getNomeCompleto().equals(professor.getNomeCompleto())))
+				jaLeciona = true;
+		}
+		
+		if(getAulaTerca().getProfessor() != null) {
+			if(getAulaTerca().getProfessor().contemProfessor()
+					&& (getAulaTerca().getProfessor().getNomeCompleto().equals(professor.getNomeCompleto())))
+				jaLeciona = true;
+		}
+		
+		if(getAulaQuarta().getProfessor() != null) {
+			if((getAulaQuarta().getProfessor().contemProfessor())
+					&& (getAulaQuarta().getProfessor().getNomeCompleto().equals(professor.getNomeCompleto())))
+				jaLeciona = true;
+		}
+		
+		if(getAulaQuinta().getProfessor() != null) {
+			if((getAulaQuinta().getProfessor().contemProfessor())
+					&& (getAulaQuinta().getProfessor().getNomeCompleto().equals(professor.getNomeCompleto())))
+				jaLeciona = true;
+		}
+		
+		if(getAulaSexta().getProfessor() != null) {
+			if((getAulaSexta().getProfessor().contemProfessor())
+					&& (getAulaSexta().getProfessor().getNomeCompleto().equals(professor.getNomeCompleto())))
+				jaLeciona = true;
+		}
+		return jaLeciona;
+	}
+	
 	public void addProfessorAtualizado(Professor professor) {
 		int indiceASerRemovido = 0;
 		for(Professor professor2 : professoresAtualizados) {

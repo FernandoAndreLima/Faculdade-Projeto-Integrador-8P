@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -53,6 +54,9 @@ public class Curso implements Serializable {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curso")
 	private List<Turma> turmas = new ArrayList<Turma>();
+
+	@Transient
+	private List<Professor> professores = new ArrayList<Professor>();
 
 	public Curso() {
 	}
@@ -148,5 +152,12 @@ public class Curso implements Serializable {
 	public void setTurmas(List<Turma> turmas) {
 		this.turmas = turmas;
 	}
+	
+	public List<Professor> getProfessores() {
+		return professores;
+	}
 
+	public void setProfessores(List<Professor> professores) {
+		this.professores.addAll(professores);
+	}
 }

@@ -177,4 +177,8 @@ public class DisponibilidadeProfessor implements Serializable {
 	public List<DiasEnum> getDiasDisponiveis() {
 		return diasDisponiveis;
 	}
+
+	public void removeDiaDisponivel(DiasEnum diasSemana) {
+		this.diasDisponiveis.remove(diasSemana);
+	}
 }

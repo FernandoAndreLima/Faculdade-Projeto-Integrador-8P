@@ -126,6 +126,32 @@ public class Turma implements Serializable {
 		this.ano = anoInformado;
 	}
 
+	public boolean verificaSeProfessorJaLecionaNaTurma(Professor professor) {
+		boolean jaLeciona = false;
+		
+		if((getGrade().getAulaSegunda().getProfessor().contemProfessor())
+				&& (getGrade().getAulaSegunda().getProfessor().getNomeCompleto().equals(professor.getNomeCompleto())))
+			jaLeciona = true;
+		
+		if((getGrade().getAulaTerca().getProfessor().contemProfessor())
+				&& (getGrade().getAulaTerca().getProfessor().getNomeCompleto().equals(professor.getNomeCompleto())))
+			jaLeciona = true;
+		
+		if((getGrade().getAulaQuarta().getProfessor().contemProfessor())
+				&& (getGrade().getAulaQuarta().getProfessor().getNomeCompleto().equals(professor.getNomeCompleto())))
+			jaLeciona = true;
+		
+		if((getGrade().getAulaQuinta().getProfessor().contemProfessor())
+				&& (getGrade().getAulaQuinta().getProfessor().getNomeCompleto().equals(professor.getNomeCompleto())))
+			jaLeciona = true;
+		
+		if((getGrade().getAulaSexta().getProfessor().contemProfessor())
+				&& (getGrade().getAulaSexta().getProfessor().getNomeCompleto().equals(professor.getNomeCompleto())))
+			jaLeciona = true;
+		
+		return jaLeciona;
+	}
+	
 	public void addAllToDisciplinas(Set<Disciplina> disciplinasInformadas) {
 		for(Disciplina disciplina : disciplinasInformadas)
 			System.out.println(addDisciplinaToSet(disciplina));
